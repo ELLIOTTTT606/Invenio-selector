@@ -138,9 +138,9 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 @media(max-width:640px){.cover{height:auto;min-height:100vh}.cover .info-grid{grid-template-columns:1fr}.cover .info-row-2{grid-template-columns:1fr}}
 @media print{
 .cover,.cover *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
-.cover{break-after:page;height:297mm;width:210mm;max-height:297mm;background-color:#1a3151!important;overflow:hidden!important;box-sizing:border-box!important}
+.cover{break-after:page;page-break-inside:avoid;height:297mm;width:210mm;max-height:297mm;background-color:#1a3151!important;box-sizing:border-box!important}
 .cover .particle{display:none!important}
-.cover .accent-bar{height:2px!important}
+.cover .accent-bar{height:1mm!important}
 .cover .header{padding:5mm 8mm 0 8mm!important}
 .cover .company-logo{height:18mm!important}
 .cover .title-section{padding:4mm 8mm 0 8mm!important}
@@ -149,11 +149,11 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 .cover .info-section{padding:4mm 8mm 0 8mm!important}
 .cover .info-card{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:2.5mm 4mm!important}
 .cover .separator{margin:3mm 8mm 0 8mm!important}
-.cover .product-section{flex:1!important;padding:3mm 8mm 0 8mm!important;min-height:0!important;overflow:hidden!important}
-.cover .product-hero{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:hidden!important;position:relative!important}
+.cover .product-section{height:115mm!important;max-height:115mm!important;flex:none!important;padding:3mm 8mm 0 8mm!important;min-height:0!important}
+.cover .product-hero{height:110mm!important;max-height:110mm!important;flex:none!important;background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;position:relative!important;clip-path:inset(0)!important}
 .cover .hero-shine{display:none!important}
-.cover .machine-wrapper{position:absolute!important;left:6mm!important;top:50%!important;transform:translateY(-45%)!important;height:60%!important;max-width:50%!important;z-index:2!important}
-.cover .machine-image{height:100%!important;width:auto!important;filter:none!important}
+.cover .machine-wrapper{position:absolute!important;left:6mm!important;top:50%!important;transform:translateY(-50%)!important;height:auto!important;max-height:80mm!important;max-width:50%!important;z-index:2!important}
+.cover .machine-image{height:auto!important;max-height:80mm!important;width:auto!important;max-width:100%!important;filter:none!important}
 .cover .machine-glow,.cover .machine-reflect,.cover .tech-lines{display:none!important}
 .cover .cert-stack{position:absolute!important;right:15mm!important;top:50%!important;transform:translateY(-50%)!important;z-index:2!important}
 .cover .cert-img-eurovent{height:14mm!important}
