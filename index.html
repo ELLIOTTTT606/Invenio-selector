@@ -97,7 +97,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 .cover .page-network{position:absolute !important;inset:0;z-index:0 !important;pointer-events:none;width:100%;height:100%}
 .cover .accent-bar{height:3.5px;background:linear-gradient(90deg,#1ba1a4 0%,#1B4F72 50%,transparent 85%);flex-shrink:0}
 .cover .header{padding:10mm 8mm 0 8mm;display:flex;justify-content:center;align-items:center;flex-shrink:0}
-.cover .company-logo{height:30mm;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3))}
+.cover .company-logo{height:34mm;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3))}
 .cover .title-section{padding:8mm 8mm 0 8mm;flex-shrink:0}
 .cover .title-label{font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#1ba1a4;margin-bottom:3mm}
 .cover .project-title{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;color:#FFF;letter-spacing:-0.01em;max-width:160mm}
@@ -109,14 +109,14 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 .cover .info-value{font-size:10px;font-weight:600;color:#1B3A5C;line-height:1.3}
 .cover .info-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1mm;margin-top:1mm}
 .cover .separator{margin:5mm 8mm 0 8mm;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.2),transparent 70%);flex-shrink:0}
-.cover .product-section{flex:1;padding:4mm 8mm 0 8mm;display:flex;align-items:stretch;min-height:0}
+.cover .product-section{height:340px;max-height:340px;flex:none;padding:4mm 8mm 0 8mm;display:flex;align-items:stretch;min-height:0}
 .cover .product-hero{flex:1;position:relative;background:rgba(255,255,255,0.90);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.45);border-radius:3px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.15)}
 .cover .arc-svg{position:absolute;top:0;right:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .cover .hero-shine{position:absolute;top:0;left:0;right:0;height:35%;background:linear-gradient(180deg,rgba(255,255,255,0.1) 0%,transparent 100%);z-index:1;pointer-events:none}
 .cover .plp-title{position:absolute;top:7mm;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:80px;font-weight:900;color:#1B3A5C;letter-spacing:0.12em;line-height:1;z-index:2;text-shadow:0 2px 4px rgba(0,0,0,0.06);display:flex;align-items:baseline;gap:0}
 .cover .plp-size{font-size:32px;color:#1ba1a4;font-weight:900;letter-spacing:0.06em;font-style:italic;margin-left:-2px}
 .cover .side-brand{position:absolute;right:4mm;top:53%;transform:translateY(-47%) rotate(180deg);writing-mode:vertical-rl;font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.90);z-index:4;white-space:nowrap}
-.cover .machine-wrapper{position:absolute;left:8mm;top:55%;transform:translateY(-45%);height:55%;width:auto;max-width:50%;z-index:2}
+.cover .machine-wrapper{position:absolute;left:8mm;top:55%;transform:translateY(-45%);height:48%;width:auto;max-width:45%;z-index:2}
 .cover .machine-image{height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 10px 35px rgba(0,0,0,0.35)) drop-shadow(0 4px 12px rgba(0,0,0,0.25)) drop-shadow(0 2px 6px rgba(27,79,114,0.2))}
 .cover .machine-glow{position:absolute;left:5%;top:10%;width:90%;height:80%;background:radial-gradient(ellipse at 50% 55%,rgba(27,161,164,0.15) 0%,rgba(27,79,114,0.08) 40%,transparent 70%);z-index:-1;pointer-events:none}
 .cover .machine-reflect{position:absolute;bottom:-8%;left:10%;width:80%;height:20%;background:radial-gradient(ellipse at 50% 0%,rgba(27,79,114,0.1) 0%,transparent 70%);z-index:-1;pointer-events:none}
@@ -143,7 +143,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 .cover .particle{display:none!important}
 .cover .accent-bar{height:1mm!important}
 .cover .header{padding:5mm 6mm 0 6mm!important}
-.cover .company-logo{height:24mm!important}
+.cover .company-logo{height:28mm!important}
 .cover .title-section{padding:4mm 6mm 0 6mm!important}
 .cover .project-title{font-size:26px!important}
 .cover .title-underline{margin-top:3mm!important}
@@ -160,7 +160,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 .cover .machine-glow{display:block!important;opacity:0.7!important}
 .cover .machine-reflect{display:none!important}
 .cover .tech-lines{display:none!important}
-.cover .page-network{display:none!important}
+.cover .page-network{display:block!important;opacity:1!important}
 .cover .cert-stack{position:absolute!important;right:15mm!important;top:50%!important;transform:translateY(-50%)!important;z-index:2!important}
 .cover .cert-img-eurovent{height:18mm!important}
 .cover .cert-img-r290{height:20mm!important}
@@ -1138,23 +1138,23 @@ function buildPreview(){
   // SVG network background
   h += '<div class="page-network">';
   h += '<svg width="100%" height="100%" viewBox="0 0 800 1130" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">';
-  h += '<line x1="0" y1="150" x2="800" y2="500" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>';
-  h += '<line x1="100" y1="0" x2="700" y2="1130" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
-  h += '<line x1="0" y1="800" x2="800" y2="300" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
-  h += '<line x1="300" y1="0" x2="100" y2="1130" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="0" y1="450" x2="800" y2="900" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
-  h += '<line x1="500" y1="0" x2="300" y2="1130" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
-  h += '<line x1="0" y1="1000" x2="800" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="700" y1="0" x2="200" y2="1130" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>';
-  h += '<line x1="0" y1="600" x2="600" y2="0" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>';
-  h += '<line x1="200" y1="1130" x2="800" y2="700" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="0" y1="250" x2="500" y2="1130" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
-  h += '<line x1="650" y1="0" x2="800" y2="1130" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>';
-  h += '<line x1="400" y1="0" x2="0" y2="700" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="0" y1="50" x2="800" y2="1050" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>';
-  h += '<circle cx="200" cy="350" r="120" fill="rgba(255,255,255,0.02)"/>';
-  h += '<circle cx="600" cy="800" r="100" fill="rgba(255,255,255,0.015)"/>';
-  h += '<circle cx="400" cy="600" r="80" fill="rgba(255,255,255,0.015)"/>';
+  h += '<line x1="0" y1="150" x2="800" y2="500" stroke="#ffffff" stroke-opacity="0.08" stroke-width="0.5"/>';
+  h += '<line x1="100" y1="0" x2="700" y2="1130" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="0" y1="800" x2="800" y2="300" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.4"/>';
+  h += '<line x1="300" y1="0" x2="100" y2="1130" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="0" y1="450" x2="800" y2="900" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="500" y1="0" x2="300" y2="1130" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.4"/>';
+  h += '<line x1="0" y1="1000" x2="800" y2="100" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="700" y1="0" x2="200" y2="1130" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="0" y1="600" x2="600" y2="0" stroke="#ffffff" stroke-opacity="0.08" stroke-width="0.4"/>';
+  h += '<line x1="200" y1="1130" x2="800" y2="700" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="0" y1="250" x2="500" y2="1130" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.4"/>';
+  h += '<line x1="650" y1="0" x2="800" y2="1130" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="400" y1="0" x2="0" y2="700" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="0" y1="50" x2="800" y2="1050" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.3"/>';
+  h += '<circle cx="200" cy="350" r="120" fill="#ffffff" fill-opacity="0.02"/>';
+  h += '<circle cx="600" cy="800" r="100" fill="#ffffff" fill-opacity="0.015"/>';
+  h += '<circle cx="400" cy="600" r="80" fill="#ffffff" fill-opacity="0.015"/>';
   h += '</svg></div>';
 
   // Accent bar
@@ -1205,17 +1205,17 @@ function buildPreview(){
   h += '<svg class="arc-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">';
   h += '<path d="M 1000 0 L 1000 600 C 900 600, 720 500, 690 300 C 720 100, 900 0, 1000 0 Z" fill="#1a3151"/>';
   h += '<g clip-path="url(#arcClipLines)">';
-  h += '<line x1="650" y1="0" x2="1000" y2="400" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>';
-  h += '<line x1="700" y1="600" x2="1000" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
-  h += '<line x1="680" y1="200" x2="1000" y2="550" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
-  h += '<line x1="750" y1="0" x2="850" y2="600" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="690" y1="350" x2="1000" y2="200" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
-  h += '<line x1="700" y1="50" x2="950" y2="580" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="680" y1="450" x2="1000" y2="30" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
-  h += '<line x1="750" y1="100" x2="1000" y2="500" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>';
-  h += '<line x1="800" y1="0" x2="700" y2="600" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
-  h += '<line x1="900" y1="50" x2="720" y2="550" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>';
-  h += '<line x1="950" y1="0" x2="680" y2="300" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>';
+  h += '<line x1="650" y1="0" x2="1000" y2="400" stroke="#ffffff" stroke-opacity="0.08" stroke-width="0.5"/>';
+  h += '<line x1="700" y1="600" x2="1000" y2="100" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="680" y1="200" x2="1000" y2="550" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.4"/>';
+  h += '<line x1="750" y1="0" x2="850" y2="600" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="690" y1="350" x2="1000" y2="200" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="700" y1="50" x2="950" y2="580" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="680" y1="450" x2="1000" y2="30" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.4"/>';
+  h += '<line x1="750" y1="100" x2="1000" y2="500" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.3"/>';
+  h += '<line x1="800" y1="0" x2="700" y2="600" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.4"/>';
+  h += '<line x1="900" y1="50" x2="720" y2="550" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.4"/>';
+  h += '<line x1="950" y1="0" x2="680" y2="300" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.3"/>';
   h += '</g>';
   h += '<defs><clipPath id="arcClipLines"><path d="M 1000 0 L 1000 600 C 900 600 720 500 690 300 C 720 100 900 0 1000 0 Z"/></clipPath></defs>';
   h += '</svg>';
