@@ -138,21 +138,32 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 @media(max-width:640px){.cover{height:auto;min-height:100vh}.cover .info-grid{grid-template-columns:1fr}.cover .info-row-2{grid-template-columns:1fr}}
 @media print{
 .cover,.cover *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
-.cover{break-after:page;height:297mm;width:210mm;max-height:297mm;background-color:#1a3151!important;overflow:visible!important}
+.cover{break-after:page;height:297mm;width:210mm;max-height:297mm;background-color:#1a3151!important;overflow:hidden!important;box-sizing:border-box!important}
 .cover .particle{display:none!important}
-.cover .info-card{background:#ffffffE6!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-.cover .product-hero{background:#ffffffE6!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:visible!important}
-.cover .product-section{min-height:100mm!important;overflow:visible!important}
+.cover .accent-bar{height:2px!important}
+.cover .header{padding:5mm 8mm 0 8mm!important}
+.cover .company-logo{height:18mm!important}
+.cover .title-section{padding:4mm 8mm 0 8mm!important}
+.cover .project-title{font-size:26px!important}
+.cover .title-underline{margin-top:3mm!important}
+.cover .info-section{padding:4mm 8mm 0 8mm!important}
+.cover .info-card{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:2.5mm 4mm!important}
+.cover .separator{margin:3mm 8mm 0 8mm!important}
+.cover .product-section{flex:1!important;padding:3mm 8mm 0 8mm!important;min-height:0!important;overflow:hidden!important}
+.cover .product-hero{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:hidden!important;position:relative!important}
 .cover .hero-shine{display:none!important}
-.cover .machine-wrapper{position:absolute!important;left:8mm!important;top:55%!important;transform:translateY(-45%)!important;height:66%!important;max-width:55%!important;z-index:2!important}
+.cover .machine-wrapper{position:absolute!important;left:6mm!important;top:50%!important;transform:translateY(-45%)!important;height:60%!important;max-width:50%!important;z-index:2!important}
 .cover .machine-image{height:100%!important;width:auto!important;filter:none!important}
 .cover .machine-glow,.cover .machine-reflect,.cover .tech-lines{display:none!important}
-.cover .cert-stack{position:absolute!important;right:20mm!important;top:52%!important;transform:translateY(-48%)!important;z-index:2!important}
+.cover .cert-stack{position:absolute!important;right:15mm!important;top:50%!important;transform:translateY(-50%)!important;z-index:2!important}
+.cover .cert-img-eurovent{height:14mm!important}
+.cover .cert-img-r290{height:16mm!important}
 .cover .cert-img-eurovent,.cover .cert-img-r290{filter:none!important}
-.cover .plp-title{position:absolute!important;top:7mm!important;left:50%!important;transform:translateX(-50%)!important;z-index:2!important}
-.cover .side-brand{position:absolute!important;right:4mm!important;top:53%!important;z-index:4!important}
-.cover .arc-svg path,.cover .arc-svg line{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-.cover .page-network svg line,.cover .page-network svg circle{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+.cover .plp-title{position:absolute!important;top:5mm!important;left:50%!important;transform:translateX(-50%)!important;z-index:2!important;font-size:60px!important}
+.cover .plp-size{font-size:24px!important}
+.cover .side-brand{position:absolute!important;right:3mm!important;top:50%!important;transform:translateY(-50%) rotate(180deg)!important;z-index:4!important;font-size:11px!important}
+.cover .footer-line{margin:0 8mm!important;flex-shrink:0!important}
+.cover .footer{padding:2mm 8mm 4mm 8mm!important;flex-shrink:0!important}
 }
 .sh-sec{padding:28px 40px;border-bottom:1px solid #eee}.sh-sec:last-child{border-bottom:none}
 .stitle{display:flex;align-items:center;gap:8px;margin-bottom:16px}.sbar{width:3px;height:18px;border-radius:2px;background:var(--teal)}.stitle h3{font-size:16px;font-weight:600;color:var(--navy)}
