@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#1a3050;--navy-l:#2a4a6e;--navy-d:#0f1f33;--teal:#147888;--teal-l:#1a9aaf;--teal-p:#e6f4f7;--bg:#f2f4f6;--card:#fff;--brd:#e2e6ea;--tx:#1a1a1a;--tx2:#4a5568;--tx3:#8896a6;--tx4:#b8c4cf;--red:#c0392b;--red-p:#fdf0ed}
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
@@ -90,79 +91,52 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 /* ── PREVIEW ── */
 .preview-screen{max-width:900px;margin:0 auto;padding:20px}.preview-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
 .sheet{background:linear-gradient(180deg,#1a3050 0%,#1e3957 8%,#2a506e 15%,rgba(42,80,110,.4) 30%,rgba(42,80,110,.15) 50%,rgba(255,255,255,.95) 70%,#fff 85%,#fff 100%);border-radius:2px;box-shadow:0 2px 24px rgba(0,0,0,.1);overflow:hidden}
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap");
-/* -- COVER v16 Card -- */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap");
-.cover{width:100%;height:1056px;max-height:1056px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;background:linear-gradient(160deg,#4a6cf7 0%,#2dd4f0 30%,#6366f1 60%,#3b82f6 100%);margin-bottom:0;border-bottom:3px solid #e0e4e8}
-.cover-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center}
-
-/* BG shapes */
-.cov-glow1{position:absolute;top:-20%;left:-20%;width:70%;height:50%;background:radial-gradient(ellipse,rgba(45,212,240,.7) 0%,transparent 70%);z-index:1}
-.cov-glow2{position:absolute;bottom:-10%;right:-10%;width:80%;height:50%;background:radial-gradient(ellipse,rgba(99,50,200,.6) 0%,transparent 70%);z-index:1}
-.cov-tri1{position:absolute;bottom:0;left:0;width:0;height:0;border-style:solid;border-width:700px 0 0 560px;border-color:transparent transparent transparent rgba(20,30,80,.55);z-index:2}
-.cov-tri2{position:absolute;bottom:0;right:0;width:0;height:0;border-style:solid;border-width:0 0 600px 100%;border-color:transparent transparent rgba(15,25,70,.45) transparent;z-index:2}
-.cov-tri3{position:absolute;bottom:0;left:30%;width:0;height:0;border-style:solid;border-width:0 0 500px 400px;border-color:transparent transparent rgba(25,35,100,.35) transparent;z-index:3}
-.cov-shape1{position:absolute;top:45%;right:-10%;width:65%;height:55%;background:linear-gradient(200deg,rgba(0,200,200,.4) 0%,rgba(30,80,180,.3) 100%);transform:rotate(-15deg) skewY(-10deg);z-index:3}
-.cov-overlay-top{position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(180deg,rgba(60,130,246,.3) 0%,transparent 100%);z-index:1}
-.cov-bottom-dark{position:absolute;bottom:0;left:0;width:100%;height:25%;background:linear-gradient(0deg,rgba(10,15,50,.5) 0%,transparent 100%);z-index:4}
-
-/* Polygonal lines */
-.cov-poly{position:absolute;inset:0;z-index:5;pointer-events:none}
-.cov-poly svg{width:100%;height:100%}
-
-/* ═══ Logo — outside card, centered, big ═══ */
-.cov-logo{position:relative;z-index:10;padding:36px 0 20px;text-align:center}
-.cov-logo img{width:70%;max-width:520px;filter:drop-shadow(0 3px 14px rgba(0,0,0,.2))}
-
-/* ═══ White card ═══ */
-.cov-card{position:relative;z-index:10;background:rgba(255,255,255,.90);border-radius:16px;margin:0 20px 20px;display:flex;flex-direction:column;padding:28px 44px 16px;box-shadow:0 8px 40px rgba(0,0,0,.12);overflow:hidden}
-
-/* Project title inside card */
-.cov-project{margin-bottom:6px}
-.cov-project h1{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;color:#1a3050;letter-spacing:2px;text-transform:uppercase;line-height:1.15;margin:0}
-.cov-project p{font-size:11.5px;font-weight:400;color:#7a8fa0;margin-top:6px;letter-spacing:.3px;line-height:1.5}
-.cov-project-bar{width:40px;height:3px;background:#2dd4f0;border-radius:2px;margin-top:10px;margin-bottom:18px}
-
-/* Info inside card */
-.cov-info{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
-.cov-info-item{display:flex;align-items:baseline;gap:14px}
-.cov-info-lbl{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:#a0adb8;font-weight:600;width:80px;flex-shrink:0}
-.cov-info-val{font-size:13px;font-weight:600;color:#1a3050;line-height:1.4}
-.cov-info-sub{font-size:10.5px;color:#7a8fa0}
-.cov-contacts{display:flex;gap:24px;margin-top:2px}
-.cov-ct-name{font-size:12px;font-weight:600;color:#1a3050}
-.cov-ct-detail{font-size:9.5px;color:#7a8fa0;margin-top:1px}
-.cov-ct-accent{color:#4a6cf7}
-
-/* Separator */
-.cov-sep{width:100%;height:1px;background:#e8ecf0;margin:4px 0 16px}
-
-/* Product zone inside card — machine left, PLP right */
-.cov-product{flex:1;display:flex;align-items:center;gap:20px}
-.cov-machine{flex-shrink:0}
-.cov-machine img{height:300px;filter:drop-shadow(4px 6px 20px rgba(26,48,80,.1))}
-
-/* PLP brand block — right of machine */
-.cov-brand{display:flex;align-items:stretch}
-.cov-brand-col{display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
-.cov-plp{font-family:'Montserrat',sans-serif;font-size:100px;font-weight:900;color:#1a3050;letter-spacing:4px;line-height:.8;opacity:.88}
-.cov-brand-badges{display:flex;align-items:center;gap:10px;margin-top:10px}
-.cov-brand-badges img{height:50px}
-.cov-galletti{font-family:'Montserrat',sans-serif;font-weight:800;color:rgba(26,48,80,.1);writing-mode:vertical-rl;letter-spacing:10px;text-transform:uppercase;margin-left:8px;align-self:stretch;display:flex;align-items:center;justify-content:center;font-size:14px}
-
-/* Footer inside card */
-.cov-foot{padding-top:8px;border-top:1px solid #eef0f3;text-align:left}
-.cov-foot span{font-size:7.5px;color:#b0bec5;font-style:italic}
-
-@media(max-width:640px){
-.cover{height:auto;min-height:100vh}
-.cov-card{margin:0 16px;padding:20px 20px 16px}
-.cov-project h1{font-size:22px}
-.cov-product{flex-direction:column}
-.cov-machine img{height:200px}
-.cov-plp{font-size:60px}
-}
-@media print{.cover{break-after:page;height:297mm;width:210mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}}}}.cov-banner{-webkit-print-color-adjust:exact;print-color-adjust:exact}}}}}}}}}}}}}}
+/* -- COVER v17 Galletti Premium -- */
+.cover{width:100%;height:1056px;max-height:1056px;position:relative;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;background-color:#1a3151;margin-bottom:0;border-bottom:3px solid #e0e4e8;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cover>*{position:relative;z-index:1}
+.cover .page-network{position:absolute !important;inset:0;z-index:0 !important;pointer-events:none;width:100%;height:100%}
+.cover .accent-bar{height:3.5px;background:linear-gradient(90deg,#1ba1a4 0%,#1B4F72 50%,transparent 85%);flex-shrink:0}
+.cover .header{padding:10mm 8mm 0 8mm;display:flex;justify-content:center;align-items:center;flex-shrink:0}
+.cover .company-logo{height:24mm;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3))}
+.cover .title-section{padding:8mm 8mm 0 8mm;flex-shrink:0}
+.cover .title-label{font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#1ba1a4;margin-bottom:3mm}
+.cover .project-title{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;color:#FFF;letter-spacing:-0.01em;max-width:160mm}
+.cover .title-underline{width:28mm;height:2.5px;background:linear-gradient(90deg,#1ba1a4,#1B4F72);margin-top:5mm;border-radius:2px}
+.cover .info-section{padding:8mm 8mm 0 8mm;flex-shrink:0}
+.cover .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1mm}
+.cover .info-card{background:rgba(255,255,255,0.90);backdrop-filter:blur(6px);border-radius:2px;padding:3.5mm 5mm;border-left:2.5px solid #1ba1a4;border-top:1px solid rgba(255,255,255,0.4);border-right:1px solid rgba(255,255,255,0.4);border-bottom:1px solid rgba(255,255,255,0.4);box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.cover .info-label{font-size:6.5px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#1ba1a4;margin-bottom:1.2mm}
+.cover .info-value{font-size:10px;font-weight:600;color:#1B3A5C;line-height:1.3}
+.cover .info-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1mm;margin-top:1mm}
+.cover .separator{margin:5mm 8mm 0 8mm;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.2),transparent 70%);flex-shrink:0}
+.cover .product-section{flex:1;padding:4mm 8mm 0 8mm;display:flex;align-items:stretch;min-height:0}
+.cover .product-hero{flex:1;position:relative;background:rgba(255,255,255,0.90);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.45);border-radius:3px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.15)}
+.cover .arc-svg{position:absolute;top:0;right:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.cover .hero-shine{position:absolute;top:0;left:0;right:0;height:35%;background:linear-gradient(180deg,rgba(255,255,255,0.1) 0%,transparent 100%);z-index:1;pointer-events:none}
+.cover .plp-title{position:absolute;top:7mm;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:80px;font-weight:900;color:#1B3A5C;letter-spacing:0.12em;line-height:1;z-index:2;text-shadow:0 2px 4px rgba(0,0,0,0.06);display:flex;align-items:baseline;gap:0}
+.cover .plp-size{font-size:32px;color:#1ba1a4;font-weight:900;letter-spacing:0.06em;font-style:italic;margin-left:-2px}
+.cover .side-brand{position:absolute;right:4mm;top:53%;transform:translateY(-47%) rotate(180deg);writing-mode:vertical-rl;font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.90);z-index:4;white-space:nowrap}
+.cover .machine-wrapper{position:absolute;left:8mm;top:55%;transform:translateY(-45%);height:66%;width:auto;max-width:55%;z-index:2}
+.cover .machine-image{height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 10px 35px rgba(0,0,0,0.35)) drop-shadow(0 4px 12px rgba(0,0,0,0.25)) drop-shadow(0 2px 6px rgba(27,79,114,0.2))}
+.cover .machine-glow{position:absolute;left:5%;top:10%;width:90%;height:80%;background:radial-gradient(ellipse at 50% 55%,rgba(27,161,164,0.15) 0%,rgba(27,79,114,0.08) 40%,transparent 70%);z-index:-1;pointer-events:none}
+.cover .machine-reflect{position:absolute;bottom:-8%;left:10%;width:80%;height:20%;background:radial-gradient(ellipse at 50% 0%,rgba(27,79,114,0.1) 0%,transparent 70%);z-index:-1;pointer-events:none}
+.cover .tech-lines{position:absolute;left:-5%;top:15%;width:110%;height:70%;z-index:-1;pointer-events:none;opacity:0.4}
+.cover .cert-stack{position:absolute;right:20mm;top:52%;transform:translateY(-48%);display:flex;flex-direction:column;align-items:center;gap:5mm;z-index:2}
+.cover .cert-img-eurovent{height:18mm;width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.15))}
+.cover .cert-img-r290{height:20mm;width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.15))}
+.cover .particle{position:absolute;border-radius:50%;z-index:1;pointer-events:none}
+.cover .p1{width:3mm;height:3mm;background:rgba(27,161,164,0.1);top:18%;left:72%;animation:pfloat 6s ease-in-out infinite}
+.cover .p2{width:2mm;height:2mm;background:rgba(27,79,114,0.08);top:65%;left:4%;animation:pfloat 8s ease-in-out infinite 1s}
+.cover .p3{width:4mm;height:4mm;background:rgba(27,161,164,0.06);top:82%;left:38%;animation:pfloat 7s ease-in-out infinite 2s}
+.cover .p4{width:2.5mm;height:2.5mm;background:rgba(27,79,114,0.07);top:30%;left:45%;animation:pfloat 9s ease-in-out infinite 0.5s}
+@keyframes pfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3mm)}}
+.cover .footer-line{height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.10),transparent 60%);margin:0 8mm;flex-shrink:0}
+.cover .footer{padding:3.5mm 8mm 8mm 8mm;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.cover .footer-left{font-size:7px;color:rgba(255,255,255,0.50);letter-spacing:0.04em}
+.cover .footer-brand{font-weight:700;color:#1ba1a4;letter-spacing:0.06em}
+.cover .footer-right{font-size:7px;color:rgba(255,255,255,0.30);letter-spacing:0.04em}
+@media(max-width:640px){.cover{height:auto;min-height:100vh}.cover .info-grid{grid-template-columns:1fr}.cover .info-row-2{grid-template-columns:1fr}}
+@media print{.cover{break-after:page;height:297mm;width:210mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cover .particle{animation:none}}
 .sh-sec{padding:28px 40px;border-bottom:1px solid #eee}.sh-sec:last-child{border-bottom:none}
 .stitle{display:flex;align-items:center;gap:8px;margin-bottom:16px}.sbar{width:3px;height:18px;border-radius:2px;background:var(--teal)}.stitle h3{font-size:16px;font-weight:600;color:var(--navy)}
 .sh-sub{font-size:9px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1.5px;margin:14px 0 8px}
@@ -206,7 +180,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 .admin-format b{color:var(--navy)}
 @media(max-width:640px){.ai-panel{width:calc(100% - 24px);right:12px;bottom:76px}}.admin-intro{font-size:12px;color:var(--tx2);margin-bottom:18px;line-height:1.6}.admin-intro code{background:#eef0f2;padding:2px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-size:11px}.admin-region{font-size:11px;font-weight:700;color:var(--teal);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.5px}.admin-tbl{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:8px}.admin-tbl th{text-align:left;padding:4px 6px;background:#f0f2f4;font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3)}.admin-tbl td{padding:4px 6px;border-bottom:1px solid #f0f2f4}.admin-tbl tr:nth-child(even){background:#f7f9fb}
 @media print{nav,.preview-actions{display:none!important}.preview-screen{padding:0}.sheet{box-shadow:none}.cover{break-after:page}}
-@media(max-width:640px){.form-grid,.acoustic-grid,.sh-grid2,.sh-grid3,.ac-grid,.prest-list,.choice-row,.upload-row,.model-row,.cover-project{grid-template-columns:1fr}.opt-grid{grid-template-columns:1fr}.sh-sec,.cover{padding:20px 16px}.cover-machine{display:none}}
+@media(max-width:640px){.form-grid,.acoustic-grid,.sh-grid2,.sh-grid3,.ac-grid,.prest-list,.choice-row,.upload-row,.model-row{grid-template-columns:1fr}.opt-grid{grid-template-columns:1fr}.sh-sec,.cover{padding:20px 16px}}
 </style>
 </head>
 <body>
@@ -1117,97 +1091,139 @@ function buildPreview(){
   let total=0;selOpts.forEach(o=>{const p=getPrice(o,sz);if(typeof p==="number")total+=p;});
   const cl=state.selectedClient;
   let h="";
-  // === COVER PAGE v16 Card ===
+  // === COVER PAGE v17 Galletti Premium ===
   var contact2 = null;
   if (state.contact && state.region) {
     var regionContacts = CONFIG.contacts[state.region] || [];
     contact2 = regionContacts.find(function(c) { return c.nom !== state.contact.nom; }) || null;
   }
+  var gammeShort = (d.gamme || 'PLP').split(' ')[0];
 
-  h += '<div class="cover"><div class="cover-inner">';
+  h += '<div class="cover">';
 
-  // Background shapes
-  h += '<div class="cov-glow1"></div><div class="cov-glow2"></div>';
-  h += '<div class="cov-overlay-top"></div>';
-  h += '<div class="cov-tri1"></div><div class="cov-tri2"></div><div class="cov-tri3"></div>';
-  h += '<div class="cov-shape1"></div><div class="cov-bottom-dark"></div>';
-
-  // Polygonal lines
-  h += '<div class="cov-poly"><svg viewBox="0 0 800 1056" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">';
-  h += '<polygon points="0,0 300,0 450,200 200,350 0,250" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="0.8"/>';
-  h += '<polygon points="350,100 600,0 800,0 800,300 550,350 400,250" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="0.7"/>';
-  h += '<polygon points="100,400 350,300 550,450 500,650 200,600" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="0.8"/>';
-  h += '<polygon points="500,400 800,350 800,700 600,750 450,600" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="0.7"/>';
-  h += '<polygon points="0,500 200,450 350,600 300,800 0,750" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="0.8"/>';
-  h += '<polygon points="250,700 500,650 700,800 650,1000 350,1056 100,950" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="0.7"/>';
-  h += '<polygon points="600,750 800,700 800,1056 500,1056" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="0.8"/>';
-  h += '<line x1="200" y1="350" x2="350" y2="300" stroke="rgba(255,255,255,.04)" stroke-width="0.6"/>';
-  h += '<line x1="550" y1="350" x2="500" y2="450" stroke="rgba(255,255,255,.04)" stroke-width="0.6"/>';
-  h += '<circle cx="450" cy="200" r="2" fill="rgba(255,255,255,.06)"/>';
-  h += '<circle cx="550" cy="350" r="2" fill="rgba(255,255,255,.05)"/>';
-  h += '<circle cx="350" cy="600" r="2" fill="rgba(255,255,255,.05)"/>';
-  h += '<circle cx="700" cy="800" r="2" fill="rgba(255,255,255,.04)"/>';
+  // SVG network background
+  h += '<div class="page-network">';
+  h += '<svg width="100%" height="100%" viewBox="0 0 800 1130" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">';
+  h += '<line x1="0" y1="150" x2="800" y2="500" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>';
+  h += '<line x1="100" y1="0" x2="700" y2="1130" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
+  h += '<line x1="0" y1="800" x2="800" y2="300" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
+  h += '<line x1="300" y1="0" x2="100" y2="1130" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="0" y1="450" x2="800" y2="900" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
+  h += '<line x1="500" y1="0" x2="300" y2="1130" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
+  h += '<line x1="0" y1="1000" x2="800" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="700" y1="0" x2="200" y2="1130" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>';
+  h += '<line x1="0" y1="600" x2="600" y2="0" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>';
+  h += '<line x1="200" y1="1130" x2="800" y2="700" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="0" y1="250" x2="500" y2="1130" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
+  h += '<line x1="650" y1="0" x2="800" y2="1130" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>';
+  h += '<line x1="400" y1="0" x2="0" y2="700" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="0" y1="50" x2="800" y2="1050" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>';
+  h += '<circle cx="200" cy="350" r="120" fill="rgba(255,255,255,0.02)"/>';
+  h += '<circle cx="600" cy="800" r="100" fill="rgba(255,255,255,0.015)"/>';
+  h += '<circle cx="400" cy="600" r="80" fill="rgba(255,255,255,0.015)"/>';
   h += '</svg></div>';
 
-  // Logo — outside card, centered
-  h += '<div class="cov-logo"><img src="' + document.getElementById("asset_franceair_white").src + '" alt="France Air Invenio"></div>';
+  // Accent bar
+  h += '<div class="accent-bar"></div>';
 
-  // White card
-  h += '<div class="cov-card">';
-
-  // Project title
-  h += '<div class="cov-project">';
-  h += '<h1>' + (nomP || "Projet") + '</h1>';
-  h += '<p>' + (isHS ? "Fiche de s\u00e9lection pompe \u00e0 chaleur air / eau" : "Fiche de s\u00e9lection d\u2019un refroidisseur de liquide air / eau") + '</p>';
-  h += '<div class="cov-project-bar"></div>';
+  // Header with logo
+  h += '<div class="header">';
+  h += '<img class="company-logo" src="' + document.getElementById("asset_franceair_white").src + '" alt="France Air Invenio" />';
   h += '</div>';
 
-  // Info
-  h += '<div class="cov-info">';
-  h += '<div class="cov-info-item"><div class="cov-info-lbl">Date</div><div class="cov-info-val">' + (d.date || new Date().toLocaleDateString("fr-FR")) + '</div></div>';
+  // Title section
+  h += '<div class="title-section">';
+  h += '<div class="title-label">Projet</div>';
+  h += '<h1 class="project-title">' + (nomP || 'Nom du Projet') + '</h1>';
+  h += '<div class="title-underline"></div>';
+  h += '</div>';
+
+  // Info cards
+  h += '<div class="info-section"><div class="info-grid">';
+  h += '<div class="info-card"><div class="info-label">Date</div><div class="info-value">' + (d.date || new Date().toLocaleDateString("fr-FR")) + '</div></div>';
   if (state.region) {
-    h += '<div class="cov-info-item"><div class="cov-info-lbl">R\u00e9gion</div><div class="cov-info-val">' + state.region + '</div></div>';
+    h += '<div class="info-card"><div class="info-label">R\u00e9gion</div><div class="info-value">' + state.region + '</div></div>';
+  } else {
+    h += '<div class="info-card"><div class="info-label">Localisation</div><div class="info-value">\u2014</div></div>';
   }
-  h += '<div class="cov-info-item"><div class="cov-info-lbl">Client</div><div><div class="cov-info-val">' + (cl ? cl.nom : '\u2014') + '</div>';
-  if (cl && cl.code !== 'MANUEL') h += '<div class="cov-info-sub">Code ' + cl.code + '</div>';
-  h += '</div></div>';
-  h += '<div class="cov-info-item"><div class="cov-info-lbl">Contacts</div><div class="cov-contacts">';
-  if (state.contact) {
-    h += '<div><div class="cov-ct-name">' + state.contact.nom + '</div>';
-    h += '<div class="cov-ct-detail"><span class="cov-ct-accent">' + state.contact.email + '</span></div>';
-    h += '<div class="cov-ct-detail">' + state.contact.tel + '</div></div>';
-    if (contact2) {
-      h += '<div><div class="cov-ct-name">' + contact2.nom + '</div>';
-      h += '<div class="cov-ct-detail"><span class="cov-ct-accent">' + contact2.email + '</span></div>';
-      h += '<div class="cov-ct-detail">' + contact2.tel + '</div></div>';
-    }
-  } else h += '<div class="cov-ct-name">\u2014</div>';
-  h += '</div></div>';
+  h += '<div class="info-card"><div class="info-label">Client</div><div class="info-value">' + (cl ? cl.nom : '\u2014') + '</div></div>';
   h += '</div>';
+  // Row 2: contacts
+  h += '<div class="info-row-2">';
+  if (state.contact) {
+    h += '<div class="info-card"><div class="info-label">Le Technico-Commercial Itin\u00e9rant</div><div class="info-value">' + state.contact.nom + '</div></div>';
+    if (contact2) {
+      h += '<div class="info-card"><div class="info-label">Le Technico-Commercial S\u00e9dentaire</div><div class="info-value">' + contact2.nom + '</div></div>';
+    }
+  } else {
+    h += '<div class="info-card"><div class="info-label">Le Technico-Commercial Itin\u00e9rant</div><div class="info-value">\u2014</div></div>';
+    h += '<div class="info-card"><div class="info-label">Le Technico-Commercial S\u00e9dentaire</div><div class="info-value">\u2014</div></div>';
+  }
+  h += '</div></div>';
 
   // Separator
-  h += '<div class="cov-sep"></div>';
+  h += '<div class="separator"></div>';
 
-  // Product zone — machine left, PLP right
-  var gammeShort = (d.gamme || 'PLP').split(' ')[0];
-  h += '<div class="cov-product">';
-  h += '<div class="cov-machine"><img src="' + document.getElementById("asset_machine").src + '" alt="' + d.modele + '"></div>';
-  h += '<div class="cov-brand">';
-  h += '<div class="cov-brand-col">';
-  h += '<span class="cov-plp">' + gammeShort + '</span>';
-  h += '<div class="cov-brand-badges">';
-  h += '<img src="' + document.getElementById("asset_eurovent").src + '" alt="Eurovent">';
-  h += '<img src="' + document.getElementById("asset_r290").src + '" alt="R290">';
-  h += '</div></div>';
-  h += '<span class="cov-galletti">GALLETTI</span>';
+  // Product section
+  h += '<div class="product-section"><div class="product-hero">';
+
+  // Arc SVG with geometric lines
+  h += '<svg class="arc-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">';
+  h += '<path d="M 1000 0 L 1000 600 C 900 600, 720 500, 690 300 C 720 100, 900 0, 1000 0 Z" fill="#1a3151"/>';
+  h += '<g clip-path="url(#arcClipLines)">';
+  h += '<line x1="650" y1="0" x2="1000" y2="400" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>';
+  h += '<line x1="700" y1="600" x2="1000" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
+  h += '<line x1="680" y1="200" x2="1000" y2="550" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
+  h += '<line x1="750" y1="0" x2="850" y2="600" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="690" y1="350" x2="1000" y2="200" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>';
+  h += '<line x1="700" y1="50" x2="950" y2="580" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="680" y1="450" x2="1000" y2="30" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>';
+  h += '<line x1="750" y1="100" x2="1000" y2="500" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>';
+  h += '<line x1="800" y1="0" x2="700" y2="600" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>';
+  h += '<line x1="900" y1="50" x2="720" y2="550" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>';
+  h += '<line x1="950" y1="0" x2="680" y2="300" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>';
+  h += '</g>';
+  h += '<defs><clipPath id="arcClipLines"><path d="M 1000 0 L 1000 600 C 900 600 720 500 690 300 C 720 100 900 0 1000 0 Z"/></clipPath></defs>';
+  h += '</svg>';
+
+  // Decorative elements
+  h += '<div class="hero-shine"></div>';
+  h += '<div class="particle p1"></div><div class="particle p2"></div><div class="particle p3"></div><div class="particle p4"></div>';
+
+  // PLP title and size
+  h += '<div class="plp-title">' + gammeShort + ' <span class="plp-size">' + (sz || '') + '</span></div>';
+  h += '<div class="side-brand">INVENIO \u00d7 GALLETTI</div>';
+
+  // Machine image
+  h += '<div class="machine-wrapper">';
+  h += '<div class="machine-glow"></div><div class="machine-reflect"></div>';
+  h += '<svg class="tech-lines" viewBox="0 0 200 200" fill="none">';
+  h += '<circle cx="100" cy="100" r="80" stroke="rgba(27,161,164,0.15)" stroke-width="0.5" stroke-dasharray="4 6"/>';
+  h += '<circle cx="100" cy="100" r="60" stroke="rgba(27,79,114,0.1)" stroke-width="0.3" stroke-dasharray="3 8"/>';
+  h += '<line x1="20" y1="100" x2="50" y2="100" stroke="rgba(27,161,164,0.12)" stroke-width="0.5"/>';
+  h += '<line x1="150" y1="100" x2="180" y2="100" stroke="rgba(27,161,164,0.12)" stroke-width="0.5"/>';
+  h += '<line x1="100" y1="20" x2="100" y2="45" stroke="rgba(27,79,114,0.1)" stroke-width="0.5"/>';
+  h += '<line x1="100" y1="155" x2="100" y2="180" stroke="rgba(27,79,114,0.1)" stroke-width="0.5"/>';
+  h += '</svg>';
+  h += '<img class="machine-image" src="' + document.getElementById("asset_machine").src + '" alt="' + d.modele + '" />';
   h += '</div>';
+
+  // Certifications
+  h += '<div class="cert-stack">';
+  h += '<img class="cert-img-eurovent" src="' + document.getElementById("asset_eurovent").src + '" alt="Eurovent Certified Performance" />';
+  h += '<img class="cert-img-r290" src="' + document.getElementById("asset_r290").src + '" alt="R290" />';
   h += '</div>';
+
+  h += '</div></div>'; // product-hero + product-section
 
   // Footer
-  h += '<div class="cov-foot"><span>Les informations techniques contenues dans le pr\u00e9sent document sont fournies \u00e0 titre indicatif, \u00e0 partir des donn\u00e9es transmises par le client.</span></div>';
+  h += '<div class="footer-line"></div>';
+  h += '<div class="footer">';
+  h += '<div class="footer-left"><span class="footer-brand">INVENIO \u00d7 GALLETTI</span> \u00a0\u2014\u00a0 Solutions thermodynamiques</div>';
+  h += '<div class="footer-right">Document confidentiel \u00a0\u00b7\u00a0 Page 1</div>';
+  h += '</div>';
 
-  h += '</div>'; // end card
-  h += '</div></div>'; // inner + cover
+  h += '</div>'; // cover
   // TECH DATA
   h+='<div class="sh-sec">'+st("Données techniques de sélection");
   h+='<div class="sh-sub">Conditions d\'entrée</div><div class="sh-grid2">'+cT("❄️ Refroidissement",d.refroidissement,"#147888");
