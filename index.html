@@ -217,12 +217,13 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 @media print{nav,.preview-actions{display:none!important}body{margin:0!important;padding:0!important}.preview-screen{padding:0!important;margin:0!important;max-width:none!important;width:100%!important}.sheet{box-shadow:none;border-radius:0;margin:0!important;padding:0!important;width:100%!important}.cover{break-after:page}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}.sh-sec{break-inside:avoid}}
 @media(max-width:640px){.form-grid,.acoustic-grid,.sh-grid2,.sh-grid3,.ac-grid,.prest-list,.choice-row,.upload-row,.model-row{grid-template-columns:1fr}.opt-grid{grid-template-columns:1fr}.sh-sec,.cover{padding:20px 16px}}
 /* ── PDF export mode: html2canvas compatibility ── */
-.pdf-mode .cover{width:100%!important;min-height:1270px!important;height:1270px!important;max-height:1270px!important}
+.pdf-mode .cover{width:900px!important;min-height:1270px!important;height:1270px!important;max-height:1270px!important}
 .pdf-mode .cover .product-hero{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,0.92)!important}
 .pdf-mode .cover .info-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,0.92)!important}
 .pdf-mode .cover .particle{display:none!important}
 .pdf-mode .cover .machine-reflect{display:none!important}
 .pdf-mode.sheet{width:900px!important;max-width:900px!important;margin:0!important;padding:0!important;box-shadow:none!important;border-radius:0!important}
+.pdf-mode-wrap.preview-screen{padding:0!important;margin:0!important;max-width:none!important}
 </style>
 </head>
 <body>
@@ -1297,6 +1298,8 @@ function downloadPDF(){
   var origText=btn.textContent;
   btn.textContent='⏳ Génération en cours...';btn.disabled=true;
   el.classList.add('pdf-mode');
+  var previewScreen=el.closest('.preview-screen');
+  if(previewScreen)previewScreen.classList.add('pdf-mode-wrap');
   var d=state.parsedData||{};
   var nomP=(document.getElementById("inputNomProjet")||{}).value||'Fiche';
   var cl=state.selectedClient;
@@ -1305,16 +1308,18 @@ function downloadPDF(){
     margin:[0,0,0,0],
     filename:fileName,
     image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollY:0,windowWidth:900,backgroundColor:'#ffffff'},
+    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollX:0,scrollY:0,windowWidth:900,backgroundColor:'#ffffff',onclone:function(doc){var c=doc.getElementById('sheetContent');if(c){c.style.position='absolute';c.style.left='0';c.style.top='0';}}},
     jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{mode:['css','legacy'],avoid:['.sh-sec']}
   };
   html2pdf().set(opt).from(el).save().then(function(){
     el.classList.remove('pdf-mode');
+    if(previewScreen)previewScreen.classList.remove('pdf-mode-wrap');
     btn.textContent=origText;btn.disabled=false;
   }).catch(function(err){
     console.error('PDF error:',err);
     el.classList.remove('pdf-mode');
+    if(previewScreen)previewScreen.classList.remove('pdf-mode-wrap');
     btn.textContent=origText;btn.disabled=false;
     alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
   });
