@@ -216,6 +216,13 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 @media(max-width:640px){.ai-panel{width:calc(100% - 24px);right:12px;bottom:76px}}.admin-intro{font-size:12px;color:var(--tx2);margin-bottom:18px;line-height:1.6}.admin-intro code{background:#eef0f2;padding:2px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-size:11px}.admin-region{font-size:11px;font-weight:700;color:var(--teal);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.5px}.admin-tbl{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:8px}.admin-tbl th{text-align:left;padding:4px 6px;background:#f0f2f4;font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3)}.admin-tbl td{padding:4px 6px;border-bottom:1px solid #f0f2f4}.admin-tbl tr:nth-child(even){background:#f7f9fb}
 @media print{nav,.preview-actions{display:none!important}body{margin:0!important;padding:0!important}.preview-screen{padding:0!important;margin:0!important;max-width:none!important;width:100%!important}.sheet{box-shadow:none;border-radius:0;margin:0!important;padding:0!important;width:100%!important}.cover{break-after:page}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}.sh-sec{break-inside:avoid}}
 @media(max-width:640px){.form-grid,.acoustic-grid,.sh-grid2,.sh-grid3,.ac-grid,.prest-list,.choice-row,.upload-row,.model-row{grid-template-columns:1fr}.opt-grid{grid-template-columns:1fr}.sh-sec,.cover{padding:20px 16px}}
+/* ── PDF export mode: html2canvas compatibility ── */
+.pdf-mode .cover{width:100%!important;min-height:1270px!important;height:1270px!important;max-height:1270px!important}
+.pdf-mode .cover .product-hero{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,0.92)!important}
+.pdf-mode .cover .info-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,0.92)!important}
+.pdf-mode .cover .particle{display:none!important}
+.pdf-mode .cover .machine-reflect{display:none!important}
+.pdf-mode .sheet{width:900px!important;max-width:900px!important;margin:0!important;padding:0!important;box-shadow:none!important;border-radius:0!important}
 </style>
 </head>
 <body>
@@ -1134,7 +1141,7 @@ function buildPreview(){
   }
   var gammeShort = (d.gamme || 'PLP').split(' ')[0];
 
-  h += '<div class="cover">';
+  h += '<div class="cover" style="background-color:#1a3151!important">';
 
   // SVG network background
   h += '<div class="page-network">';
@@ -1259,6 +1266,7 @@ function buildPreview(){
   h += '</div>';
 
   h += '</div>'; // cover
+  h += '<div style="page-break-after:always;break-after:page;height:0;clear:both"></div>';
   // TECH DATA
   h+='<div class="sh-sec">'+st("Données techniques de sélection");
   h+='<div class="sh-sub">Conditions d\'entrée</div><div class="sh-grid2">'+cT("❄️ Refroidissement",d.refroidissement,"#147888");
@@ -1288,6 +1296,7 @@ function downloadPDF(){
   var btn=document.querySelector('.preview-actions .btn-primary');
   var origText=btn.textContent;
   btn.textContent='⏳ Génération en cours...';btn.disabled=true;
+  el.classList.add('pdf-mode');
   var d=state.parsedData||{};
   var nomP=(document.getElementById("inputNomProjet")||{}).value||'Fiche';
   var cl=state.selectedClient;
@@ -1296,14 +1305,16 @@ function downloadPDF(){
     margin:[0,0,0,0],
     filename:fileName,
     image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollY:0,windowWidth:900},
+    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollY:0,windowWidth:900,backgroundColor:'#ffffff'},
     jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{mode:['css','legacy'],avoid:['.sh-sec']}
   };
   html2pdf().set(opt).from(el).save().then(function(){
+    el.classList.remove('pdf-mode');
     btn.textContent=origText;btn.disabled=false;
   }).catch(function(err){
     console.error('PDF error:',err);
+    el.classList.remove('pdf-mode');
     btn.textContent=origText;btn.disabled=false;
     alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
   });
