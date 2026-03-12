@@ -91,7 +91,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:12px 2
 
 /* ── PREVIEW ── */
 .preview-screen{max-width:900px;margin:0 auto;padding:20px}.preview-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
-.sheet{background:linear-gradient(180deg,#1a3050 0%,#1e3957 8%,#2a506e 15%,rgba(42,80,110,.4) 30%,rgba(42,80,110,.15) 50%,rgba(255,255,255,.95) 70%,#fff 85%,#fff 100%);border-radius:2px;box-shadow:0 2px 24px rgba(0,0,0,.1);overflow:hidden}
+.sheet{width:100%;background:linear-gradient(180deg,#1a3050 0%,#1e3957 8%,#2a506e 15%,rgba(42,80,110,.4) 30%,rgba(42,80,110,.15) 50%,rgba(255,255,255,.95) 70%,#fff 85%,#fff 100%);border-radius:2px;box-shadow:0 2px 24px rgba(0,0,0,.1);overflow:hidden}
 /* -- COVER v17 Galletti Premium -- */
 .cover{width:100%;height:1056px;max-height:1056px;position:relative;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;background-color:#1a3151;margin-bottom:0;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cover>*{position:relative;z-index:1}
@@ -1308,7 +1308,7 @@ function downloadPDF(){
     margin:[0,0,0,0],
     filename:fileName,
     image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollX:0,scrollY:0,windowWidth:900,backgroundColor:'#ffffff',onclone:function(doc){var c=doc.getElementById('sheetContent');if(c){c.style.position='absolute';c.style.left='0';c.style.top='0';}}},
+    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollX:0,scrollY:0,windowWidth:900,backgroundColor:'#ffffff',onclone:function(doc){var c=doc.getElementById('sheetContent');if(c){c.style.position='absolute';c.style.left='0';c.style.top='0';c.style.width='900px';c.style.overflow='visible';}var cv=c?c.querySelector('.cover'):null;if(cv){cv.style.width='900px';}}},
     jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{mode:['css','legacy'],avoid:['.sh-sec']}
   };
