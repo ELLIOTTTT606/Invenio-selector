@@ -1,9 +1,9 @@
-/* ── PDF export mode: html2canvas compatibility ── */
+/* ── PDF export mode ── */
 .pdf-mode .cover {
-    width: 794px !important;
-    height: 1123px !important;
-    min-height: 1123px !important;
-    max-height: 1123px !important;
+    width: 900px !important;
+    height: 1273px !important;
+    min-height: 1273px !important;
+    max-height: 1273px !important;
     overflow: hidden !important;
     page-break-after: always;
     break-after: page;
@@ -13,11 +13,7 @@
     min-height: 0 !important;
     overflow: hidden !important;
 }
-.pdf-mode .cover .product-hero {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgba(255,255,255,0.92) !important;
-}
+.pdf-mode .cover .product-hero,
 .pdf-mode .cover .info-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -26,17 +22,15 @@
 .pdf-mode .cover .particle { display: none !important; }
 .pdf-mode .cover .machine-reflect { display: none !important; }
 .pdf-mode .cover .hero-shine { display: none !important; }
-.pdf-mode .sheet {
-    width: 794px !important;
-    max-width: 794px !important;
-    margin: 0 !important;
-    padding: 20px 30px !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    box-sizing: border-box !important;
+.pdf-mode .sh-sec {
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
-.pdf-mode .sh-sec { page-break-inside: avoid; break-inside: avoid; }
-.pdf-mode .dc { page-break-inside: avoid; break-inside: avoid; }
-.pdf-mode .ac-card { page-break-inside: avoid; break-inside: avoid; }
-.pdf-mode table { page-break-inside: avoid; break-inside: avoid; }
-.pdf-mode .sh-grid2, .pdf-mode .sh-grid3 { page-break-inside: avoid; break-inside: avoid; }
+.pdf-mode .dc,
+.pdf-mode .ac-card,
+.pdf-mode .sh-table,
+.pdf-mode .sh-grid2,
+.pdf-mode .sh-grid3 {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
