@@ -51,26 +51,6 @@ function downloadPDF() {
     });
 }
 
-    function restore() {
-        el.classList.remove('pdf-mode');
-        if (screenDiv) screenDiv.style.cssText = origStyles.screen;
-        if (previewScreen) previewScreen.style.cssText = origStyles.preview;
-        el.style.cssText = origStyles.sheet;
-        btn.textContent = origText;
-        btn.disabled = false;
-    }
-
-    setTimeout(function() {
-        html2pdf().set(opt).from(el).save().then(function () {
-            restore();
-        }).catch(function (err) {
-            console.error('PDF error:', err);
-            restore();
-            alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
-        });
-    }, 500);
-}
-
 function st(t) {
     return '<div class="stitle"><div class="sbar"></div><h3>' + t + '</h3></div>';
 }
