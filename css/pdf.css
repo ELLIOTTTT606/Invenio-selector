@@ -1,14 +1,5 @@
 /* ── PDF export mode ── */
 
-/* Conteneur principal : forcer largeur A4 */
-.pdf-mode {
-    width: 794px !important;
-    max-width: 794px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible !important;
-}
-
 /* Cover : exactement 1 page A4 */
 .pdf-mode .cover {
     width: 794px !important;
@@ -37,19 +28,23 @@
 .pdf-mode .cover .machine-reflect { display: none !important; }
 .pdf-mode .cover .hero-shine { display: none !important; }
 
-/* Fiche technique : pleine largeur dans le conteneur */
+/* Masquer les actions dans le PDF */
+.pdf-mode .preview-actions { display: none !important; }
+
+/* Sections fiche technique */
 .pdf-mode .sh-sec {
+    padding: 28px 30px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
-/* Grilles : forcer le remplissage sur 794px */
+/* Grilles */
 .pdf-mode .sh-grid2 {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 16px !important;
+    gap: 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     page-break-inside: avoid;
@@ -59,7 +54,7 @@
 .pdf-mode .sh-grid3 {
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 12px !important;
+    gap: 6px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     page-break-inside: avoid;
@@ -69,50 +64,44 @@
 .pdf-mode .ac-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 12px !important;
+    gap: 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
 }
 
-/* Tables : pleine largeur */
-.pdf-mode .sh-table {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
+/* Tables */
+.pdf-mode .sh-table,
 .pdf-mode .mt {
     width: 100% !important;
     box-sizing: border-box !important;
-}
-
-/* Datacards et autres blocs */
-.pdf-mode .dc {
-    box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
+/* Blocs individuels */
+.pdf-mode .dc,
 .pdf-mode .ac-card {
     box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
-/* Stitle : pleine largeur */
-.pdf-mode .stitle {
+/* Prestations */
+.pdf-mode .prest-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
     width: 100% !important;
     box-sizing: border-box !important;
 }
 
-/* Footer fiche */
+/* Titres et footer */
+.pdf-mode .stitle,
 .pdf-mode .sh-foot {
     width: 100% !important;
     box-sizing: border-box !important;
 }
 
-/* Images dimensions */
+/* Images */
 .pdf-mode .sh-sec img {
     max-width: 100% !important;
     height: auto !important;
