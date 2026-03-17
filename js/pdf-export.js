@@ -29,14 +29,13 @@ function downloadPDF() {
             letterRendering: true,
             scrollY: 0,
             windowWidth: 794,
-            windowHeight: 1123,
             backgroundColor: '#ffffff'
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: {
             mode: ['css'],
             after: ['.cover'],
-            avoid: ['.sh-sec', '.dc', '.ac-card', 'table', '.sh-grid2', '.sh-grid3']
+            avoid: ['.sh-sec', '.dc', '.ac-card', '.sh-table', '.sh-grid2', '.sh-grid3']
         }
     };
 
