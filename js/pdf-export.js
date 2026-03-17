@@ -16,6 +16,8 @@ function downloadPDF() {
         + (cl ? '_' + cl.nom.replace(/[^a-zA-Z0-9àâäéèêëïîôùûüÿçÀÂÄÉÈÊËÏÎÔÙÛÜŸÇ\- ]/g, '').replace(/\s+/g, '_') : '')
         + '.pdf';
 
+    var elWidth = el.scrollWidth || el.offsetWidth || 900;
+
     var opt = {
         margin: [0, 0, 0, 0],
         filename: fileName,
@@ -25,12 +27,14 @@ function downloadPDF() {
             useCORS: true,
             letterRendering: true,
             scrollY: 0,
-            windowWidth: 900,
+            width: elWidth,
+            windowWidth: elWidth,
             backgroundColor: '#ffffff'
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        jsPDF: { unit: 'px', format: [elWidth, elWidth * 1.4142], hotfix: { images_in_resolve: true } },
         pagebreak: {
-            mode: ['css'],
+            mode: ['css', 'legacy'],
+            before: [],
             after: ['.cover'],
             avoid: ['.sh-sec', '.dc', '.ac-card', '.sh-table', '.sh-grid2', '.sh-grid3']
         }
