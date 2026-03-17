@@ -1,5 +1,5 @@
 /* -- COVER v17 Galletti Premium -- */
-.cover{width:100%;height:1056px;max-height:1056px;position:relative;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;background-color:#1a3151;margin-bottom:0;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cover{width:100%;height:1123px;max-height:1123px;position:relative;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;background-color:#1a3151;margin-bottom:0;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cover>*{position:relative;z-index:1}
 .cover .page-network{position:absolute !important;inset:0;z-index:0 !important;pointer-events:none;width:100%;height:100%}
 .cover .accent-bar{height:3.5px;background:linear-gradient(90deg,#1ba1a4 0%,#1B4F72 50%,transparent 85%);flex-shrink:0}
