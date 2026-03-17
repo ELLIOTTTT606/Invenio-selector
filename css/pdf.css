@@ -1,11 +1,10 @@
 /* ── PDF export mode ── */
 
-/* Cover : exactement 1 page A4 */
 .pdf-mode .cover {
-    width: 794px !important;
-    height: 1123px !important;
-    min-height: 1123px !important;
-    max-height: 1123px !important;
+    width: 900px !important;
+    height: 1273px !important;
+    min-height: 1273px !important;
+    max-height: 1273px !important;
     overflow: hidden !important;
     page-break-after: always;
     break-after: page;
@@ -17,7 +16,6 @@
     overflow: hidden !important;
 }
 
-/* Désactiver ce que html2canvas ne sait pas rendre */
 .pdf-mode .cover .product-hero,
 .pdf-mode .cover .info-card {
     backdrop-filter: none !important;
@@ -28,78 +26,15 @@
 .pdf-mode .cover .machine-reflect { display: none !important; }
 .pdf-mode .cover .hero-shine { display: none !important; }
 
-/* Sections fiche technique */
 .pdf-mode .sh-sec {
-    padding: 28px 30px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
-
-/* Grilles */
-.pdf-mode .sh-grid2 {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 14px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-.pdf-mode .sh-grid3 {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 6px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-.pdf-mode .ac-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 10px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* Tables */
-.pdf-mode .sh-table,
-.pdf-mode .mt {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-/* Blocs individuels */
 .pdf-mode .dc,
-.pdf-mode .ac-card {
-    box-sizing: border-box !important;
+.pdf-mode .ac-card,
+.pdf-mode .sh-table,
+.pdf-mode .sh-grid2,
+.pdf-mode .sh-grid3 {
     page-break-inside: avoid;
     break-inside: avoid;
-}
-
-/* Prestations */
-.pdf-mode .prest-list {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* Titres et footer */
-.pdf-mode .stitle,
-.pdf-mode .sh-foot {
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* Images */
-.pdf-mode .sh-sec img {
-    max-width: 100% !important;
-    height: auto !important;
 }
