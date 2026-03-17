@@ -33,7 +33,6 @@ function downloadPDF() {
     el.style.padding = '0';
     el.style.boxShadow = 'none';
     el.style.borderRadius = '0';
-    el.style.background = '#ffffff';
 
     el.classList.add('pdf-mode');
     void el.offsetHeight;
@@ -56,7 +55,16 @@ function downloadPDF() {
             letterRendering: true,
             scrollY: 0,
             windowWidth: 794,
-            backgroundColor: '#ffffff'
+            backgroundColor: null,
+            imageTimeout: 3000,
+            onclone: function(clonedDoc) {
+                var imgs = clonedDoc.querySelectorAll('img');
+                imgs.forEach(function(img) {
+                    if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+                        img.style.display = 'none';
+                    }
+                });
+            }
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: {
@@ -75,13 +83,15 @@ function downloadPDF() {
         btn.disabled = false;
     }
 
-    html2pdf().set(opt).from(el).save().then(function () {
-        restore();
-    }).catch(function (err) {
-        console.error('PDF error:', err);
-        restore();
-        alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
-    });
+    setTimeout(function() {
+        html2pdf().set(opt).from(el).save().then(function () {
+            restore();
+        }).catch(function (err) {
+            console.error('PDF error:', err);
+            restore();
+            alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+        });
+    }, 500);
 }
 
 function st(t) {
