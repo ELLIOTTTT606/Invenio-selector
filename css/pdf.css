@@ -1,0 +1,7 @@
+/* ── PDF export mode: html2canvas compatibility ── */
+.pdf-mode .cover{width:100%!important;min-height:1270px!important;height:1270px!important;max-height:1270px!important}
+.pdf-mode .cover .product-hero{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,0.92)!important}
+.pdf-mode .cover .info-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,0.92)!important}
+.pdf-mode .cover .particle{display:none!important}
+.pdf-mode .cover .machine-reflect{display:none!important}
+.pdf-mode.sheet{width:900px!important;max-width:900px!important;margin:0!important;padding:0!important;box-shadow:none!important;border-radius:0!important}
