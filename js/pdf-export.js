@@ -5,18 +5,15 @@ function downloadPDF() {
     btn.textContent = '⏳ Génération en cours...';
     btn.disabled = true;
 
-    // ── Forcer la largeur A4 sur TOUTE la chaîne de conteneurs ──
     var previewScreen = el.closest('.preview-screen');
     var screenDiv = el.closest('.screen');
 
-    // Sauvegarder les styles originaux
     var origStyles = {
         screen: screenDiv ? screenDiv.style.cssText : '',
         preview: previewScreen ? previewScreen.style.cssText : '',
         sheet: el.style.cssText
     };
 
-    // Forcer 794px sur toute la chaîne
     if (screenDiv) {
         screenDiv.style.width = '794px';
         screenDiv.style.maxWidth = '794px';
@@ -39,8 +36,6 @@ function downloadPDF() {
     el.style.background = '#ffffff';
 
     el.classList.add('pdf-mode');
-
-    // Forcer un reflow
     void el.offsetHeight;
 
     var d = state.parsedData || {};
@@ -71,7 +66,6 @@ function downloadPDF() {
         }
     };
 
-    // ── Fonction de restauration ──
     function restore() {
         el.classList.remove('pdf-mode');
         if (screenDiv) screenDiv.style.cssText = origStyles.screen;
