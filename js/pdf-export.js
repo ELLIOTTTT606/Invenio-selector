@@ -5,35 +5,6 @@ function downloadPDF() {
     btn.textContent = '⏳ Génération en cours...';
     btn.disabled = true;
 
-    var previewScreen = el.closest('.preview-screen');
-    var screenDiv = el.closest('.screen');
-
-    var origStyles = {
-        screen: screenDiv ? screenDiv.style.cssText : '',
-        preview: previewScreen ? previewScreen.style.cssText : '',
-        sheet: el.style.cssText
-    };
-
-    if (screenDiv) {
-        screenDiv.style.width = '794px';
-        screenDiv.style.maxWidth = '794px';
-        screenDiv.style.padding = '0';
-        screenDiv.style.margin = '0';
-        screenDiv.style.overflow = 'visible';
-    }
-    if (previewScreen) {
-        previewScreen.style.width = '794px';
-        previewScreen.style.maxWidth = '794px';
-        previewScreen.style.padding = '0';
-        previewScreen.style.margin = '0';
-    }
-    el.style.width = '794px';
-    el.style.maxWidth = '794px';
-    el.style.margin = '0';
-    el.style.padding = '0';
-    el.style.boxShadow = 'none';
-    el.style.borderRadius = '0';
-
     el.classList.add('pdf-mode');
     void el.offsetHeight;
 
@@ -48,23 +19,14 @@ function downloadPDF() {
     var opt = {
         margin: [0, 0, 0, 0],
         filename: fileName,
-        image: { type: 'jpeg', quality: 0.95 },
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
             scale: 2,
             useCORS: true,
             letterRendering: true,
             scrollY: 0,
-            windowWidth: 794,
-            backgroundColor: null,
-            imageTimeout: 3000,
-            onclone: function(clonedDoc) {
-                var imgs = clonedDoc.querySelectorAll('img');
-                imgs.forEach(function(img) {
-                    if (img.naturalWidth === 0 || img.naturalHeight === 0) {
-                        img.style.display = 'none';
-                    }
-                });
-            }
+            windowWidth: 900,
+            backgroundColor: '#ffffff'
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: {
@@ -73,6 +35,21 @@ function downloadPDF() {
             avoid: ['.sh-sec', '.dc', '.ac-card', '.sh-table', '.sh-grid2', '.sh-grid3']
         }
     };
+
+    function restore() {
+        el.classList.remove('pdf-mode');
+        btn.textContent = origText;
+        btn.disabled = false;
+    }
+
+    html2pdf().set(opt).from(el).save().then(function () {
+        restore();
+    }).catch(function (err) {
+        console.error('PDF error:', err);
+        restore();
+        alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+    });
+}
 
     function restore() {
         el.classList.remove('pdf-mode');
