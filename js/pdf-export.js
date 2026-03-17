@@ -8,24 +8,26 @@ function downloadPDF(){
   var nomP=(document.getElementById("inputNomProjet")||{}).value||'Fiche';
   var cl=state.selectedClient;
   var fileName='Fiche_Selection_'+(d.gamme||'PLP').replace(/\s+/g,'_')+'_'+(d.size||'')+(cl?'_'+cl.nom.replace(/[^a-zA-Z0-9àâäéèêëïîôùûüÿçÀÂÄÉÈÊËÏÎÔÙÛÜŸÇ\- ]/g,'').replace(/\s+/g,'_'):'')+'.pdf';
-  var opt={
-    margin:[0,0,0,0],
-    filename:fileName,
-    image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,letterRendering:true,scrollY:0,windowWidth:900,backgroundColor:'#ffffff'},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-    pagebreak:{mode:['css','legacy'],avoid:['.sh-sec']}
-  };
-  html2pdf().set(opt).from(el).save().then(function(){
-    el.classList.remove('pdf-mode');
-    btn.textContent=origText;btn.disabled=false;
-  }).catch(function(err){
-    console.error('PDF error:',err);
-    el.classList.remove('pdf-mode');
-    btn.textContent=origText;btn.disabled=false;
-    alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
-  });
-}
+  var opt = {
+    margin: [0, 0, 0, 0],
+    filename: fileName,
+    image: { type: 'jpeg', quality: 0.95 },
+    html2canvas: {
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        scrollY: 0,
+        windowWidth: 794,          // ← largeur A4 exacte à 96dpi
+        backgroundColor: '#ffffff'
+    },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: {
+        mode: ['css'],
+        before: [],
+        after: ['.cover'],         // ← force un saut de page APRÈS la cover
+        avoid: ['.sh-sec', '.dc', '.ac-card', 'table']
+    }
+};
 
 function st(t){return'<div class="stitle"><div class="sbar"></div><h3>'+t+'</h3></div>';}
 function cT(t,d,c){if(!d||!d.tempEntreeEau)return"";const r=[["Temp. entrée eau",(d.tempEntreeEau||"—")+" °C"],["Temp. sortie eau",(d.tempSortieEau||"—")+" °C"],["Glycol",(d.glycol||"—")+" %"],["Temp. air extérieur",(d.tempAirExt||"—")+" °C"],["Humidité relative",(d.humiditeRel||"—")+" %"],["Charge",(d.charge||"—")+" %"]];let h='<div><div class="tbl-title" style="color:'+c+'">'+t+'</div><table class="mt"><tbody>';r.forEach(([l,v])=>{h+='<tr><td>'+l+'</td><td class="v">'+v+'</td></tr>';});return h+'</tbody></table></div>';}
