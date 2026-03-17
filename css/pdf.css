@@ -28,9 +28,6 @@
 .pdf-mode .cover .machine-reflect { display: none !important; }
 .pdf-mode .cover .hero-shine { display: none !important; }
 
-/* Masquer les actions dans le PDF */
-.pdf-mode .preview-actions { display: none !important; }
-
 /* Sections fiche technique */
 .pdf-mode .sh-sec {
     padding: 28px 30px !important;
