@@ -1,7 +1,4 @@
 /* ── PDF export mode: html2canvas compatibility ── */
-
-/* Force A4 dimensions: 794px × 1123px at 96dpi */
-
 .pdf-mode .cover {
     width: 794px !important;
     height: 1123px !important;
@@ -11,32 +8,24 @@
     page-break-after: always;
     break-after: page;
 }
-
-/* product-section doit remplir l'espace restant sans déborder */
 .pdf-mode .cover .product-section {
     flex: 1 1 auto !important;
     min-height: 0 !important;
     overflow: hidden !important;
 }
-
-/* Désactiver tout ce que html2canvas ne sait pas rendre */
 .pdf-mode .cover .product-hero {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background: rgba(255,255,255,0.92) !important;
 }
-
 .pdf-mode .cover .info-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background: rgba(255,255,255,0.92) !important;
 }
-
 .pdf-mode .cover .particle { display: none !important; }
 .pdf-mode .cover .machine-reflect { display: none !important; }
 .pdf-mode .cover .hero-shine { display: none !important; }
-
-/* Fiche technique */
 .pdf-mode .sheet {
     width: 794px !important;
     max-width: 794px !important;
@@ -46,30 +35,8 @@
     border-radius: 0 !important;
     box-sizing: border-box !important;
 }
-
-/* Éviter les coupures sur les éléments de contenu */
-.pdf-mode .sh-sec {
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-.pdf-mode .dc {
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-.pdf-mode .ac-card {
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-.pdf-mode table {
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-
-.pdf-mode .sh-grid2,
-.pdf-mode .sh-grid3 {
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
+.pdf-mode .sh-sec { page-break-inside: avoid; break-inside: avoid; }
+.pdf-mode .dc { page-break-inside: avoid; break-inside: avoid; }
+.pdf-mode .ac-card { page-break-inside: avoid; break-inside: avoid; }
+.pdf-mode table { page-break-inside: avoid; break-inside: avoid; }
+.pdf-mode .sh-grid2, .pdf-mode .sh-grid3 { page-break-inside: avoid; break-inside: avoid; }
