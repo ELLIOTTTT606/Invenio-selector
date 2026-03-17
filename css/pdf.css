@@ -1,7 +1,15 @@
-/* ── PDF export mode: html2canvas compatibility ── */
+/* ── PDF export mode ── */
 
-/* Force A4 dimensions: 794px × 1123px at 96dpi */
+/* Conteneur principal : forcer largeur A4 */
+.pdf-mode {
+    width: 794px !important;
+    max-width: 794px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
 
+/* Cover : exactement 1 page A4 */
 .pdf-mode .cover {
     width: 794px !important;
     height: 1123px !important;
@@ -12,64 +20,100 @@
     break-after: page;
 }
 
-/* product-section doit remplir l'espace restant sans déborder */
 .pdf-mode .cover .product-section {
     flex: 1 1 auto !important;
     min-height: 0 !important;
     overflow: hidden !important;
 }
 
-/* Désactiver tout ce que html2canvas ne sait pas rendre */
-.pdf-mode .cover .product-hero {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgba(255,255,255,0.92) !important;
-}
-
+/* Désactiver ce que html2canvas ne sait pas rendre */
+.pdf-mode .cover .product-hero,
 .pdf-mode .cover .info-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background: rgba(255,255,255,0.92) !important;
 }
-
 .pdf-mode .cover .particle { display: none !important; }
 .pdf-mode .cover .machine-reflect { display: none !important; }
 .pdf-mode .cover .hero-shine { display: none !important; }
 
-/* Fiche technique */
-.pdf-mode .sheet {
-    width: 794px !important;
-    max-width: 794px !important;
-    margin: 0 !important;
-    padding: 20px 30px !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    box-sizing: border-box !important;
-}
-
-/* Éviter les coupures sur les éléments de contenu */
+/* Fiche technique : pleine largeur dans le conteneur */
 .pdf-mode .sh-sec {
+    width: 100% !important;
+    box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
+/* Grilles : forcer le remplissage sur 794px */
+.pdf-mode .sh-grid2 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.pdf-mode .sh-grid3 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.pdf-mode .ac-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Tables : pleine largeur */
+.pdf-mode .sh-table {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.pdf-mode .mt {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Datacards et autres blocs */
 .pdf-mode .dc {
+    box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
 .pdf-mode .ac-card {
+    box-sizing: border-box !important;
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
-.pdf-mode table {
-    page-break-inside: avoid;
-    break-inside: avoid;
+/* Stitle : pleine largeur */
+.pdf-mode .stitle {
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
-.pdf-mode .sh-grid2,
-.pdf-mode .sh-grid3 {
-    page-break-inside: avoid;
-    break-inside: avoid;
+/* Footer fiche */
+.pdf-mode .sh-foot {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Images dimensions */
+.pdf-mode .sh-sec img {
+    max-width: 100% !important;
+    height: auto !important;
 }
