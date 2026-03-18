@@ -95,16 +95,36 @@ async function loadClientsExcel(f) {
   }
 }
 
-function searchClient(q) {
+async function searchClient(q) {
   const box = document.getElementById("clientResults");
-  if (!q || q.length < 2 || CLIENTS.length === 0) { box.classList.remove("open"); return; }
-  const ql = q.toLowerCase();
-  const results = CLIENTS.filter(c => c[0].toLowerCase().includes(ql) || c[1].toLowerCase().includes(ql)).slice(0, 30);
-  if (results.length === 0) { box.innerHTML = '<div style="padding:10px;font-size:11px;color:#999">Aucun résultat</div>'; box.classList.add("open"); return; }
-  box.innerHTML = results.map(c => '<div class="client-result" onclick="pickClient(\'' + c[0].replace(/'/g,"\\'") + '\',\'' + c[1].replace(/'/g,"\\'") + '\')"><span>' + c[1] + '</span><span class="code">' + c[0] + '</span></div>').join('');
+  if (!q || q.length < 2) { box.classList.remove("open"); return; }
+ 
+  // Utilise TursoSync si disponible (recherche serveur), sinon local
+  var results;
+  if (typeof TursoSync !== "undefined" && TursoSync.isConnected()) {
+    results = await TursoSync.searchClients(q);
+  } else {
+    var ql = q.toLowerCase();
+    results = CLIENTS.filter(function(c) {
+      return c[0].toLowerCase().includes(ql) || c[1].toLowerCase().includes(ql);
+    }).slice(0, 50);
+  }
+ 
+  if (results.length === 0) {
+    box.innerHTML = '<div style="padding:10px;font-size:11px;color:#999">Aucun résultat</div>';
+    box.classList.add("open");
+    return;
+  }
+ 
+  box.innerHTML = results.map(function(c) {
+    return '<div class="client-result" onclick="pickClient(\'' +
+      c[0].replace(/'/g, "\\'") + '\',\'' +
+      c[1].replace(/'/g, "\\'") +
+      '\')"><span>' + c[1] + '</span><span class="code">' + c[0] + '</span></div>';
+  }).join('');
   box.classList.add("open");
 }
-
+ 
 function pickClient(code, nom) {
   state.selectedClient = {code, nom};
   document.getElementById("clientResults").classList.remove("open");
