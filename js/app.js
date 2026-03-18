@@ -583,4 +583,6 @@ async function loadPricesExcel(f) {
     showMsg("error", "Erreur : " + e.message);
   }
 }
-
+if (typeof ProjetSave !== 'undefined' && typeof TursoSync !== 'undefined') {
+  TursoSync.init().then(function() { ProjetSave.loadFromURL(); });
+}
