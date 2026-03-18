@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INVENIO × GALLETTI — Plateforme de sélection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-l: #14b8a6;
+      --teal-glow: rgba(20,184,166,.15);
+      --card-bg: rgba(235,240,250,.92);
+      --card-border: rgba(255,255,255,.6);
+      --card-hover: rgba(255,255,255,.95);
+      --tx: #ffffff;
+      --tx2: rgba(255,255,255,.65);
+      --tx3: rgba(255,255,255,.35);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--tx);
+      background: radial-gradient(ellipse at 50% 0%, #1a3a6e 0%, #0f2244 35%, #091428 70%, #050d1a 100%);
+      background-attachment: fixed;
+    }
+
+    /* ═══ TOP BAR ═══ */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      background: rgba(5,13,26,.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .topbar-brand h1 {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .topbar-brand span {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--teal-l);
+      letter-spacing: 3px;
+    }
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+    }
+    .topbar-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal-l);
+      box-shadow: 0 0 8px var(--teal-l);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    /* ═══ HUB ═══ */
+    .hub {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal-l);
+      background: rgba(20,184,166,.1);
+      border: 1px solid rgba(20,184,166,.2);
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h2 {
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .hero h2 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--teal-l), #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--tx2);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ═══ MODULES GRID ═══ */
+    .modules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 44px;
+    }
+    @media (max-width: 640px) {
+      .modules { grid-template-columns: 1fr; }
+      .hero h2 { font-size: 28px; }
+    }
+
+    /* ═══ MODULE CARD ═══ */
+    .mod {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      cursor: pointer;
+      transition: all .25s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .mod::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .mod::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.04), transparent 70%);
+      opacity: 0;
+      transition: opacity .25s;
+      pointer-events: none;
+    }
+    .mod:hover {
+      border-color: rgba(255,255,255,.9);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.15);
+      background: rgba(255,255,255,.97);
+    }
+    .mod:hover::before { opacity: 1; }
+    .mod:hover::after  { opacity: 1; }
+    .mod:active { transform: translateY(-1px); }
+
+    .mod--fiche::before   { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .mod--machine::before { background: linear-gradient(90deg, var(--teal), var(--teal-l)); }
+    .mod--update::before  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .mod--compare::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+    .mod--crm::before { background: linear-gradient(90deg, #f43f5e, #fb7185); }
+
+    .mod-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .mod-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .mod--fiche .mod-icon   { background: #eff6ff; }
+    .mod--fiche .mod-icon svg { stroke: #2563eb; }
+    .mod--machine .mod-icon  { background: #f0fdfa; }
+    .mod--machine .mod-icon svg { stroke: #0d9488; }
+    .mod--update .mod-icon   { background: #fffbeb; }
+    .mod--update .mod-icon svg { stroke: #d97706; }
+    .mod--compare .mod-icon  { background: #f5f3ff; }
+    .mod--compare .mod-icon svg { stroke: #7c3aed; }
+    .mod--crm .mod-icon  { background: #fff1f2; }
+    .mod--crm .mod-icon svg { stroke: #e11d48; }
+
+    .mod-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #0f2244;
+      margin-bottom: 6px;
+    }
+    .mod-desc {
+      font-size: 13px;
+      color: #1a3a6e;
+      line-height: 1.55;
+      opacity: .7;
+    }
+    .mod-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .badge-live {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+    .badge-new {
+      background: #f0fdfa;
+      color: #0f766e;
+    }
+    .badge-soon {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .mod-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+    }
+    .mod-arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: #9ca3af;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .mod:hover .mod-arrow {
+      opacity: .7;
+      transform: translateY(-50%) translateX(4px);
+    }
+
+    /* ═══ STATS BAR ═══ */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 24px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .stat { text-align: center; }
+    .stat-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 22px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--tx3);
+      margin-top: 3px;
+      letter-spacing: .5px;
+    }
+
+    /* ═══ DISABLED ═══ */
+    .mod--disabled {
+      opacity: .4;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ═══ SUBTLE BG ACCENTS ═══ */
+    .bg-glow {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(80px);
+    }
+    .bg-glow--1 {
+      width: 600px; height: 600px;
+      top: -200px; left: -100px;
+      background: rgba(26,58,110,.5);
+    }
+    .bg-glow--2 {
+      width: 400px; height: 400px;
+      bottom: -100px; right: -50px;
+      background: rgba(13,148,136,.12);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background glows -->
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <h1>INVENIO</h1>
+      <span>GALLETTI</span>
+    </div>
+    <div class="topbar-status">
+      <div class="topbar-dot"></div>
+      <span id="dbStatus">Connexion...</span>
+    </div>
+  </div>
+
+  <!-- ═══ HUB ═══ -->
+  <div class="hub">
+
+    <div class="hero">
+      <h2>Que souhaitez-vous <em>faire</em>&nbsp;?</h2>
+    </div>
+
+    <div class="modules">
+
+      <a class="mod mod--fiche" href="index.html">
+        <div class="mod-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <div class="mod-title">Générer une fiche de sélection</div>
+        <div class="mod-desc">Importez un fichier CSD, sélectionnez les options et exportez le PDF.</div>
+        <div class="mod-arrow"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a class="mod mod--machine" href="add-machine.html">
+        <div class="mod-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>
+        </div>
+        <div class="mod-title">Ajouter une nouvelle machine</div>
+        <div class="mod-desc">Nouvelle gamme, tailles, visuel produit et certifications.</div>
+        <div class="mod-arrow"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a class="mod mod--update" href="index.html#admin">
+        <div class="mod-icon">
+          <svg viewBox="0 0 24 24"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182"/></svg>
+        </div>
+        <div class="mod-title">Mettre à jour les données</div>
+        <div class="mod-desc">Clients, prix, options, contacts commerciaux par région.</div>
+        <div class="mod-arrow"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <a class="mod mod--crm" href="crm.html">
+        <div class="mod-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="mod-title">CRM Client</div>
+        <div class="mod-desc">Statistiques commerciales, score fidélité et historique par client.</div>
+        <div class="mod-arrow"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+      </a>
+
+      <div class="mod mod--compare mod--disabled">
+        <div class="mod-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+        </div>
+        <div class="mod-title">Réaliser un comparatif</div>
+        <div class="mod-desc">Comparez les performances techniques et tarifaires de plusieurs machines.</div>
+      </div>
+
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val" id="statClients">—</div>
+        <div class="stat-label">Clients en base</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" id="statGammes">—</div>
+        <div class="stat-label">Gammes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" id="statOptions">—</div>
+        <div class="stat-label">Options</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" id="statProjets">—</div>
+        <div class="stat-label">Fiches générées</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/db.js"></script>
+  <script>
+    (async function() {
+      var ok = await DB.init();
+      var statusEl = document.getElementById('dbStatus');
+      if (ok) {
+        statusEl.textContent = 'Turso connecté';
+        try {
+          var r = await Promise.all([
+            DB.clients.count(),
+            DB.query("SELECT COUNT(*) AS n FROM gammes"),
+            DB.query("SELECT COUNT(*) AS n FROM options"),
+            DB.projets.count()
+          ]);
+          document.getElementById('statClients').textContent = r[0].toLocaleString('fr-FR');
+          document.getElementById('statGammes').textContent = r[1][0] ? r[1][0].n : 0;
+          document.getElementById('statOptions').textContent = r[2][0] ? r[2][0].n : 0;
+          document.getElementById('statProjets').textContent = r[3].toLocaleString('fr-FR');
+        } catch(e) { console.warn('Stats:', e); }
+      } else {
+        statusEl.textContent = 'Hors ligne';
+        document.querySelector('.topbar-dot').style.background = '#f43f5e';
+      }
+    })();
+  </script>
+</body>
+</html>
