@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajouter une machine — INVENIO × GALLETTI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --teal:#0d9488;--teal-l:#14b8a6;--navy:#0f2244;--navy-l:#1a3a6e;
+      --card-bg:rgba(235,240,250,.92);--card-border:rgba(255,255,255,.6);
+      --radius:16px;--radius-sm:10px;--input-bg:#fff;--input-border:#d1d5db;--input-focus:var(--teal);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Outfit',system-ui,sans-serif;min-height:100vh;overflow-x:hidden;color:#fff;
+      background:radial-gradient(ellipse at 50% 0%,#1a3a6e 0%,#0f2244 35%,#091428 70%,#050d1a 100%);background-attachment:fixed}
+
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;
+      background:rgba(5,13,26,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
+    .topbar-brand{display:flex;align-items:baseline;gap:10px}
+    .topbar-brand h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:2px}
+    .topbar-brand span{font-size:11px;font-weight:300;color:var(--teal-l);letter-spacing:3px}
+    .topbar-back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;transition:color .2s}
+    .topbar-back:hover{color:#fff}
+    .topbar-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+    .bg-glow{position:fixed;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(80px)}
+    .bg-glow--1{width:600px;height:600px;top:-200px;left:-100px;background:rgba(26,58,110,.5)}
+    .bg-glow--2{width:400px;height:400px;bottom:-100px;right:-50px;background:rgba(13,148,136,.12)}
+
+    .wizard{max-width:620px;margin:0 auto;padding:40px 24px 80px}
+    .wizard-title{font-size:28px;font-weight:700;text-align:center;margin-bottom:8px}
+    .wizard-sub{font-size:14px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:36px}
+
+    .steps-bar{display:flex;gap:6px;margin-bottom:36px}
+    .step-dot{height:4px;flex:1;border-radius:2px;background:rgba(255,255,255,.12);transition:background .3s}
+    .step-dot.active{background:var(--teal-l)}
+    .step-dot.done{background:rgba(20,184,166,.4)}
+
+    .step{display:none}.step.visible{display:block}
+
+    .card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 24px;margin-bottom:16px}
+
+    .field{margin-bottom:20px}.field:last-child{margin-bottom:0}
+    .field-label{display:block;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:6px}
+    .field-hint{font-size:11px;color:var(--navy-l);opacity:.6;margin-bottom:6px;display:block}
+
+    input[type="text"],input[type="number"],select{width:100%;padding:10px 14px;border:1px solid var(--input-border);
+      border-radius:var(--radius-sm);font-family:'Outfit',sans-serif;font-size:14px;
+      background:var(--input-bg);color:var(--navy);outline:none;transition:border-color .2s}
+    input:focus,select:focus{border-color:var(--input-focus)}
+
+    .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .choice-card{background:#fff;border:2px solid #e5e7eb;border-radius:var(--radius-sm);padding:16px;text-align:center;cursor:pointer;transition:all .2s}
+    .choice-card:hover{border-color:#93c5fd}
+    .choice-card.sel{border-color:var(--teal);background:#f0fdfa}
+    .choice-card .choice-icon{font-size:28px;margin-bottom:6px;display:block}
+    .choice-card .choice-title{font-size:14px;font-weight:600;color:var(--navy)}
+    .choice-card .choice-desc{font-size:11px;color:var(--navy-l);opacity:.6;margin-top:2px}
+
+    .tags-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .tag{display:inline-flex;align-items:center;gap:6px;background:#e0f2fe;color:var(--navy);font-size:13px;font-weight:500;padding:5px 12px;border-radius:8px}
+    .tag-x{cursor:pointer;color:#94a3b8;font-size:16px;line-height:1;transition:color .15s}
+    .tag-x:hover{color:#ef4444}
+
+    .add-size-row{display:flex;gap:8px;margin-top:8px}
+    .add-size-row input{flex:1}
+    .btn-add{padding:10px 16px;border:none;border-radius:var(--radius-sm);background:var(--teal);color:#fff;
+      font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .btn-add:hover{background:#0f766e}
+
+    .upload-zone{border:2px dashed #cbd5e1;border-radius:var(--radius);padding:40px 24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+    .upload-zone:hover{border-color:var(--teal);background:rgba(240,253,250,.5)}
+    .upload-zone.has-file{border-color:var(--teal);border-style:solid;background:#f0fdfa}
+    .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .upload-icon{width:48px;height:48px;margin:0 auto 12px;border-radius:50%;background:#e0f2fe;display:flex;align-items:center;justify-content:center}
+    .upload-icon svg{width:24px;height:24px;stroke:var(--navy-l);fill:none;stroke-width:1.5}
+    .upload-title{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:4px}
+    .upload-hint{font-size:12px;color:var(--navy-l);opacity:.6;line-height:1.5}
+    .upload-preview{max-height:180px;margin-top:12px;border-radius:8px}
+
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #e5e7eb}
+    .toggle-row:last-child{border-bottom:none}
+    .toggle-label{font-size:14px;font-weight:500;color:var(--navy)}
+    .toggle-desc{font-size:12px;color:var(--navy-l);opacity:.6;margin-top:2px}
+    .toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+    .toggle input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;z-index:2}
+    .toggle-track{width:44px;height:24px;border-radius:12px;background:#d1d5db;transition:background .2s;display:block;position:relative}
+    .toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+    .toggle input:checked~.toggle-track{background:var(--teal)}
+    .toggle input:checked~.toggle-track .toggle-thumb{transform:translateX(20px)}
+
+    .doc-list{margin-top:16px}
+    .doc-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#f8fafc;border-radius:var(--radius-sm);margin-bottom:8px;border:1px solid #e5e7eb}
+    .doc-item-icon{width:36px;height:36px;border-radius:8px;background:#fee2e2;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .doc-item-icon svg{width:18px;height:18px;stroke:#dc2626;fill:none;stroke-width:1.5}
+    .doc-item-info{flex:1;min-width:0}
+    .doc-item-name{font-size:13px;font-weight:500;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .doc-item-meta{font-size:11px;color:var(--navy-l);opacity:.6}
+    .doc-item-status{font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;white-space:nowrap}
+    .doc-status-ok{background:#ecfdf5;color:#065f46}
+    .doc-status-loading{background:#eff6ff;color:#1e40af}
+    .doc-status-error{background:#fef2f2;color:#991b1b}
+    .doc-item-x{cursor:pointer;color:#94a3b8;font-size:18px;padding:4px;transition:color .15s}
+    .doc-item-x:hover{color:#ef4444}
+
+    .doc-upload-zone{border:2px dashed #cbd5e1;border-radius:var(--radius-sm);padding:20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+    .doc-upload-zone:hover{border-color:var(--teal);background:rgba(240,253,250,.3)}
+    .doc-upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .doc-upload-label{font-size:13px;color:var(--navy);font-weight:500}
+    .doc-upload-hint{font-size:11px;color:var(--navy-l);opacity:.5;margin-top:2px}
+
+    .nav-btns{display:flex;gap:10px;margin-top:24px}
+    .btn{flex:1;padding:12px 20px;border:none;border-radius:var(--radius-sm);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
+    .btn-back{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)}
+    .btn-back:hover{background:rgba(255,255,255,.25)}
+    .btn-next{background:var(--teal);color:#fff}
+    .btn-next:hover{background:#0f766e}
+    .btn-next:disabled{opacity:.4;cursor:default}
+    .btn-save{background:linear-gradient(135deg,var(--teal),#0f766e);color:#fff;box-shadow:0 4px 12px rgba(13,148,136,.3)}
+    .btn-save:hover{box-shadow:0 6px 20px rgba(13,148,136,.4)}
+
+    .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .summary-item{padding:12px;background:#f8fafc;border-radius:var(--radius-sm)}
+    .summary-label{font-size:11px;color:var(--navy-l);opacity:.5;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+    .summary-val{font-size:14px;font-weight:500;color:var(--navy)}
+    .summary-img{width:100%;max-height:200px;object-fit:contain;border-radius:8px;margin-top:12px;background:#f1f5f9;padding:12px}
+
+    .success-screen{text-align:center;padding:60px 20px}
+    .success-icon{font-size:48px;margin-bottom:16px}
+    .success-title{font-size:22px;font-weight:600;margin-bottom:8px}
+    .success-desc{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:32px}
+
+    @media(max-width:640px){.choice-row,.summary-grid{grid-template-columns:1fr}.wizard-title{font-size:22px}}
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+
+  <div class="topbar">
+    <div class="topbar-brand"><h1>INVENIO</h1><span>GALLETTI</span></div>
+    <a class="topbar-back" href="hub.html"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>Retour au hub</a>
+  </div>
+
+  <div class="wizard">
+    <div class="wizard-title">Nouvelle machine</div>
+    <div class="wizard-sub">Remplissez les informations pour ajouter une gamme</div>
+
+    <div class="steps-bar">
+      <div class="step-dot active" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+      <div class="step-dot" id="dot5"></div>
+    </div>
+
+    <!-- ═══ STEP 0 — Nom & Type ═══ -->
+    <div class="step visible" id="step0">
+      <div class="card">
+        <div class="field">
+          <label class="field-label">Nom de la machine</label>
+          <span class="field-hint">Ex : PLP, PLE, MLI, ART...</span>
+          <input type="text" id="machineName" placeholder="Nom de la gamme" oninput="checkStep0()"/>
+        </div>
+        <div class="field">
+          <label class="field-label">Type de machine</label>
+          <div class="choice-row">
+            <div class="choice-card" id="typeAirEau" onclick="pickType('air_eau')">
+              <span class="choice-icon">🌬️</span>
+              <div class="choice-title">Air / Eau</div>
+              <div class="choice-desc">Source air extérieur</div>
+            </div>
+            <div class="choice-card" id="typeEauEau" onclick="pickType('eau_eau')">
+              <span class="choice-icon">💧</span>
+              <div class="choice-title">Eau / Eau</div>
+              <div class="choice-desc">Source nappe ou boucle</div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Mode de fonctionnement</label>
+          <div class="choice-row">
+            <div class="choice-card" id="modeReversible" onclick="pickMode('reversible')">
+              <span class="choice-icon">🔄</span>
+              <div class="choice-title">Réversible</div>
+              <div class="choice-desc">Chaud + Froid</div>
+            </div>
+            <div class="choice-card" id="modeFroid" onclick="pickMode('froid')">
+              <span class="choice-icon">❄️</span>
+              <div class="choice-title">Froid seul</div>
+              <div class="choice-desc">Groupe d'eau glacée</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <div style="flex:1"></div>
+        <button class="btn btn-next" id="btnNext0" disabled onclick="goStep(1)">Suivant</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 1 — Tailles ═══ -->
+    <div class="step" id="step1">
+      <div class="card">
+        <div class="field">
+          <label class="field-label">Tailles disponibles</label>
+          <span class="field-hint">Ajoutez chaque taille une par une (ex : 037, 045, 122, 152...)</span>
+          <div class="add-size-row">
+            <input type="text" id="sizeInput" placeholder="Ex : 122" onkeydown="if(event.key==='Enter'){addSize();event.preventDefault()}"/>
+            <button class="btn-add" onclick="addSize()">Ajouter</button>
+          </div>
+          <div class="tags-wrap" id="sizeTags"></div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-back" onclick="goStep(0)">Retour</button>
+        <button class="btn btn-next" id="btnNext1" disabled onclick="goStep(2)">Suivant</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 2 — Visuel machine ═══ -->
+    <div class="step" id="step2">
+      <div class="card">
+        <div class="field">
+          <label class="field-label">Visuel de la machine</label>
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" accept="image/png,image/webp" onchange="handleImage(this)"/>
+            <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0l-4 4m4-4l4 4M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2"/></svg></div>
+            <div class="upload-title" id="uploadTitle">Cliquez ou glissez une image PNG</div>
+            <div class="upload-hint">Meilleure sera la résolution, meilleur sera le rendu.<br/>Fond transparent fortement recommandé !</div>
+          </div>
+          <img class="upload-preview" id="imgPreview" style="display:none"/>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-back" onclick="goStep(1)">Retour</button>
+        <button class="btn btn-next" onclick="goStep(3)">Suivant</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 3 — Certifications ═══ -->
+    <div class="step" id="step3">
+      <div class="card">
+        <div class="field">
+          <label class="field-label">Certifications & Labels</label>
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-label">Logo R290</div>
+              <div class="toggle-desc">Afficher le badge réfrigérant naturel R290 (propane, GWP=3)</div>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="toggleR290" checked/>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="toggle-label">Logo Eurovent</div>
+              <div class="toggle-desc">Afficher le badge certification Eurovent Performance</div>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="toggleEurovent" checked/>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-back" onclick="goStep(2)">Retour</button>
+        <button class="btn btn-next" onclick="goStep(4)">Suivant</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 4 — Documentation ═══ -->
+    <div class="step" id="step4">
+      <div class="card">
+        <div class="field">
+          <label class="field-label">Documentation technique</label>
+          <span class="field-hint">Joignez les notices et brochures. L'IA analysera automatiquement le contenu pour devenir experte sur ce produit.</span>
+
+          <div class="doc-upload-zone" style="margin-bottom:8px">
+            <input type="file" accept="application/pdf" multiple onchange="handleDocs(this)"/>
+            <div class="doc-upload-label">Cliquez ou glissez vos fichiers PDF</div>
+            <div class="doc-upload-hint">Notice technique, notice d'installation, brochure commerciale</div>
+          </div>
+
+          <div class="doc-list" id="docList"></div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-back" onclick="goStep(3)">Retour</button>
+        <button class="btn btn-next" onclick="goStep(5)">Récapitulatif</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 5 — Récapitulatif ═══ -->
+    <div class="step" id="step5">
+      <div class="card">
+        <div class="field">
+          <label class="field-label">Récapitulatif</label>
+          <div class="summary-grid" id="summaryGrid"></div>
+          <img class="summary-img" id="summaryImg" style="display:none"/>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-back" onclick="goStep(4)">Retour</button>
+        <button class="btn btn-save" id="btnSave" onclick="saveMachine()">Enregistrer dans Turso</button>
+      </div>
+    </div>
+
+    <!-- ═══ SUCCESS ═══ -->
+    <div class="step" id="stepSuccess">
+      <div class="success-screen">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">Machine enregistrée !</div>
+        <div class="success-desc" id="successDesc">La gamme a été ajoutée à la base de données.</div>
+        <div class="nav-btns" style="justify-content:center">
+          <a class="btn btn-next" href="hub.html" style="flex:none;padding:12px 32px;text-decoration:none">Retour au hub</a>
+          <button class="btn btn-back" onclick="resetWizard()" style="flex:none;padding:12px 32px">Ajouter une autre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- pdf.js pour extraction texte des PDFs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </script>
+  <script src="js/db.js"></script>
+  <script>
+    var machineState = {
+      name:'', type:'', mode:'', sizes:[], imageB64:'', imageName:'',
+      r290:true, eurovent:true, docs:[]
+    };
+
+    // ── Step 0 ──
+    function pickType(t) {
+      machineState.type = t;
+      document.getElementById('typeAirEau').className = 'choice-card' + (t==='air_eau'?' sel':'');
+      document.getElementById('typeEauEau').className = 'choice-card' + (t==='eau_eau'?' sel':'');
+      checkStep0();
+    }
+    function pickMode(m) {
+      machineState.mode = m;
+      document.getElementById('modeReversible').className = 'choice-card' + (m==='reversible'?' sel':'');
+      document.getElementById('modeFroid').className = 'choice-card' + (m==='froid'?' sel':'');
+      checkStep0();
+    }
+    function checkStep0() {
+      machineState.name = document.getElementById('machineName').value.trim();
+      document.getElementById('btnNext0').disabled = !(machineState.name && machineState.type && machineState.mode);
+    }
+
+    // ── Step 1 — Tailles ──
+    function addSize() {
+      var input = document.getElementById('sizeInput');
+      var val = input.value.trim();
+      if (!val || machineState.sizes.indexOf(val) !== -1) return;
+      machineState.sizes.push(val);
+      input.value = '';
+      renderSizes();
+      document.getElementById('btnNext1').disabled = machineState.sizes.length === 0;
+    }
+    function removeSize(idx) {
+      machineState.sizes.splice(idx, 1);
+      renderSizes();
+      document.getElementById('btnNext1').disabled = machineState.sizes.length === 0;
+    }
+    function renderSizes() {
+      var h = '';
+      machineState.sizes.forEach(function(s, i) {
+        h += '<span class="tag">' + s + '<span class="tag-x" onclick="removeSize(' + i + ')">×</span></span>';
+      });
+      document.getElementById('sizeTags').innerHTML = h;
+    }
+
+    // ── Step 2 — Image ──
+    function handleImage(input) {
+      var f = input.files[0];
+      if (!f) return;
+      machineState.imageName = f.name;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        machineState.imageB64 = e.target.result;
+        document.getElementById('imgPreview').src = e.target.result;
+        document.getElementById('imgPreview').style.display = 'block';
+        document.getElementById('uploadZone').classList.add('has-file');
+        document.getElementById('uploadTitle').textContent = f.name;
+      };
+      reader.readAsDataURL(f);
+    }
+
+    // ── Step 4 — Documentation PDF ──
+    async function handleDocs(input) {
+      var files = Array.from(input.files);
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        if (f.type !== 'application/pdf') continue;
+        var docEntry = { name: f.name, status: 'loading', text: '', pages: 0, type: guessDocType(f.name) };
+        machineState.docs.push(docEntry);
+        renderDocs();
+        try {
+          var result = await extractPdfText(f);
+          docEntry.text = result.text;
+          docEntry.pages = result.pages;
+          docEntry.status = 'ok';
+        } catch(e) {
+          docEntry.status = 'error';
+          console.error('PDF extraction error:', e);
+        }
+        renderDocs();
+      }
+      input.value = '';
+    }
+
+    function guessDocType(name) {
+      var n = name.toLowerCase();
+      if (n.includes('install')) return 'installation';
+      if (n.includes('brochure') || n.includes('commercial') || n.includes('vente')) return 'brochure';
+      return 'technique';
+    }
+
+    async function extractPdfText(file) {
+      var buf = await file.arrayBuffer();
+      var pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      var allText = '';
+      for (var p = 1; p <= pdf.numPages; p++) {
+        var page = await pdf.getPage(p);
+        var content = await page.getTextContent();
+        var pageText = content.items.map(function(item) { return item.str; }).join(' ');
+        allText += pageText + '\n\n';
+      }
+      return { text: allText.trim(), pages: pdf.numPages };
+    }
+
+    function removeDoc(idx) {
+      machineState.docs.splice(idx, 1);
+      renderDocs();
+    }
+
+    function renderDocs() {
+      var h = '';
+      machineState.docs.forEach(function(d, i) {
+        var statusClass = d.status === 'ok' ? 'doc-status-ok' : d.status === 'loading' ? 'doc-status-loading' : 'doc-status-error';
+        var statusLabel = d.status === 'ok' ? d.pages + ' pages analysées' : d.status === 'loading' ? 'Analyse en cours...' : 'Erreur';
+        var typeLabel = d.type === 'installation' ? 'Installation' : d.type === 'brochure' ? 'Brochure' : 'Technique';
+        h += '<div class="doc-item">';
+        h += '<div class="doc-item-icon"><svg viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9l-6-6H7a2 2 0 00-2 2v14a2 2 0 002 2z"/><path d="M13 3v6h6"/></svg></div>';
+        h += '<div class="doc-item-info"><div class="doc-item-name">' + d.name + '</div>';
+        h += '<div class="doc-item-meta">' + typeLabel + '</div></div>';
+        h += '<span class="doc-item-status ' + statusClass + '">' + statusLabel + '</span>';
+        h += '<span class="doc-item-x" onclick="removeDoc(' + i + ')">×</span>';
+        h += '</div>';
+      });
+      document.getElementById('docList').innerHTML = h;
+    }
+
+    // ── Navigation ──
+    function goStep(n) {
+      for (var i = 0; i <= 5; i++) { var el = document.getElementById('step' + i); if (el) el.classList.remove('visible'); }
+      document.getElementById('stepSuccess').classList.remove('visible');
+      var target = n === 6 ? 'stepSuccess' : 'step' + n;
+      document.getElementById(target).classList.add('visible');
+      for (var i = 0; i < 6; i++) {
+        var dot = document.getElementById('dot' + i);
+        if (dot) dot.className = 'step-dot' + (i === n ? ' active' : (i < n ? ' done' : ''));
+      }
+      if (n === 5) buildSummary();
+      window.scrollTo(0, 0);
+    }
+
+    // ── Récapitulatif ──
+    function buildSummary() {
+      machineState.r290 = document.getElementById('toggleR290').checked;
+      machineState.eurovent = document.getElementById('toggleEurovent').checked;
+      var typeLabel = machineState.type === 'air_eau' ? 'Air / Eau' : 'Eau / Eau';
+      var modeLabel = machineState.mode === 'reversible' ? 'Réversible (PAC)' : 'Froid seul (GEG)';
+      var docsOk = machineState.docs.filter(function(d) { return d.status === 'ok'; });
+
+      var h = '';
+      h += '<div class="summary-item"><div class="summary-label">Nom</div><div class="summary-val">' + machineState.name + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">Type</div><div class="summary-val">' + typeLabel + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">Mode</div><div class="summary-val">' + modeLabel + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">Tailles</div><div class="summary-val">' + machineState.sizes.join(', ') + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">R290</div><div class="summary-val">' + (machineState.r290 ? 'Oui' : 'Non') + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">Eurovent</div><div class="summary-val">' + (machineState.eurovent ? 'Oui' : 'Non') + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">Documents</div><div class="summary-val">' + docsOk.length + ' fichier' + (docsOk.length > 1 ? 's' : '') + ' analysé' + (docsOk.length > 1 ? 's' : '') + '</div></div>';
+      h += '<div class="summary-item"><div class="summary-label">Visuel</div><div class="summary-val">' + (machineState.imageB64 ? machineState.imageName : 'Aucun') + '</div></div>';
+      document.getElementById('summaryGrid').innerHTML = h;
+
+      var img = document.getElementById('summaryImg');
+      if (machineState.imageB64) { img.src = machineState.imageB64; img.style.display = 'block'; }
+      else { img.style.display = 'none'; }
+    }
+
+    // ── Sauvegarde Turso ──
+    async function saveMachine() {
+      var btn = document.getElementById('btnSave');
+      btn.textContent = 'Enregistrement...';
+      btn.disabled = true;
+
+      var name = machineState.name;
+      var typeCode = machineState.mode === 'reversible' ? 'HS' : 'CS';
+      var typeProduit = (machineState.mode === 'reversible' ? 'PAC ' : 'Groupe eau glacée ') + (machineState.type === 'air_eau' ? 'air/eau' : 'eau/eau');
+      var codeGamme = name.toUpperCase().replace(/\s+/g, '') + '_' + typeCode;
+
+      try {
+        // 1. Gamme
+        await DB.query(
+          "INSERT INTO gammes (code_gamme, nom_commercial, type_produit) VALUES (?, ?, ?) ON CONFLICT(code_gamme) DO UPDATE SET nom_commercial=excluded.nom_commercial, type_produit=excluded.type_produit",
+          [codeGamme, name + ' ' + typeCode, typeProduit]
+        );
+
+        // 2. Modèles
+        var gammeRows = await DB.query("SELECT id FROM gammes WHERE code_gamme = ?", [codeGamme]);
+        var gammeId = gammeRows[0].id;
+        for (var i = 0; i < machineState.sizes.length; i++) {
+          var s = machineState.sizes[i];
+          var ref = name.toUpperCase().replace(/\s+/g, '') + s + typeCode + '2B';
+          await DB.query(
+            "INSERT INTO modeles (gamme_id, reference, taille, prix_base_ht) VALUES (?, ?, ?, 0) ON CONFLICT(reference) DO NOTHING",
+            [gammeId, ref, s]
+          );
+        }
+
+        // 3. Documents
+        var docsOk = machineState.docs.filter(function(d) { return d.status === 'ok' && d.text; });
+        for (var i = 0; i < docsOk.length; i++) {
+          var doc = docsOk[i];
+          await DB.query(
+            "INSERT INTO documents_produit (gamme_code, type_doc, nom_fichier, contenu_texte, nb_pages) VALUES (?, ?, ?, ?, ?)",
+            [codeGamme, doc.type, doc.name, doc.text, doc.pages]
+          );
+        }
+
+        var docsMsg = docsOk.length > 0 ? ' + ' + docsOk.length + ' document' + (docsOk.length > 1 ? 's' : '') + ' analysé' + (docsOk.length > 1 ? 's' : '') : '';
+        document.getElementById('successDesc').textContent =
+          'La gamme ' + name + ' ' + typeCode + ' (' + machineState.sizes.length + ' tailles) a été ajoutée à Turso' + docsMsg + '. L\'IA est désormais experte sur ce produit.';
+        goStep(6);
+
+      } catch(e) {
+        alert('Erreur : ' + e.message);
+        console.error(e);
+        btn.textContent = 'Enregistrer dans Turso';
+        btn.disabled = false;
+      }
+    }
+
+    // ── Reset ──
+    function resetWizard() {
+      machineState = { name:'', type:'', mode:'', sizes:[], imageB64:'', imageName:'', r290:true, eurovent:true, docs:[] };
+      document.getElementById('machineName').value = '';
+      document.getElementById('typeAirEau').className = 'choice-card';
+      document.getElementById('typeEauEau').className = 'choice-card';
+      document.getElementById('modeReversible').className = 'choice-card';
+      document.getElementById('modeFroid').className = 'choice-card';
+      document.getElementById('sizeTags').innerHTML = '';
+      document.getElementById('sizeInput').value = '';
+      document.getElementById('imgPreview').style.display = 'none';
+      document.getElementById('uploadZone').classList.remove('has-file');
+      document.getElementById('uploadTitle').textContent = 'Cliquez ou glissez une image PNG';
+      document.getElementById('toggleR290').checked = true;
+      document.getElementById('toggleEurovent').checked = true;
+      document.getElementById('docList').innerHTML = '';
+      document.getElementById('btnNext0').disabled = true;
+      document.getElementById('btnNext1').disabled = true;
+      goStep(0);
+    }
+
+    DB.init();
+  </script>
+</body>
+</html>
