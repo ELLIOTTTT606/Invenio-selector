@@ -242,6 +242,7 @@ function downloadPDF() {
   if (btn) { btn.textContent = '⏳ Préparation...'; btn.disabled = true; }
 
   // Petit délai pour laisser le DOM se stabiliser
+  if (typeof ProjetSave !== 'undefined') { ProjetSave.save(); }
   setTimeout(function() {
     try {
       _printViaWindow(el);
