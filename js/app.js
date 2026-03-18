@@ -83,6 +83,12 @@ async function loadClientsExcel(f) {
     let start = 0;
     if (rows.length > 0 && typeof rows[0][0] === 'string' && rows[0][0].toLowerCase().includes('code')) start = 1;
     CLIENTS = [];
+    // Persister les clients dans Turso
+    if (typeof TursoSync !== "undefined" && TursoSync.isConnected()) {
+    DB.clients.bulkImport(CLIENTS).then(function(n) {
+    console.log("✅ " + n + " clients synchronisés avec Turso");
+  });
+}
     for (let i = start; i < rows.length; i++) {
       const r = rows[i];
       if (r && r[0] && r[1]) CLIENTS.push([String(r[0]).trim(), String(r[1]).trim()]);
