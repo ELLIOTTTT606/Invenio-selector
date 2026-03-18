@@ -128,8 +128,11 @@
 
     .proj-table{width:100%;border-collapse:collapse;font-size:13px}
     .proj-table th{text-align:left;padding:10px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#9ca3af;font-weight:500;border-bottom:2px solid #f3f4f6}
-    .proj-table td{padding:10px;border-bottom:1px solid #f9fafb;color:#1a1a2e}
-    .proj-table tr:hover td{background:#f9fafb}
+    .proj-table td{padding:10px;border-bottom:1px solid #f9fafb;color:#1a1a2e;transition:all .15s}
+    .proj-table tbody tr{cursor:pointer;transition:all .15s}
+    .proj-table tbody tr:hover td{background:#eef7f6;color:#0f2244}
+    .proj-table tbody tr:hover td:first-child{border-left:3px solid #0d9488;padding-left:7px}
+    .proj-table tbody tr:active td{background:#e0f2f1}
     .proj-table .mono{font-family:'DM Mono',monospace;font-size:12px}
     .badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;display:inline-block}
     .b-enc{background:#eff6ff;color:#1d4ed8}
@@ -167,11 +170,18 @@
   <!-- ═══ BODY ═══ -->
   <div class="body">
 
-    <!-- Search -->
+    <!-- Search clients -->
     <div class="search-bar">
       <div class="search-bar-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
       <input id="searchInput" type="text" placeholder="Rechercher un client..."/>
       <div class="sr" id="sr"></div>
+    </div>
+
+    <!-- Search projets -->
+    <div class="search-bar" style="margin-top:-8px;margin-bottom:24px">
+      <div class="search-bar-icon"><svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" fill="none" stroke="#9ca3af" stroke-width="1.5"/></svg></div>
+      <input id="searchProjet" type="text" placeholder="Rechercher un projet (nom ou numéro d'affaire)..."/>
+      <div class="sr" id="srProjet"></div>
     </div>
 
     <!-- DASHBOARD -->
@@ -253,9 +263,43 @@
         box.classList.add('open');
       },200);
     });
-    document.addEventListener('click',function(e){if(!e.target.closest('.search-bar'))document.getElementById('sr').classList.remove('open');});
+    document.addEventListener('click',function(e){
+      if(!e.target.closest('.search-bar')){document.getElementById('sr').classList.remove('open');document.getElementById('srProjet').classList.remove('open');}
+    });
 
-    function backToDash(){document.getElementById('clientView').style.display='none';document.getElementById('dashView').style.display='block';document.getElementById('searchInput').value='';}
+    // ═══ SEARCH PROJETS ═══
+    var searchProjTO=null;
+    document.getElementById('searchProjet').addEventListener('input',function(){
+      var q=this.value;clearTimeout(searchProjTO);
+      var box=document.getElementById('srProjet');
+      if(!q||q.length<2){box.classList.remove('open');return;}
+      searchProjTO=setTimeout(async function(){
+        var rows=await DB.query(
+          "SELECT p.id,p.reference,p.nom_projet,p.type_machine,p.taille,p.statut,p.montant_ht,p.date_creation,c.raison_sociale "+
+          "FROM projets p LEFT JOIN clients c ON p.client_id=c.id "+
+          "WHERE p.reference LIKE ? OR p.nom_projet LIKE ? OR c.raison_sociale LIKE ? "+
+          "ORDER BY p.date_creation DESC LIMIT 15",
+          ['%'+q+'%','%'+q+'%','%'+q+'%']
+        );
+        if(!rows.length){box.innerHTML='<div class="sr-item"><div class="sr-item-name" style="color:#9ca3af">Aucun projet trouvé</div></div>';}
+        else{
+          box.innerHTML=rows.map(function(r){
+            var sMap={en_cours:'En cours',gagne:'Gagné',perdu:'Perdu',abandonne:'Abandonné'};
+            var sCol={en_cours:'#3b82f6',gagne:'#059669',perdu:'#ef4444',abandonne:'#9ca3af'};
+            return'<div class="sr-item" style="cursor:pointer" onclick="window.location.href=\'selector.html?projet='+r.id+'\'">'+
+              '<div style="display:flex;justify-content:space-between;align-items:center">'+
+              '<div><div class="sr-item-name">'+r.nom_projet+'</div>'+
+              '<div class="sr-item-code">'+r.reference+' · '+(r.type_machine||'')+' '+(r.taille||'')+
+              (r.raison_sociale?' · '+r.raison_sociale:'')+'</div></div>'+
+              '<span style="font-size:11px;font-weight:500;color:'+(sCol[r.statut]||'#999')+'">'+(sMap[r.statut]||r.statut)+'</span>'+
+              '</div></div>';
+          }).join('');
+        }
+        box.classList.add('open');
+      },250);
+    });
+
+    function backToDash(){document.getElementById('clientView').style.display='none';document.getElementById('dashView').style.display='block';document.getElementById('searchInput').value='';document.getElementById('searchProjet').value='';}
 
     // ═══ LOAD ALL ═══
     async function loadAll(){
