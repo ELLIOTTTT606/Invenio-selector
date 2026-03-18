@@ -1,0 +1,267 @@
+/* ══════════════════════════════════════════════════════════════
+   selector-theme.css — Thème Galletti pour le sélecteur
+   ══════════════════════════════════════════════════════════════
+   Ajouter dans selector.html APRÈS main.css :
+   <link rel="stylesheet" href="css/selector-theme.css"/>
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Fond bleu Galletti (motif différent du hub) ── */
+body {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(26,58,110,.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(13,148,136,.08) 0%, transparent 40%),
+    linear-gradient(170deg, #0d1a30 0%, #132744 25%, #0f2244 50%, #091830 75%, #060e1e 100%) !important;
+  background-attachment: fixed !important;
+  min-height: 100vh;
+}
+
+/* ── Nav : fond plus sombre + bouton Home ── */
+nav {
+  background: rgba(8,16,32,.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.06) !important;
+  box-shadow: none !important;
+}
+
+.nav-home-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.12);
+  transition: all .2s;
+  margin-left: auto;
+}
+.nav-home-btn:hover {
+  color: #fff;
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.25);
+}
+.nav-home-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+/* ── Titre de la page d'import ── */
+.import-title h1 {
+  color: #fff !important;
+}
+.import-title h1 b {
+  color: #14b8a6 !important;
+}
+.import-title p {
+  color: rgba(255,255,255,.4) !important;
+}
+
+/* ── Section titles ── */
+.sec-title {
+  color: rgba(255,255,255,.75) !important;
+}
+.section-num {
+  background: #0d9488 !important;
+}
+
+/* ── Cards : fond blanc/gris clair ── */
+.card {
+  background: rgba(240,243,248,.93) !important;
+  border: 1px solid rgba(255,255,255,.5) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+/* ── Upload boxes ── */
+.upload-box {
+  background: rgba(255,255,255,.7) !important;
+  border-color: #d1d5db !important;
+}
+.upload-box:hover {
+  border-color: #0d9488 !important;
+  background: rgba(240,253,250,.8) !important;
+}
+.upload-box.has-file {
+  border-color: #0d9488 !important;
+  background: rgba(240,253,250,.85) !important;
+}
+.upload-box h4 {
+  color: #0f2244 !important;
+}
+.upload-box p {
+  color: #6b7280 !important;
+}
+
+/* ── Choice cards (GEG / PAC) ── */
+.choice-card {
+  background: #fff !important;
+  border: 2px solid #e5e7eb !important;
+}
+.choice-card:hover {
+  border-color: #93c5fd !important;
+}
+.choice-card.sel {
+  border-color: #0d9488 !important;
+  background: #f0fdfa !important;
+}
+.choice-card h3 {
+  color: #0f2244 !important;
+}
+.choice-card p {
+  color: #6b7280 !important;
+}
+
+/* ── Selects / Inputs dans les cards ── */
+.sel-wrap select,
+.client-search,
+input[type="text"] {
+  background: #fff !important;
+  border-color: #d1d5db !important;
+  color: #0f2244 !important;
+}
+.sel-wrap label {
+  color: #0d9488 !important;
+}
+
+/* ── Client selected ── */
+.client-selected {
+  background: rgba(240,253,250,.9) !important;
+  color: #0f2244 !important;
+}
+
+/* ── Options (step 1) ── */
+.cat-title {
+  color: rgba(255,255,255,.7) !important;
+}
+.opt-item {
+  background: rgba(255,255,255,.88) !important;
+  border: 1px solid #e5e7eb !important;
+}
+.opt-item.checked {
+  border-color: #0d9488 !important;
+  background: rgba(240,253,250,.92) !important;
+}
+.opt-item .opt-row span {
+  color: #0f2244;
+}
+.opt-prix {
+  color: #0d9488 !important;
+}
+.opt-desc {
+  background: #f9fafb !important;
+  color: #4b5563 !important;
+}
+
+/* ── Acoustic cards ── */
+.acoustic-card {
+  background: #fff !important;
+  border-color: #e5e7eb !important;
+}
+.acoustic-card.selected {
+  border-color: #0d9488 !important;
+  background: #f0fdfa !important;
+}
+.acoustic-card h4 {
+  color: #0f2244 !important;
+}
+
+/* ── Config screen titles ── */
+#cfgTitle, .card-title {
+  color: #0f2244 !important;
+}
+#cfgSub {
+  color: #6b7280 !important;
+}
+
+/* ── Step summary / total ── */
+#optTotal {
+  color: rgba(255,255,255,.6) !important;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  background: #0d9488 !important;
+  border-color: #0d9488 !important;
+}
+.btn-primary:hover {
+  background: #0f766e !important;
+}
+
+/* ── Messages ── */
+.msg {
+  backdrop-filter: blur(8px);
+}
+
+/* ── Preview screen ── */
+.preview-actions .btn {
+  color: #fff;
+}
+.preview-actions span {
+  color: rgba(255,255,255,.6) !important;
+}
+
+/* ── Admin screen ── */
+.admin-screen {
+  color: rgba(255,255,255,.8);
+}
+.admin-intro {
+  color: rgba(255,255,255,.5) !important;
+}
+.admin-tbl th {
+  background: rgba(255,255,255,.08) !important;
+  color: rgba(255,255,255,.4) !important;
+}
+.admin-tbl td {
+  color: rgba(255,255,255,.7) !important;
+  border-color: rgba(255,255,255,.06) !important;
+}
+.admin-tbl tr:nth-child(even) {
+  background: rgba(255,255,255,.03) !important;
+}
+.admin-region {
+  color: #14b8a6 !important;
+}
+.admin-import {
+  border-color: #0d9488 !important;
+  background: rgba(13,148,136,.05) !important;
+}
+.admin-import:hover {
+  background: rgba(13,148,136,.12) !important;
+}
+.admin-format {
+  background: rgba(255,255,255,.06) !important;
+  color: rgba(255,255,255,.5) !important;
+}
+.admin-format b {
+  color: rgba(255,255,255,.8) !important;
+}
+
+/* ── AI Chat ── */
+.ai-btn {
+  background: #0d9488 !important;
+  box-shadow: 0 4px 16px rgba(13,148,136,.35) !important;
+}
+.ai-btn:hover {
+  background: #0f766e !important;
+}
+
+/* ── Modal update reminder ── */
+.modal-overlay {
+  background: rgba(8,16,32,.7) !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .nav-home-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
