@@ -507,7 +507,16 @@ function dismissReminder() {
 // ══════════════════════════════════════════════
 updateClientCount();
 checkMonthlyReminder();
-
+// Initialisation Turso au démarrage
+if (typeof TursoSync !== "undefined") {
+  TursoSync.init().then(function(ok) {
+    if (ok) {
+      updateClientCount();
+      console.log("🟢 App synchronisée avec Turso");
+    }
+  });
+}
+ 
 
 // ══════════════════════════════════════════════
 // EXCEL PRICE IMPORT
@@ -555,6 +564,12 @@ async function loadPricesExcel(f) {
     });
     
     showMsg("success", "✅ " + updated + " prix mis à jour pour cette session. Rechargez la page pour revenir aux prix par défaut.");
+    // Persister les prix dans Turso
+    if (typeof TursoSync !== "undefined" && TursoSync.isConnected()) {
+    TursoSync.savePrices().then(function() {
+    showMsg("success", "✅ Prix mis à jour et sauvegardés dans Turso pour tous les utilisateurs.");
+  });
+}
     // Rebuild options display if currently on config step
     if (state.step === 1 && state.parsedData) buildOptions();
     if (state.step === 3) buildAdmin();
