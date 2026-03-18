@@ -432,7 +432,7 @@
         proj.forEach(function(p){
           var bc=p.statut==='gagne'?'b-gag':p.statut==='perdu'?'b-per':p.statut==='abandonne'?'b-aba':'b-enc';
           var bl=p.statut==='gagne'?'Gagné':p.statut==='perdu'?'Perdu':p.statut==='abandonne'?'Abandonné':'En cours';
-          ph+='<tr><td class="mono">'+(p.reference||'—')+'</td><td>'+(p.nom_projet||'—')+'</td><td class="mono">'+(p.type_machine||'')+' '+(p.taille||'')+'</td><td class="mono">'+(p.montant_ht?formatCA(p.montant_ht):'—')+'</td><td><span class="badge '+bc+'">'+bl+'</span></td><td class="mono">'+(p.date_creation||'—')+'</td></tr>';
+          ph+='<tr style="cursor:pointer" title="Cliquer pour ouvrir cette fiche" onclick="window.location.href=\'selector.html?projet='+p.id+'\'"><td class="mono">'+(p.reference||'—')+'</td><td>'+(p.nom_projet||'—')+'</td><td class="mono">'+(p.type_machine||'')+' '+(p.taille||'')+'</td><td class="mono">'+(p.montant_ht?formatCA(p.montant_ht):'—')+'</td><td><span class="badge '+bc+'">'+bl+'</span></td><td class="mono">'+(p.date_creation||'—')+'</td></tr>';
         });
         ph+='</tbody></table>';
       }else{ph+='<div style="padding:24px;text-align:center;color:#9ca3af">Aucun projet</div>';}
