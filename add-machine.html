@@ -142,8 +142,15 @@
   <div class="bg-glow bg-glow--2"></div>
 
   <div class="topbar">
-    <div class="topbar-brand"><h1>INVENIO</h1><span>GALLETTI</span></div>
-    <a class="topbar-back" href="hub.html"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>Retour au hub</a>
+    <a href="hub.html" class="topbar-brand" style="text-decoration:none">
+      <h1>INVENIO</h1><span>GALLETTI</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="hub.html" style="display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1);transition:all .2s" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.color='rgba(255,255,255,.6)';this.style.background='none'">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
+        Accueil
+      </a>
+    </div>
   </div>
 
   <div class="wizard">
