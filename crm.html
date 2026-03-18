@@ -3,406 +3,445 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CRM Client — INVENIO × GALLETTI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <title>CRM — INVENIO × GALLETTI</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root{--teal:#0d9488;--teal-l:#14b8a6;--navy:#0f2244;--navy-l:#1a3a6e;
-      --card-bg:rgba(235,240,250,.92);--card-border:rgba(255,255,255,.6);--radius:16px;--radius-sm:10px}
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Outfit',system-ui,sans-serif;min-height:100vh;overflow-x:hidden;color:#fff;
-      background:radial-gradient(ellipse at 50% 0%,#1a3a6e 0%,#0f2244 35%,#091428 70%,#050d1a 100%);background-attachment:fixed}
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;
-      background:rgba(5,13,26,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
-    .topbar-brand{display:flex;align-items:baseline;gap:10px}
-    .topbar-brand h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:2px}
-    .topbar-brand span{font-size:11px;font-weight:300;color:var(--teal-l);letter-spacing:3px}
-    .topbar-back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;transition:color .2s}
-    .topbar-back:hover{color:#fff}
-    .topbar-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
-    .bg-glow{position:fixed;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(80px)}
-    .bg-glow--1{width:600px;height:600px;top:-200px;left:-100px;background:rgba(26,58,110,.5)}
-    .bg-glow--2{width:400px;height:400px;bottom:-100px;right:-50px;background:rgba(13,148,136,.12)}
-    .crm{max-width:960px;margin:0 auto;padding:40px 24px 80px}
-    .crm-title{font-size:28px;font-weight:700;text-align:center;margin-bottom:8px}
-    .crm-sub{font-size:14px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:32px}
+    body{font-family:'Outfit',system-ui,sans-serif;background:#f4f5f7;color:#1a1a2e;min-height:100vh}
 
-    .search-wrap{position:relative;max-width:500px;margin:0 auto 32px}
-    .search-input{width:100%;padding:14px 18px 14px 44px;border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);
-      font-family:'Outfit',sans-serif;font-size:15px;background:rgba(255,255,255,.08);color:#fff;outline:none;transition:all .2s}
-    .search-input::placeholder{color:rgba(255,255,255,.3)}
-    .search-input:focus{border-color:var(--teal-l);background:rgba(255,255,255,.12)}
-    .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:rgba(255,255,255,.35);fill:none;stroke-width:1.5}
-    .search-results{position:absolute;top:100%;left:0;right:0;background:rgba(235,240,250,.97);border:1px solid rgba(255,255,255,.6);
-      border-radius:0 0 var(--radius) var(--radius);max-height:300px;overflow-y:auto;display:none;z-index:50}
-    .search-results.open{display:block}
-    .search-item{padding:12px 18px;cursor:pointer;transition:background .15s;border-bottom:1px solid #e5e7eb}
-    .search-item:hover{background:rgba(13,148,136,.08)}
-    .search-item:last-child{border-bottom:none}
-    .search-item-name{font-size:14px;font-weight:500;color:var(--navy)}
-    .search-item-code{font-size:12px;color:var(--navy-l);opacity:.6;font-family:'DM Mono',monospace}
+    /* ═══ HEADER ═══ */
+    .header{background:linear-gradient(135deg,#0f2244 0%,#1a3a6e 100%);padding:0}
+    .header-top{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .header-brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+    .header-brand:hover{opacity:.8}
+    .header-brand h1{font-size:16px;font-weight:600;color:#fff;letter-spacing:2px}
+    .header-brand span{font-size:11px;color:#14b8a6;letter-spacing:3px;font-weight:300}
+    .header-home{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1);transition:all .2s}
+    .header-home:hover{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+    .header-home svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
 
-    .card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;margin-bottom:16px}
-    .card-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-    .card-title-bar{width:3px;height:16px;border-radius:2px;background:var(--teal)}
+    .header-content{padding:28px 32px 32px}
+    .header-title{font-size:26px;font-weight:700;color:#fff;margin-bottom:6px}
+    .header-sub{font-size:14px;color:rgba(255,255,255,.45)}
 
-    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-    .kpi{background:#f8fafc;border-radius:var(--radius-sm);padding:16px;text-align:center}
-    .kpi-val{font-family:'DM Mono',monospace;font-size:24px;font-weight:600;color:var(--navy)}
-    .kpi-label{font-size:11px;color:var(--navy-l);opacity:.5;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
-    .kpi-val.green{color:#059669}.kpi-val.amber{color:#d97706}.kpi-val.red{color:#dc2626}
+    /* KPI strip */
+    .kpi-strip{display:flex;gap:2px;margin-top:24px}
+    .kpi-card{flex:1;background:rgba(255,255,255,.07);backdrop-filter:blur(8px);padding:18px 16px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,.06)}
+    .kpi-card:first-child{border-radius:10px 4px 4px 10px}
+    .kpi-card:last-child{border-radius:4px 10px 10px 4px}
+    .kpi-number{font-family:'DM Mono',monospace;font-size:28px;font-weight:600;color:#fff}
+    .kpi-number.teal{color:#14b8a6}
+    .kpi-number.green{color:#34d399}
+    .kpi-number.amber{color:#fbbf24}
+    .kpi-number.red{color:#f87171}
+    .kpi-desc{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;text-transform:uppercase;letter-spacing:.8px}
 
-    .score-section{display:flex;align-items:center;gap:20px;padding:16px 0;border-top:1px solid #e5e7eb;margin-top:8px}
-    .score-ring{position:relative;width:80px;height:80px;flex-shrink:0}
-    .score-ring svg{width:80px;height:80px;transform:rotate(-90deg)}
-    .score-ring-bg{fill:none;stroke:#e5e7eb;stroke-width:6}
-    .score-ring-fill{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s ease}
-    .score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:20px;font-weight:600;color:var(--navy)}
-    .score-info h4{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px}
-    .score-info p{font-size:12px;color:var(--navy-l);opacity:.6;line-height:1.5}
+    /* ═══ BODY ═══ */
+    .body{max-width:1100px;margin:-20px auto 0;padding:0 24px 60px;position:relative;z-index:2}
 
-    .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-    .chart-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px}
+    /* Search */
+    .search-bar{background:#fff;border-radius:12px;padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:24px;display:flex;align-items:center;position:relative}
+    .search-bar input{flex:1;border:none;outline:none;padding:12px 16px;font-family:'Outfit',sans-serif;font-size:14px;background:transparent;color:#1a1a2e}
+    .search-bar input::placeholder{color:#9ca3af}
+    .search-bar-icon{padding:0 12px;display:flex}
+    .search-bar-icon svg{width:18px;height:18px;stroke:#9ca3af;fill:none;stroke-width:1.5}
+    .sr{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:0 0 12px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);max-height:280px;overflow-y:auto;display:none;z-index:60}
+    .sr.open{display:block}
+    .sr-item{padding:12px 20px;cursor:pointer;border-bottom:1px solid #f3f4f6;transition:background .1s}
+    .sr-item:hover{background:#f9fafb}
+    .sr-item-name{font-size:14px;font-weight:500;color:#1a1a2e}
+    .sr-item-code{font-size:12px;color:#9ca3af;font-family:'DM Mono',monospace}
+
+    /* Grid */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+    .full{grid-column:1/-1}
+    @media(max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+    /* Panel */
+    .panel{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .panel-title{font-size:14px;font-weight:600;color:#1a1a2e;display:flex;align-items:center;gap:8px}
+    .panel-title-dot{width:8px;height:8px;border-radius:50%}
+    .panel-sub{font-size:11px;color:#9ca3af}
     .chart-wrap{position:relative;height:260px}
 
-    .detail-panel{background:#f8fafc;border-radius:var(--radius-sm);padding:20px;margin-top:16px;display:none}
-    .detail-panel.open{display:block}
-    .detail-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px}
-    .detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-bottom:16px}
-    .detail-chip{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:10px;text-align:center;cursor:pointer;transition:all .15s}
-    .detail-chip:hover{border-color:var(--teal)}
-    .detail-chip.sel{border-color:var(--teal);background:#f0fdfa}
-    .detail-chip-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:600;color:var(--navy)}
-    .detail-chip-label{font-size:10px;color:var(--navy-l);opacity:.5;margin-top:2px}
+    /* Pipeline funnel */
+    .funnel{display:flex;flex-direction:column;gap:6px}
+    .funnel-step{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:8px;transition:background .15s}
+    .funnel-bar{height:32px;border-radius:6px;display:flex;align-items:center;padding:0 12px;min-width:40px;transition:width .6s ease}
+    .funnel-label{font-size:13px;font-weight:500;color:#1a1a2e;min-width:90px}
+    .funnel-val{font-family:'DM Mono',monospace;font-size:13px;color:#fff;font-weight:500}
+    .funnel-pct{font-family:'DM Mono',monospace;font-size:12px;color:#9ca3af;min-width:44px;text-align:right}
 
-    .opts-list{margin-top:12px}
-    .opt-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #f3f4f6;font-size:13px}
-    .opt-row:last-child{border-bottom:none}
-    .opt-name{color:var(--navy);font-weight:500}
-    .opt-cat{font-size:11px;color:var(--navy-l);opacity:.5}
-    .opt-count{font-family:'DM Mono',monospace;font-size:13px;color:var(--teal);font-weight:500}
+    /* Top clients */
+    .top-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f3f4f6}
+    .top-item:last-child{border-bottom:none}
+    .top-rank{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+    .top-rank-1{background:#fef3c7;color:#92400e}
+    .top-rank-2{background:#e5e7eb;color:#4b5563}
+    .top-rank-3{background:#fed7aa;color:#9a3412}
+    .top-rank-n{background:#f3f4f6;color:#9ca3af}
+    .top-name{flex:1;font-size:13px;font-weight:500;color:#1a1a2e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+    .top-name:hover{color:#0d9488}
+    .top-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#1a1a2e}
+    .top-bar-wrap{width:80px;height:6px;background:#f3f4f6;border-radius:3px;overflow:hidden;flex-shrink:0}
+    .top-bar-fill{height:100%;border-radius:3px;transition:width .4s ease}
 
-    .projets-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .projets-title{font-size:15px;font-weight:600;color:var(--navy)}
-    .projets-count{font-size:12px;color:var(--navy-l);opacity:.5}
-    .projets-table{width:100%;border-collapse:collapse;font-size:13px}
-    .projets-table th{text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--navy-l);opacity:.5;font-weight:500;border-bottom:1px solid #e5e7eb}
-    .projets-table td{padding:10px;border-bottom:1px solid #f3f4f6;color:var(--navy)}
-    .projets-table tr:hover td{background:#f8fafc}
-    .projets-table .mono{font-family:'DM Mono',monospace;font-size:12px}
-    .status{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px}
-    .status-en_cours{background:#eff6ff;color:#1e40af}
-    .status-gagne{background:#ecfdf5;color:#065f46}
-    .status-perdu{background:#fef2f2;color:#991b1b}
-    .status-abandonne{background:#f3f4f6;color:#6b7280}
+    /* Gamme detail drill */
+    .gamme-tabs{display:flex;gap:6px;margin-bottom:16px}
+    .gamme-tab{padding:8px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid #e5e7eb;background:#fff;color:#6b7280}
+    .gamme-tab:hover{border-color:#0d9488;color:#0d9488}
+    .gamme-tab.active{background:#0d9488;color:#fff;border-color:#0d9488}
+    .taille-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+    .taille-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .15s}
+    .taille-card:hover{border-color:#0d9488}
+    .taille-card.active{border-color:#0d9488;background:#f0fdfa}
+    .taille-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:600;color:#1a1a2e}
+    .taille-sub{font-size:11px;color:#9ca3af;margin-top:2px}
+    .opts-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+    .opts-table th{text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#9ca3af;font-weight:500;border-bottom:2px solid #f3f4f6}
+    .opts-table td{padding:10px;border-bottom:1px solid #f9fafb}
+    .opts-table tr:hover td{background:#f9fafb}
+    .opts-count{font-family:'DM Mono',monospace;background:#f0fdfa;color:#0d9488;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:500}
 
-    .top-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f3f4f6;cursor:pointer}
-    .top-row:hover{background:#f8fafc;border-radius:6px}
-    .top-row:last-child{border-bottom:none}
-    .top-rank{font-family:'DM Mono',monospace;font-size:12px;color:var(--navy-l);opacity:.4;width:20px}
-    .top-name{flex:1;font-size:13px;color:var(--navy);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .top-val{font-family:'DM Mono',monospace;font-size:13px;color:var(--teal);font-weight:500}
+    /* Client view */
+    .client-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#9ca3af;cursor:pointer;margin-bottom:16px;transition:color .15s}
+    .client-back:hover{color:#1a1a2e}
+    .client-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+    .client-head{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .client-avatar{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#0f2244,#1a3a6e);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
+    .client-info h3{font-size:20px;font-weight:600;color:#1a1a2e}
+    .client-info p{font-size:13px;color:#9ca3af;font-family:'DM Mono',monospace}
+    .client-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+    .ckpi{background:#f9fafb;border-radius:8px;padding:14px;text-align:center}
+    .ckpi-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:600;color:#1a1a2e}
+    .ckpi-label{font-size:10px;color:#9ca3af;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+    .score-wrap{display:flex;align-items:center;gap:20px;padding:16px;background:#f9fafb;border-radius:10px;margin-bottom:20px}
+    .score-ring{position:relative;width:72px;height:72px;flex-shrink:0}
+    .score-ring svg{width:72px;height:72px;transform:rotate(-90deg)}
+    .score-bg{fill:none;stroke:#e5e7eb;stroke-width:5}
+    .score-fill{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .8s}
+    .score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:18px;font-weight:600}
+    .score-text h4{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+    .score-text p{font-size:12px;color:#9ca3af;line-height:1.5}
 
-    .empty{text-align:center;padding:48px 20px}
-    .empty-icon{font-size:40px;margin-bottom:12px;opacity:.4}
-    .empty-text{font-size:14px;color:var(--navy-l);opacity:.5}
+    .proj-table{width:100%;border-collapse:collapse;font-size:13px}
+    .proj-table th{text-align:left;padding:10px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#9ca3af;font-weight:500;border-bottom:2px solid #f3f4f6}
+    .proj-table td{padding:10px;border-bottom:1px solid #f9fafb;color:#1a1a2e}
+    .proj-table tr:hover td{background:#f9fafb}
+    .proj-table .mono{font-family:'DM Mono',monospace;font-size:12px}
+    .badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;display:inline-block}
+    .b-enc{background:#eff6ff;color:#1d4ed8}
+    .b-gag{background:#ecfdf5;color:#065f46}
+    .b-per{background:#fef2f2;color:#991b1b}
+    .b-aba{background:#f3f4f6;color:#6b7280}
 
-    #clientView{display:none}#dashView{display:block}
-    @media(max-width:700px){.kpi-grid{grid-template-columns:1fr 1fr}.chart-row{grid-template-columns:1fr}.score-section{flex-direction:column;text-align:center}}
+    #clientView{display:none}
   </style>
 </head>
 <body>
-  <div class="bg-glow bg-glow--1"></div>
-  <div class="bg-glow bg-glow--2"></div>
-  <div class="topbar">
-    <div class="topbar-brand"><h1>INVENIO</h1><span>GALLETTI</span></div>
-    <a class="topbar-back" href="hub.html"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>Retour au hub</a>
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-top">
+      <a class="header-brand" href="hub.html"><h1>INVENIO</h1><span>GALLETTI</span></a>
+      <a class="header-home" href="hub.html">
+        <svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
+        Accueil
+      </a>
+    </div>
+    <div class="header-content">
+      <div class="header-title">Tableau de bord commercial</div>
+      <div class="header-sub" id="headerSub">Chargement des données...</div>
+      <div class="kpi-strip" id="kpiStrip">
+        <div class="kpi-card"><div class="kpi-number" id="kTotal">—</div><div class="kpi-desc">Projets</div></div>
+        <div class="kpi-card"><div class="kpi-number green" id="kGagne">—</div><div class="kpi-desc">Gagnés</div></div>
+        <div class="kpi-card"><div class="kpi-number red" id="kPerdu">—</div><div class="kpi-desc">Perdus</div></div>
+        <div class="kpi-card"><div class="kpi-number amber" id="kConv">—</div><div class="kpi-desc">Conversion</div></div>
+        <div class="kpi-card"><div class="kpi-number teal" id="kCA">—</div><div class="kpi-desc">CA gagné</div></div>
+      </div>
+    </div>
   </div>
-  <div class="crm">
-    <div class="crm-title">CRM Client</div>
-    <div class="crm-sub">Recherchez un client ou explorez les statistiques globales</div>
-    <div class="search-wrap">
-      <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input class="search-input" id="searchInput" type="text" placeholder="Rechercher un client..." oninput="onSearch(this.value)"/>
-      <div class="search-results" id="searchResults"></div>
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- Search -->
+    <div class="search-bar">
+      <div class="search-bar-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <input id="searchInput" type="text" placeholder="Rechercher un client..."/>
+      <div class="sr" id="sr"></div>
     </div>
 
-    <!-- ═══ DASHBOARD GLOBAL ═══ -->
+    <!-- DASHBOARD -->
     <div id="dashView">
-      <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-val" id="dkClients">—</div><div class="kpi-label">Clients</div></div>
-        <div class="kpi"><div class="kpi-val" id="dkProjets">—</div><div class="kpi-label">Projets</div></div>
-        <div class="kpi"><div class="kpi-val green" id="dkGagnes">—</div><div class="kpi-label">Gagnés</div></div>
-        <div class="kpi"><div class="kpi-val amber" id="dkConversion">—</div><div class="kpi-label">Taux conversion</div></div>
-      </div>
 
-      <!-- Charts -->
-      <div class="chart-row">
-        <div class="chart-card">
-          <div class="card-title"><div class="card-title-bar"></div>Chiffrages par gamme</div>
-          <div class="chart-wrap"><canvas id="chartGamme"></canvas></div>
+      <!-- Row 1: CA mensuel + Pipeline -->
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#0d9488"></span>Évolution du CA mensuel</span></div>
+          <div class="chart-wrap"><canvas id="chartCA"></canvas></div>
         </div>
-        <div class="chart-card">
-          <div class="card-title"><div class="card-title-bar"></div>Statut des affaires</div>
-          <div class="chart-wrap"><canvas id="chartStatut"></canvas></div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#3b82f6"></span>Pipeline commercial</span></div>
+          <div class="funnel" id="funnel"></div>
         </div>
       </div>
 
-      <!-- Detail panel gamme → taille → options -->
-      <div class="card">
-        <div class="card-title"><div class="card-title-bar"></div>Détail par gamme</div>
-        <div id="gammeSelector"></div>
-        <div class="detail-panel" id="detailPanel">
-          <div class="detail-title" id="detailTitle">Tailles chiffrées</div>
-          <div class="detail-grid" id="detailTailles"></div>
-          <div id="detailOptions"></div>
+      <!-- Row 2: PAC vs GEG + Conversion par taille -->
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#f59e0b"></span>Répartition PAC / GEG</span></div>
+          <div class="chart-wrap"><canvas id="chartType"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#8b5cf6"></span>Conversion par taille</span></div>
+          <div class="chart-wrap"><canvas id="chartTaille"></canvas></div>
         </div>
       </div>
 
-      <!-- Top clients -->
-      <div class="chart-row">
-        <div class="chart-card">
-          <div class="card-title"><div class="card-title-bar"></div>Top clients par CA</div>
+      <!-- Row 3: Top clients -->
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#059669"></span>Top 10 clients — CA gagné</span></div>
           <div id="topCA"></div>
         </div>
-        <div class="chart-card">
-          <div class="card-title"><div class="card-title-bar"></div>Top clients par volume</div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#6366f1"></span>Top 10 clients — Volume</span></div>
           <div id="topVol"></div>
         </div>
       </div>
+
+      <!-- Row 4: Détail gamme -->
+      <div class="panel" style="margin-bottom:16px">
+        <div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#0d9488"></span>Détail par gamme et taille</span>
+          <span class="panel-sub">Cliquez sur une gamme puis une taille</span></div>
+        <div class="gamme-tabs" id="gammeTabs"></div>
+        <div class="taille-grid" id="tailleGrid"></div>
+        <div id="optsDetail"></div>
+      </div>
+
     </div>
 
-    <!-- ═══ CLIENT VIEW ═══ -->
+    <!-- CLIENT VIEW -->
     <div id="clientView">
-      <div class="card" id="clientCard"></div>
-      <div class="card" id="kpiCard"></div>
-      <div class="card" id="projetsCard"></div>
+      <div class="client-back" onclick="backToDash()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>Retour au tableau de bord</div>
+      <div class="panel" style="margin-bottom:16px" id="cvHead"></div>
+      <div class="panel" style="margin-bottom:16px" id="cvKpis"></div>
+      <div class="panel" id="cvProjets"></div>
     </div>
+
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="js/db.js"></script>
   <script>
-    var searchTimeout=null,currentClientId=null,chartGammeInst=null,chartStatutInst=null;
+    var charts={},searchTO=null;
 
-    DB.init().then(function(ok){ if(ok) loadDashboard(); });
+    DB.init().then(function(ok){if(ok)loadAll();});
 
-    // ── Search ──
-    function onSearch(q){
-      clearTimeout(searchTimeout);
-      var box=document.getElementById('searchResults');
-      if(!q||q.length<2){box.classList.remove('open');
-        if(!q){document.getElementById('clientView').style.display='none';document.getElementById('dashView').style.display='block';currentClientId=null;}
-        return;}
-      searchTimeout=setTimeout(async function(){
+    // ═══ SEARCH ═══
+    document.getElementById('searchInput').addEventListener('input',function(){
+      var q=this.value;clearTimeout(searchTO);
+      var box=document.getElementById('sr');
+      if(!q||q.length<2){box.classList.remove('open');if(!q)backToDash();return;}
+      searchTO=setTimeout(async function(){
         var rows=await DB.clients.search(q);
-        if(rows.length===0){box.innerHTML='<div style="padding:14px;font-size:13px;color:#999;text-align:center">Aucun résultat</div>';}
-        else{box.innerHTML=rows.slice(0,20).map(function(r){return'<div class="search-item" onclick="selectClient('+r.id+')"><div class="search-item-name">'+r.raison_sociale+'</div><div class="search-item-code">'+r.code_client+'</div></div>';}).join('');}
+        if(!rows.length){box.innerHTML='<div class="sr-item"><div class="sr-item-name" style="color:#9ca3af">Aucun résultat</div></div>';}
+        else{box.innerHTML=rows.slice(0,15).map(function(r){return'<div class="sr-item" onclick="openClient('+r.id+')"><div class="sr-item-name">'+r.raison_sociale+'</div><div class="sr-item-code">'+r.code_client+'</div></div>';}).join('');}
         box.classList.add('open');
-      },250);
+      },200);
+    });
+    document.addEventListener('click',function(e){if(!e.target.closest('.search-bar'))document.getElementById('sr').classList.remove('open');});
+
+    function backToDash(){document.getElementById('clientView').style.display='none';document.getElementById('dashView').style.display='block';document.getElementById('searchInput').value='';}
+
+    // ═══ LOAD ALL ═══
+    async function loadAll(){
+      var d=await DB.stats.getDashboard();
+      if(!d||!d.total_projets){document.getElementById('headerSub').textContent='Aucun projet en base';return;}
+
+      var conv=d.total_projets>0?Math.round(100*(d.gagnes||0)/d.total_projets):0;
+      document.getElementById('kTotal').textContent=d.total_projets;
+      document.getElementById('kGagne').textContent=d.gagnes||0;
+      document.getElementById('kPerdu').textContent=d.perdus||0;
+      document.getElementById('kConv').textContent=conv+'%';
+      document.getElementById('kCA').textContent=shortCA(d.ca_gagne);
+      document.getElementById('headerSub').textContent=(d.total_clients||0).toLocaleString('fr-FR')+' clients · Données actualisées en temps réel depuis Turso';
+
+      await Promise.all([loadChartCA(),loadPipeline(),loadChartType(),loadChartTaille(),loadTopClients(),loadGammeTabs()]);
     }
-    document.addEventListener('click',function(e){if(!e.target.closest('.search-wrap'))document.getElementById('searchResults').classList.remove('open');});
 
-    // ══════════════════════════════════════════
-    // DASHBOARD GLOBAL
-    // ══════════════════════════════════════════
-    async function loadDashboard(){
-      var dash=await DB.stats.getDashboard();
-      if(dash){
-        document.getElementById('dkClients').textContent=(dash.total_clients||0).toLocaleString('fr-FR');
-        document.getElementById('dkProjets').textContent=dash.total_projets||0;
-        document.getElementById('dkGagnes').textContent=dash.gagnes||0;
-        var conv=dash.total_projets>0?Math.round(100*(dash.gagnes||0)/dash.total_projets):0;
-        document.getElementById('dkConversion').textContent=conv+'%';
-      }
+    // ═══ CA MENSUEL ═══
+    async function loadChartCA(){
+      var rows=await DB.query("SELECT strftime('%Y-%m',date_creation) AS mois, SUM(CASE WHEN statut='gagne' THEN montant_ht ELSE 0 END) AS ca FROM projets GROUP BY mois ORDER BY mois");
+      if(!rows.length)return;
+      var labels=rows.map(function(r){var p=r.mois.split('-');var m=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];return m[parseInt(p[1])-1]+' '+p[0].slice(2);});
+      var vals=rows.map(function(r){return r.ca||0;});
+      if(charts.ca)charts.ca.destroy();
+      charts.ca=new Chart(document.getElementById('chartCA'),{
+        type:'line',
+        data:{labels:labels,datasets:[{data:vals,borderColor:'#0d9488',backgroundColor:'rgba(13,148,136,.08)',fill:true,tension:.4,borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#0d9488',pointBorderColor:'#fff',pointBorderWidth:2}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return formatCA(c.raw)}}}},
+          scales:{y:{beginAtZero:true,ticks:{callback:function(v){return shortCA(v)},color:'#9ca3af',font:{family:'DM Mono',size:11}},grid:{color:'#f3f4f6'}},x:{ticks:{color:'#9ca3af',font:{family:'Outfit',size:11}},grid:{display:false}}}}
+      });
+    }
 
-      // Chart: par gamme (HS vs CS)
-      var gammeData=await DB.query("SELECT type_machine, COUNT(*) AS n FROM projets WHERE type_machine!='' GROUP BY type_machine ORDER BY type_machine");
-      var gammeLabels=gammeData.map(function(r){return r.type_machine==='HS'?'PAC (HS)':'GEG (CS)';});
-      var gammeVals=gammeData.map(function(r){return r.n;});
-      var gammeColors=['#0d9488','#3b82f6','#f59e0b','#8b5cf6'];
+    // ═══ PIPELINE ═══
+    async function loadPipeline(){
+      var rows=await DB.query("SELECT statut,COUNT(*) AS n,SUM(montant_ht) AS ca FROM projets GROUP BY statut");
+      var map={};rows.forEach(function(r){map[r.statut]={n:r.n,ca:r.ca||0};});
+      var total=(map.en_cours?map.en_cours.n:0)+(map.gagne?map.gagne.n:0)+(map.perdu?map.perdu.n:0)+(map.abandonne?map.abandonne.n:0);
+      var steps=[
+        {key:'en_cours',label:'En cours',color:'#3b82f6',n:map.en_cours?map.en_cours.n:0,ca:map.en_cours?map.en_cours.ca:0},
+        {key:'gagne',label:'Gagné',color:'#059669',n:map.gagne?map.gagne.n:0,ca:map.gagne?map.gagne.ca:0},
+        {key:'perdu',label:'Perdu',color:'#ef4444',n:map.perdu?map.perdu.n:0,ca:map.perdu?map.perdu.ca:0},
+        {key:'abandonne',label:'Abandonné',color:'#9ca3af',n:map.abandonne?map.abandonne.n:0,ca:map.abandonne?map.abandonne.ca:0}
+      ];
+      var maxN=Math.max.apply(null,steps.map(function(s){return s.n;}))||1;
+      var h='';
+      steps.forEach(function(s){
+        var pct=total>0?Math.round(100*s.n/total):0;
+        var w=Math.max(Math.round(100*s.n/maxN),8);
+        h+='<div class="funnel-step"><span class="funnel-label">'+s.label+'</span>';
+        h+='<div class="funnel-bar" style="background:'+s.color+';width:'+w+'%"><span class="funnel-val">'+s.n+'</span></div>';
+        h+='<span class="funnel-pct">'+pct+'%</span></div>';
+      });
+      document.getElementById('funnel').innerHTML=h;
+    }
 
-      if(chartGammeInst)chartGammeInst.destroy();
-      chartGammeInst=new Chart(document.getElementById('chartGamme'),{
+    // ═══ PAC vs GEG ═══
+    async function loadChartType(){
+      var rows=await DB.query("SELECT type_machine,COUNT(*) AS n FROM projets WHERE type_machine!='' GROUP BY type_machine");
+      var labels=rows.map(function(r){return r.type_machine==='HS'?'PAC (réversible)':'GEG (froid seul)';});
+      var vals=rows.map(function(r){return r.n;});
+      if(charts.type)charts.type.destroy();
+      charts.type=new Chart(document.getElementById('chartType'),{
         type:'doughnut',
-        data:{labels:gammeLabels,datasets:[{data:gammeVals,backgroundColor:gammeColors.slice(0,gammeLabels.length),borderWidth:0,hoverOffset:6}]},
-        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#0f2244',font:{family:'Outfit',size:12},padding:16}}}}
+        data:{labels:labels,datasets:[{data:vals,backgroundColor:['#0d9488','#3b82f6'],borderWidth:0,hoverOffset:4}]},
+        options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{color:'#6b7280',font:{family:'Outfit',size:12},padding:20,usePointStyle:true,pointStyle:'circle'}}}}
       });
+    }
 
-      // Chart: statut
-      var statutData=await DB.query("SELECT statut, COUNT(*) AS n FROM projets GROUP BY statut");
-      var sMap={en_cours:'En cours',gagne:'Gagné',perdu:'Perdu',abandonne:'Abandonné'};
-      var sColors={en_cours:'#3b82f6',gagne:'#059669',perdu:'#dc2626',abandonne:'#9ca3af'};
-      var sLabels=statutData.map(function(r){return sMap[r.statut]||r.statut;});
-      var sVals=statutData.map(function(r){return r.n;});
-      var sCols=statutData.map(function(r){return sColors[r.statut]||'#666';});
-
-      if(chartStatutInst)chartStatutInst.destroy();
-      chartStatutInst=new Chart(document.getElementById('chartStatut'),{
+    // ═══ CONVERSION PAR TAILLE ═══
+    async function loadChartTaille(){
+      var rows=await DB.query("SELECT taille,COUNT(*) AS total,SUM(CASE WHEN statut='gagne' THEN 1 ELSE 0 END) AS gagnes FROM projets WHERE taille!='' GROUP BY taille ORDER BY taille");
+      var labels=rows.map(function(r){return r.taille;});
+      var convVals=rows.map(function(r){return r.total>0?Math.round(100*r.gagnes/r.total):0;});
+      var totalVals=rows.map(function(r){return r.total;});
+      if(charts.taille)charts.taille.destroy();
+      charts.taille=new Chart(document.getElementById('chartTaille'),{
         type:'bar',
-        data:{labels:sLabels,datasets:[{data:sVals,backgroundColor:sCols,borderRadius:6,barThickness:40}]},
-        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
-          y:{beginAtZero:true,ticks:{color:'#1a3a6e',font:{family:'DM Mono',size:11}},grid:{color:'#e5e7eb'}},
-          x:{ticks:{color:'#1a3a6e',font:{family:'Outfit',size:12}},grid:{display:false}}
-        }}
+        data:{labels:labels,datasets:[
+          {label:'Taux conversion (%)',data:convVals,backgroundColor:'#0d9488',borderRadius:4,barPercentage:.5,yAxisID:'y'},
+          {label:'Nb projets',data:totalVals,backgroundColor:'#e5e7eb',borderRadius:4,barPercentage:.5,yAxisID:'y1'}
+        ]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#6b7280',font:{family:'Outfit',size:11},usePointStyle:true,pointStyle:'circle',padding:16}}},
+          scales:{y:{position:'left',beginAtZero:true,max:100,ticks:{callback:function(v){return v+'%'},color:'#9ca3af',font:{family:'DM Mono',size:11}},grid:{color:'#f3f4f6'}},
+            y1:{position:'right',beginAtZero:true,ticks:{color:'#d1d5db',font:{family:'DM Mono',size:11}},grid:{display:false}},
+            x:{ticks:{color:'#6b7280',font:{family:'DM Mono',size:12,weight:600}},grid:{display:false}}}}
       });
-
-      // Gamme selector buttons
-      var gammeButtons=await DB.query("SELECT DISTINCT type_machine FROM projets WHERE type_machine!='' ORDER BY type_machine");
-      var gbH=gammeButtons.map(function(r){
-        var label=r.type_machine==='HS'?'PAC (HS)':'GEG (CS)';
-        return'<span class="detail-chip" onclick="loadGammeDetail(\''+r.type_machine+'\',this)" style="display:inline-block;padding:8px 20px;cursor:pointer"><span class="detail-chip-val" style="font-size:14px">'+label+'</span></span>';
-      }).join(' ');
-      document.getElementById('gammeSelector').innerHTML=gbH;
-
-      // Top clients
-      var topCA=await DB.stats.getTopClients(5);
-      document.getElementById('topCA').innerHTML=renderTopList(topCA,'ca');
-      var topVol=await DB.stats.getTopClients(10);
-      topVol.sort(function(a,b){return b.nb_projets-a.nb_projets;});
-      document.getElementById('topVol').innerHTML=renderTopList(topVol.slice(0,5),'vol');
     }
 
-    function renderTopList(list,mode){
-      if(!list||list.length===0)return'<div style="padding:16px;text-align:center;font-size:13px;color:#999">Aucune donnée</div>';
-      return list.map(function(c,i){
-        var val=mode==='ca'?formatCA(c.ca_gagne):c.nb_projets+' proj.';
-        return'<div class="top-row" onclick="selectClient('+c.id+')"><span class="top-rank">'+(i+1)+'</span><span class="top-name">'+c.raison_sociale+'</span><span class="top-val">'+val+'</span></div>';
+    // ═══ TOP CLIENTS ═══
+    async function loadTopClients(){
+      var topCA=await DB.stats.getTopClients(10);
+      var maxCA=topCA.length>0?topCA[0].ca_gagne||1:1;
+      document.getElementById('topCA').innerHTML=topCA.map(function(c,i){
+        var w=Math.round(100*(c.ca_gagne||0)/maxCA);
+        return topRow(c,i,formatCA(c.ca_gagne),'#059669',w);
+      }).join('')||'<div style="padding:20px;text-align:center;color:#9ca3af;font-size:13px">Aucune donnée</div>';
+
+      var topV=await DB.stats.getTopClients(10);
+      topV.sort(function(a,b){return b.nb_projets-a.nb_projets;});
+      var maxV=topV.length>0?topV[0].nb_projets||1:1;
+      document.getElementById('topVol').innerHTML=topV.map(function(c,i){
+        var w=Math.round(100*c.nb_projets/maxV);
+        return topRow(c,i,c.nb_projets+' proj.','#6366f1',w);
+      }).join('')||'<div style="padding:20px;text-align:center;color:#9ca3af;font-size:13px">Aucune donnée</div>';
+    }
+
+    function topRow(c,i,val,color,pct){
+      var rc=i===0?'top-rank-1':i===1?'top-rank-2':i===2?'top-rank-3':'top-rank-n';
+      return'<div class="top-item"><span class="top-rank '+rc+'">'+(i+1)+'</span><span class="top-name" onclick="openClient('+c.id+')">'+c.raison_sociale+'</span><div class="top-bar-wrap"><div class="top-bar-fill" style="width:'+pct+'%;background:'+color+'"></div></div><span class="top-val">'+val+'</span></div>';
+    }
+
+    // ═══ GAMME DRILL ═══
+    async function loadGammeTabs(){
+      var rows=await DB.query("SELECT DISTINCT type_machine FROM projets WHERE type_machine!='' ORDER BY type_machine");
+      var h=rows.map(function(r){var l=r.type_machine==='HS'?'PAC (HS)':'GEG (CS)';return'<div class="gamme-tab" data-type="'+r.type_machine+'" onclick="selectGamme(\''+r.type_machine+'\',this)">'+l+'</div>';}).join('');
+      document.getElementById('gammeTabs').innerHTML=h;
+    }
+
+    async function selectGamme(type,el){
+      document.querySelectorAll('.gamme-tab').forEach(function(t){t.classList.remove('active');});
+      if(el)el.classList.add('active');
+      var rows=await DB.query("SELECT taille,COUNT(*) AS n,SUM(CASE WHEN statut='gagne' THEN 1 ELSE 0 END) AS g FROM projets WHERE type_machine=? AND taille!='' GROUP BY taille ORDER BY taille",[type]);
+      document.getElementById('tailleGrid').innerHTML=rows.map(function(r){
+        return'<div class="taille-card" onclick="selectTaille(\''+type+'\',\''+r.taille+'\',this)"><div class="taille-val">'+r.taille+'</div><div class="taille-sub">'+r.n+' chiffr. · '+r.g+' gagnés</div></div>';
       }).join('');
+      document.getElementById('optsDetail').innerHTML='';
     }
 
-    // ══════════════════════════════════════════
-    // DETAIL GAMME → TAILLE → OPTIONS
-    // ══════════════════════════════════════════
-    async function loadGammeDetail(type, el){
-      // Highlight button
-      document.querySelectorAll('#gammeSelector .detail-chip').forEach(function(c){c.classList.remove('sel');});
-      if(el)el.classList.add('sel');
-
-      var panel=document.getElementById('detailPanel');
-      panel.classList.add('open');
-      var label=type==='HS'?'PAC (HS)':'GEG (CS)';
-      document.getElementById('detailTitle').textContent='Tailles chiffrées — '+label;
-
-      // Tailles
-      var tailles=await DB.query(
-        "SELECT taille, COUNT(*) AS n, SUM(CASE WHEN statut='gagne' THEN 1 ELSE 0 END) AS gagnes, ROUND(AVG(montant_ht)) AS montant_moy "+
-        "FROM projets WHERE type_machine=? AND taille!='' GROUP BY taille ORDER BY taille",[type]);
-
-      var tH=tailles.map(function(t){
-        return'<div class="detail-chip" onclick="loadTailleOptions(\''+type+'\',\''+t.taille+'\',this)">'+
-          '<div class="detail-chip-val">'+t.taille+'</div>'+
-          '<div class="detail-chip-label">'+t.n+' chiffrage'+(t.n>1?'s':'')+'</div></div>';
-      }).join('');
-      document.getElementById('detailTailles').innerHTML=tH;
-      document.getElementById('detailOptions').innerHTML='<div style="padding:12px;font-size:13px;color:#999;text-align:center">Cliquez sur une taille pour voir les options</div>';
-    }
-
-    async function loadTailleOptions(type, taille, el){
-      document.querySelectorAll('#detailTailles .detail-chip').forEach(function(c){c.classList.remove('sel');});
-      if(el)el.classList.add('sel');
-
-      // Stats de cette taille
-      var stats=await DB.query(
-        "SELECT COUNT(*) AS total, SUM(CASE WHEN statut='gagne' THEN 1 ELSE 0 END) AS gagnes, "+
-        "ROUND(AVG(montant_ht)) AS montant_moy, ROUND(SUM(montant_ht)) AS ca_total "+
-        "FROM projets WHERE type_machine=? AND taille=?",[type,taille]);
+    async function selectTaille(type,taille,el){
+      document.querySelectorAll('.taille-card').forEach(function(c){c.classList.remove('active');});
+      if(el)el.classList.add('active');
+      var stats=await DB.query("SELECT COUNT(*) AS t,SUM(CASE WHEN statut='gagne' THEN 1 ELSE 0 END) AS g,ROUND(AVG(montant_ht)) AS moy FROM projets WHERE type_machine=? AND taille=?",[type,taille]);
       var s=stats[0]||{};
-
-      // Options les plus sélectionnées pour cette gamme/taille
-      var opts=await DB.query(
-        "SELECT o.designation, o.categorie, COUNT(*) AS nb_fois "+
-        "FROM projets_options po "+
-        "JOIN projets p ON po.projet_id=p.id "+
-        "JOIN options o ON po.option_id=o.id "+
-        "WHERE p.type_machine=? AND p.taille=? "+
-        "GROUP BY o.id ORDER BY nb_fois DESC",[type,taille]);
-
-      var h='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">';
-      h+='<div class="kpi" style="padding:12px"><div class="kpi-val" style="font-size:18px">'+(s.total||0)+'</div><div class="kpi-label">Chiffrages</div></div>';
-      h+='<div class="kpi" style="padding:12px"><div class="kpi-val green" style="font-size:18px">'+(s.gagnes||0)+'</div><div class="kpi-label">Gagnés</div></div>';
-      h+='<div class="kpi" style="padding:12px"><div class="kpi-val" style="font-size:18px">'+formatCA(s.montant_moy)+'</div><div class="kpi-label">Montant moy.</div></div>';
-      h+='</div>';
-
-      if(opts.length>0){
-        h+='<div class="detail-title">Options les plus sélectionnées</div>';
-        h+='<div class="opts-list">';
-        opts.forEach(function(o){
-          h+='<div class="opt-row"><div><span class="opt-name">'+o.designation+'</span><br/><span class="opt-cat">'+o.categorie+'</span></div><span class="opt-count">'+o.nb_fois+'x</span></div>';
-        });
-        h+='</div>';
-      } else {
-        h+='<div style="padding:12px;font-size:13px;color:#999;text-align:center">Aucune option enregistrée</div>';
-      }
-
-      document.getElementById('detailOptions').innerHTML=h;
+      var opts=await DB.query("SELECT o.designation,o.categorie,COUNT(*) AS nb FROM projets_options po JOIN projets p ON po.projet_id=p.id JOIN options o ON po.option_id=o.id WHERE p.type_machine=? AND p.taille=? GROUP BY o.id ORDER BY nb DESC",[type,taille]);
+      var h='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0"><div class="ckpi"><div class="ckpi-val">'+(s.t||0)+'</div><div class="ckpi-label">Chiffrages</div></div>';
+      h+='<div class="ckpi"><div class="ckpi-val" style="color:#059669">'+(s.g||0)+'</div><div class="ckpi-label">Gagnés</div></div>';
+      h+='<div class="ckpi"><div class="ckpi-val">'+formatCA(s.moy)+'</div><div class="ckpi-label">Montant moy.</div></div></div>';
+      if(opts.length){
+        h+='<table class="opts-table"><thead><tr><th>Option</th><th>Catégorie</th><th style="text-align:right">Fréquence</th></tr></thead><tbody>';
+        opts.forEach(function(o){h+='<tr><td style="font-weight:500">'+o.designation+'</td><td style="color:#9ca3af">'+o.categorie+'</td><td style="text-align:right"><span class="opts-count">'+o.nb+'×</span></td></tr>';});
+        h+='</tbody></table>';
+      }else{h+='<div style="padding:16px;text-align:center;color:#9ca3af;font-size:13px">Aucune option enregistrée</div>';}
+      document.getElementById('optsDetail').innerHTML=h;
     }
 
-    // ══════════════════════════════════════════
-    // CLIENT VIEW
-    // ══════════════════════════════════════════
-    async function selectClient(clientId){
-      currentClientId=clientId;
-      document.getElementById('searchResults').classList.remove('open');
+    // ═══ CLIENT VIEW ═══
+    async function openClient(id){
+      document.getElementById('sr').classList.remove('open');
       document.getElementById('dashView').style.display='none';
       document.getElementById('clientView').style.display='block';
+      var c=await DB.clients.getById(id);if(!c)return;
+      document.getElementById('searchInput').value=c.raison_sociale;
+      var ini=c.raison_sociale.split(' ').slice(0,2).map(function(w){return(w[0]||'').toUpperCase();}).join('');
+      document.getElementById('cvHead').innerHTML='<div class="client-head"><div class="client-avatar">'+ini+'</div><div class="client-info"><h3>'+c.raison_sociale+'</h3><p>'+c.code_client+'</p></div></div>';
 
-      var client=await DB.clients.getById(clientId);
-      if(!client)return;
-      document.getElementById('searchInput').value=client.raison_sociale;
+      var st=await DB.stats.getClientStats(id);
+      var t=st?st.total_projets:0,g=st?st.gagnes:0,p=st?st.perdus:0,tx=st?st.taux_conversion:0,ca=st?st.ca_gagne:0;
+      var sc=calcScore(t,g,tx,ca),scCol=sc>=70?'#059669':sc>=40?'#f59e0b':'#ef4444';
+      var scLab=sc>=70?'Client fidèle':sc>=40?'Client régulier':'Client occasionnel';
+      var circ=2*Math.PI*30,off=circ-(circ*sc/100);
 
-      var initiales=client.raison_sociale.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();
-      var loc=[client.ville,client.code_postal,client.pays].filter(Boolean).join(' · ');
-      var h='<div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">';
-      h+='<div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#0d9488,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0">'+initiales+'</div>';
-      h+='<div><div style="font-size:20px;font-weight:600;color:#0f2244">'+client.raison_sociale+'</div>';
-      h+='<div style="font-size:13px;color:#1a3a6e;opacity:.6;font-family:DM Mono,monospace">'+client.code_client+'</div>';
-      if(loc)h+='<div style="font-size:12px;color:#1a3a6e;opacity:.4;margin-top:2px">'+loc+'</div>';
-      h+='</div></div>';
-      document.getElementById('clientCard').innerHTML=h;
+      var h='<div class="client-kpis"><div class="ckpi"><div class="ckpi-val">'+t+'</div><div class="ckpi-label">Demandes</div></div>';
+      h+='<div class="ckpi"><div class="ckpi-val" style="color:#059669">'+g+'</div><div class="ckpi-label">Gagnés</div></div>';
+      h+='<div class="ckpi"><div class="ckpi-val" style="color:#ef4444">'+p+'</div><div class="ckpi-label">Perdus</div></div>';
+      h+='<div class="ckpi"><div class="ckpi-val" style="color:#f59e0b">'+tx+'%</div><div class="ckpi-label">Conversion</div></div></div>';
+      h+='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 68 68"><circle class="score-bg" cx="34" cy="34" r="30"/><circle class="score-fill" cx="34" cy="34" r="30" stroke="'+scCol+'" stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg><div class="score-num" style="color:'+scCol+'">'+sc+'</div></div>';
+      h+='<div class="score-text"><h4>'+scLab+'</h4><p>Score basé sur le volume, le taux de conversion et le CA cumulé.</p></div></div>';
+      document.getElementById('cvKpis').innerHTML=h;
 
-      var stats=await DB.stats.getClientStats(clientId);
-      var total=stats?stats.total_projets:0,gagnes=stats?stats.gagnes:0,perdus=stats?stats.perdus:0;
-      var enCours=stats?stats.en_cours:0,caGagne=stats?stats.ca_gagne:0,taux=stats?stats.taux_conversion:0;
-      var score=calcScore(total,gagnes,taux,caGagne);
-      var scoreColor=score>=70?'#059669':score>=40?'#d97706':'#dc2626';
-      var scoreLabel=score>=70?'Client fidèle':score>=40?'Client régulier':'Client occasionnel';
-      var scoreDesc=score>=70?'Excellent taux de conversion et volume. Client à privilégier.':score>=40?'Activité régulière avec potentiel de développement.':total===0?'Aucun projet enregistré.':'Peu de projets ou faible conversion. À relancer.';
-
-      var kh='<div class="kpi-grid">';
-      kh+='<div class="kpi"><div class="kpi-val">'+total+'</div><div class="kpi-label">Demandes</div></div>';
-      kh+='<div class="kpi"><div class="kpi-val green">'+gagnes+'</div><div class="kpi-label">Gagnés</div></div>';
-      kh+='<div class="kpi"><div class="kpi-val red">'+perdus+'</div><div class="kpi-label">Perdus</div></div>';
-      kh+='<div class="kpi"><div class="kpi-val amber">'+taux+'%</div><div class="kpi-label">Conversion</div></div></div>';
-      kh+='<div class="kpi-grid" style="grid-template-columns:1fr 1fr;margin-top:12px">';
-      kh+='<div class="kpi"><div class="kpi-val">'+formatCA(caGagne)+'</div><div class="kpi-label">CA gagné</div></div>';
-      kh+='<div class="kpi"><div class="kpi-val">'+enCours+'</div><div class="kpi-label">En cours</div></div></div>';
-
-      var circ=2*Math.PI*34,offset=circ-(circ*score/100);
-      kh+='<div class="score-section"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="score-ring-bg" cx="40" cy="40" r="34"/>';
-      kh+='<circle class="score-ring-fill" cx="40" cy="40" r="34" stroke="'+scoreColor+'" stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+offset.toFixed(1)+'"/></svg>';
-      kh+='<div class="score-val" style="color:'+scoreColor+'">'+score+'</div></div>';
-      kh+='<div class="score-info"><h4>'+scoreLabel+'</h4><p>'+scoreDesc+'</p></div></div>';
-      document.getElementById('kpiCard').innerHTML=kh;
-
-      var projets=await DB.projets.getByClient(clientId);
-      var ph='<div class="projets-header"><span class="projets-title">Historique des projets</span><span class="projets-count">'+projets.length+' projet'+(projets.length>1?'s':'')+'</span></div>';
-      if(projets.length===0){ph+='<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Aucun projet enregistré</div></div>';}
-      else{
-        ph+='<table class="projets-table"><thead><tr><th>Réf.</th><th>Projet</th><th>Machine</th><th>Montant</th><th>Statut</th><th>Date</th></tr></thead><tbody>';
-        projets.forEach(function(p){
-          var sc='status-'+(p.statut||'en_cours'),sl=p.statut==='gagne'?'Gagné':p.statut==='perdu'?'Perdu':p.statut==='abandonne'?'Abandonné':'En cours';
-          ph+='<tr><td class="mono">'+(p.reference||'—')+'</td><td>'+(p.nom_projet||'—')+'</td><td class="mono">'+(p.type_machine||'')+' '+(p.taille||'')+'</td>';
-          ph+='<td class="mono">'+(p.montant_ht?formatCA(p.montant_ht):'—')+'</td><td><span class="status '+sc+'">'+sl+'</span></td><td class="mono">'+(p.date_creation||'—')+'</td></tr>';
+      var proj=await DB.projets.getByClient(id);
+      var ph='<div class="panel-head"><span class="panel-title"><span class="panel-title-dot" style="background:#0d9488"></span>Historique ('+proj.length+')</span></div>';
+      if(proj.length){
+        ph+='<table class="proj-table"><thead><tr><th>Réf.</th><th>Projet</th><th>Machine</th><th>Montant</th><th>Statut</th><th>Date</th></tr></thead><tbody>';
+        proj.forEach(function(p){
+          var bc=p.statut==='gagne'?'b-gag':p.statut==='perdu'?'b-per':p.statut==='abandonne'?'b-aba':'b-enc';
+          var bl=p.statut==='gagne'?'Gagné':p.statut==='perdu'?'Perdu':p.statut==='abandonne'?'Abandonné':'En cours';
+          ph+='<tr><td class="mono">'+(p.reference||'—')+'</td><td>'+(p.nom_projet||'—')+'</td><td class="mono">'+(p.type_machine||'')+' '+(p.taille||'')+'</td><td class="mono">'+(p.montant_ht?formatCA(p.montant_ht):'—')+'</td><td><span class="badge '+bc+'">'+bl+'</span></td><td class="mono">'+(p.date_creation||'—')+'</td></tr>';
         });
         ph+='</tbody></table>';
-      }
-      document.getElementById('projetsCard').innerHTML=ph;
+      }else{ph+='<div style="padding:24px;text-align:center;color:#9ca3af">Aucun projet</div>';}
+      document.getElementById('cvProjets').innerHTML=ph;
     }
 
-    function calcScore(t,g,tx,ca){if(t===0)return 0;return Math.round(Math.min(Math.min(t*5,30)+Math.min(tx*.5,40)+Math.min(ca/5000,30),100));}
-    function formatCA(v){if(!v||v===0)return'0 €';return Math.round(v).toLocaleString('fr-FR')+' €';}
+    function calcScore(t,g,tx,ca){if(!t)return 0;return Math.round(Math.min(Math.min(t*5,30)+Math.min(tx*.5,40)+Math.min((ca||0)/5000,30),100));}
+    function formatCA(v){if(!v)return'0 €';return Math.round(v).toLocaleString('fr-FR')+' €';}
+    function shortCA(v){if(!v)return'0 €';if(v>=1000000)return(v/1000000).toFixed(1)+'M €';if(v>=1000)return Math.round(v/1000)+'K €';return Math.round(v)+' €';}
   </script>
 </body>
 </html>
