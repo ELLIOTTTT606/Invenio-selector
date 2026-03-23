@@ -245,6 +245,7 @@ function downloadPDF() {
   if (typeof ProjetSave !== 'undefined') { ProjetSave.save(); }
   setTimeout(function() {
     try {
+      if (typeof ProjetSave !== 'undefined') { ProjetSave.save(); }
       _printViaWindow(el);
     } catch(err) {
       console.error('PDF export error:', err);
