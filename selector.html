@@ -29,134 +29,79 @@
 </a>
 </nav>
 
-<!-- ══════ STEP 0: IMPORT ══════ -->
-<!-- ══════════════════════════════════════════════
-     NOUVEAU STEP 0 — Remplace tout le contenu de 
-     <div class="import-screen visible" id="step0">...</div>
-     dans selector.html
-     ══════════════════════════════════════════════ -->
-
 <!-- ══════════════════════════════════════════════════════════
-     NOUVEAU STEP 0 — Wizard style add-machine
-     Remplace tout <div class="import-screen visible" id="step0">...</div>
-     dans selector.html
+     NOUVEAU STEP 0 — Remplace TOUT le bloc
+     <div class="import-screen visible" id="step0">...</div>
+     Garde le même id et classe pour que app.js fonctionne
      ══════════════════════════════════════════════════════════ -->
 
 <div class="import-screen visible" id="step0">
 
-  <!-- Titre -->
-  <div class="wiz-title">Nouvelle fiche de sélection</div>
-  <div class="wiz-sub">Importez le CSD, choisissez la machine et le client</div>
-
-  <!-- Barre de progression -->
-  <div class="wiz-bar">
-    <div class="wiz-dot wiz-dot--active" id="wizDot0"></div>
-    <div class="wiz-dot" id="wizDot1"></div>
-    <div class="wiz-dot" id="wizDot2"></div>
+  <div class="wiz-card">
+    <div class="wiz-card-label">Fichier CSD</div>
+    <div class="wiz-drop" id="dropCSD" onclick="document.getElementById('fileCSD').click()">
+      <div class="wiz-drop-icon" id="icoCSD">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2"/></svg>
+      </div>
+      <h4 id="titleCSD">Glissez votre fiche CSD ici</h4>
+      <p id="subCSD">.docx ou .pdf — configurateur Galletti</p>
+    </div>
+    <input type="file" id="fileCSD" accept=".docx,.pdf" style="display:none" onchange="handleCSD(this.files[0])">
   </div>
 
-  <!-- ═══ SOUS-ÉTAPE 0 — Fichier CSD ═══ -->
-  <div class="wiz-panel" id="wizPanel0">
-    <div class="wiz-card">
-      <div class="wiz-card-label">Fichier de sélection CSD</div>
-      <div class="wiz-drop" id="dropCSD" onclick="document.getElementById('fileCSD').click()">
-        <div class="wiz-drop-icon" id="icoCSD">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2"/></svg>
-        </div>
-        <h4 id="titleCSD">Glissez votre fiche CSD ici</h4>
-        <p id="subCSD">Format .docx ou .pdf — issu du configurateur Galletti</p>
-        <span class="wiz-drop-hint">ou cliquez pour parcourir</span>
-      </div>
-      <input type="file" id="fileCSD" accept=".docx,.pdf" style="display:none" onchange="handleCSD(this.files[0])">
+  <div class="wiz-card">
+    <div class="wiz-card-label">Machine</div>
+    <div class="choice-row" style="margin-bottom:14px">
+      <div class="choice-card" id="choiceGEG" onclick="selectType('CS')"><div class="ico">❄️</div><h3>Groupe d'Eau Glacée</h3><p>Froid seul</p></div>
+      <div class="choice-card" id="choicePAC" onclick="selectType('HS')"><div class="ico">🔥</div><h3>Pompe à Chaleur</h3><p>Chaud + Froid</p></div>
     </div>
-    <div class="wiz-nav">
-      <div></div>
-      <button class="wiz-btn wiz-btn--next" onclick="wizGo(1)">Suivant</button>
+    <div class="model-row">
+      <div class="sel-wrap"><label>Gamme</label><select id="selModel" onchange="onModelChange()" disabled><option value="">— Type d'abord —</option></select></div>
+      <div class="sel-wrap"><label>Taille</label><select id="selSize" disabled><option value="">—</option></select></div>
     </div>
   </div>
 
-  <!-- ═══ SOUS-ÉTAPE 1 — Machine ═══ -->
-  <div class="wiz-panel" id="wizPanel1" style="display:none">
-    <div class="wiz-card">
-      <div class="wiz-card-label">Type de machine</div>
-      <div class="choice-row" style="margin-bottom:16px">
-        <div class="choice-card" id="choiceGEG" onclick="selectType('CS')"><div class="ico">❄️</div><h3>Groupe d'Eau Glacée</h3><p>Production de froid uniquement</p></div>
-        <div class="choice-card" id="choicePAC" onclick="selectType('HS')"><div class="ico">🔥</div><h3>Pompe à Chaleur</h3><p>Production de chaud et de froid</p></div>
-      </div>
-      <div class="model-row">
-        <div class="sel-wrap"><label>Gamme / Modèle</label><select id="selModel" onchange="onModelChange()" disabled><option value="">— Sélectionner le type d'abord —</option></select></div>
-        <div class="sel-wrap"><label>Taille</label><select id="selSize" disabled><option value="">—</option></select></div>
-      </div>
+  <div class="wiz-card">
+    <div class="wiz-card-label">Client</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span class="client-count" id="clientCount" style="font-size:11px;color:#0d9488">📦 97 799 clients</span>
+      <span onclick="openClientUpdate()" style="font-size:10px;color:#14b8a6;cursor:pointer;font-weight:500">🔄 Actualiser</span>
     </div>
-    <div class="wiz-nav">
-      <button class="wiz-btn wiz-btn--back" onclick="wizGo(0)">Retour</button>
-      <button class="wiz-btn wiz-btn--next" onclick="wizGo(2)">Suivant</button>
+    <div class="client-search-wrap">
+      <input class="client-search" id="clientSearch" type="text" placeholder="Rechercher un client..." oninput="searchClient(this.value)" onfocus="searchClient(this.value)" autocomplete="off">
+      <div class="client-results" id="clientResults"></div>
     </div>
-  </div>
-
-  <!-- ═══ SOUS-ÉTAPE 2 — Client ═══ -->
-  <div class="wiz-panel" id="wizPanel2" style="display:none">
-    <div class="wiz-card">
-      <div class="wiz-card-label">Client</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div class="client-count" id="clientCount" style="font-size:12px;color:#0d9488">📦 97 799 clients en base</div>
-        <div onclick="openClientUpdate()" style="font-size:10px;color:#14b8a6;cursor:pointer;font-weight:500">🔄 Actualiser</div>
-      </div>
-      <div class="client-search-wrap">
-        <input class="client-search" id="clientSearch" type="text" placeholder="Rechercher parmi 97 799 clients..." oninput="searchClient(this.value)" onfocus="searchClient(this.value)" autocomplete="off">
-        <div class="client-results" id="clientResults"></div>
-      </div>
-      <div class="client-selected" id="clientSelected"><span id="clientSelectedText"></span><span class="rm" onclick="clearClient()">✕ Retirer</span></div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:14px">
-        <div style="flex:1;height:1px;background:#e2e6ea"></div>
-        <span style="font-size:9px;color:#8896a6;text-transform:uppercase;letter-spacing:1px">ou saisie manuelle</span>
-        <div style="flex:1;height:1px;background:#e2e6ea"></div>
-      </div>
-      <input class="client-search" id="clientManual" type="text" placeholder="Saisir le nom du client manuellement..." style="margin-top:8px" oninput="onManualClient(this.value)">
-      <input type="file" id="fileClients" accept=".xlsx,.xls" style="display:none" onchange="loadClientsExcel(this.files[0])">
+    <div class="client-selected" id="clientSelected"><span id="clientSelectedText"></span><span class="rm" onclick="clearClient()">✕</span></div>
+    <div style="display:flex;align-items:center;gap:8px;margin:10px 0 0">
+      <div style="flex:1;height:1px;background:#e2e6ea"></div>
+      <span style="font-size:9px;color:#8896a6;letter-spacing:1px">OU</span>
+      <div style="flex:1;height:1px;background:#e2e6ea"></div>
     </div>
-    <div class="wiz-nav">
-      <button class="wiz-btn wiz-btn--back" onclick="wizGo(1)">Retour</button>
-      <div></div>
-    </div>
+    <input class="client-search" id="clientManual" type="text" placeholder="Saisie manuelle..." style="margin-top:8px" oninput="onManualClient(this.value)">
+    <input type="file" id="fileClients" accept=".xlsx,.xls" style="display:none" onchange="loadClientsExcel(this.files[0])">
   </div>
 
   <!-- MODAL RAPPEL -->
+
   <div id="updateReminder" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:center;justify-content:center">
     <div style="background:#fff;border-radius:14px;padding:28px;max-width:440px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.2)">
       <div style="text-align:center;margin-bottom:16px"><span style="font-size:36px">📋</span></div>
-      <h3 style="text-align:center;font-size:16px;color:#0f2244;margin-bottom:8px">Mise à jour de la base clients</h3>
-      <p style="text-align:center;font-size:12px;color:#8896a6;line-height:1.6;margin-bottom:20px">Il est recommandé de mettre à jour la base clients régulièrement.</p>
+      <h3 style="text-align:center;font-size:16px;color:#0f2244;margin-bottom:8px">Mise à jour clients</h3>
+      <p style="text-align:center;font-size:12px;color:#8896a6;line-height:1.6;margin-bottom:20px">Mettre à jour régulièrement pour les derniers comptes.</p>
       <div style="display:flex;gap:10px">
-        <button onclick="dismissReminder();openClientUpdate();" style="flex:1;padding:10px;background:#14b8a6;color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer">✅ Actualiser</button>
-        <button onclick="dismissReminder()" style="flex:1;padding:10px;background:#f3f4f6;color:#6b7280;border:none;border-radius:8px;font-family:inherit;font-size:12px;cursor:pointer">Pas maintenant</button>
+        <button onclick="dismissReminder();openClientUpdate();" style="flex:1;padding:10px;background:#14b8a6;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Actualiser</button>
+        <button onclick="dismissReminder()" style="flex:1;padding:10px;background:#f3f4f6;color:#6b7280;border:none;border-radius:8px;font-size:12px;cursor:pointer">Plus tard</button>
       </div>
     </div>
   </div>
 
-  <!-- ACTION -->
   <div class="msg" id="msg"></div>
-  <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
-    <button class="btn-primary" id="btnGo" disabled onclick="analyzeAndGo()">Analyser et continuer →</button>
-    <span id="loader" style="display:none"><span class="spinner"></span>Analyse...</span>
+  <div class="wiz-nav">
+    <div></div>
+    <button class="wiz-btn wiz-btn--next" id="btnGo" disabled onclick="analyzeAndGo()">Analyser et continuer →</button>
+    <span id="loader" style="display:none;color:#14b8a6;font-size:13px"><span class="spinner"></span> Analyse...</span>
   </div>
 </div>
-
-<!-- ══════════════════════════════════════════════
-     SCRIPT — Navigation sous-étapes import
-     Ajouter dans selector.html (inline ou dans app.js)
-     ══════════════════════════════════════════════ -->
-<script>
-function wizGo(n) {
-  for (var i = 0; i <= 2; i++) {
-    var p = document.getElementById('wizPanel' + i);
-    var d = document.getElementById('wizDot' + i);
-    if (p) p.style.display = i === n ? 'block' : 'none';
-    if (d) d.className = 'wiz-dot' + (i === n ? ' wiz-dot--active' : i < n ? ' wiz-dot--done' : '');
-  }
-  window.scrollTo(0, 0);
-}
-</script>
   <!-- ═══ SUB-STEP 1 — FICHIER CSD ═══ -->
   <div class="imp-panel" id="impPanel1">
     <div class="glass-card">
