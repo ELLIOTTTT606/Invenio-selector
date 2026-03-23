@@ -9,6 +9,200 @@ body {
 }
 
 /* ══════════════════════════════════════════════
+   IMPORT WIZARD — stepper + panels + drag&drop
+   ══════════════════════════════════════════════ */
+
+/* Mini stepper */
+.imp-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.imp-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,.25);
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: all .3s;
+  white-space: nowrap;
+}
+.imp-step--active {
+  color: #fff;
+  font-weight: 700;
+}
+.imp-step--done {
+  color: #14b8a6;
+}
+.imp-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.25);
+  transition: all .3s;
+  flex-shrink: 0;
+}
+.imp-step--active .imp-num {
+  background: #14b8a6;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(20,184,166,.35);
+}
+.imp-step--done .imp-num {
+  background: rgba(20,184,166,.15);
+  color: #14b8a6;
+}
+.imp-line {
+  width: 60px;
+  height: 2px;
+  margin: 0 12px;
+  background: rgba(255,255,255,.08);
+  border-radius: 1px;
+  transition: background .4s;
+}
+.imp-line--done {
+  background: rgba(20,184,166,.35);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 28px 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.06);
+  transition: all .25s;
+}
+.glass-card:hover {
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.14);
+  box-shadow: 0 8px 32px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.glass-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: .3px;
+}
+
+/* Zone drag & drop XL */
+.upload-zone-xl {
+  border: 2px dashed rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .25s;
+  position: relative;
+}
+.upload-zone-xl:hover {
+  border-color: rgba(20,184,166,.4);
+  background: rgba(20,184,166,.04);
+}
+.upload-zone-xl.has-file {
+  border-color: #14b8a6 !important;
+  border-style: solid !important;
+  background: rgba(20,184,166,.06) !important;
+}
+.upload-zone-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(20,184,166,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: #14b8a6;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+.upload-zone-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.upload-zone-xl.has-file .upload-zone-icon {
+  background: rgba(20,184,166,.2);
+  animation: none;
+}
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.upload-zone-text h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.upload-zone-text p {
+  font-size: 13px;
+  color: rgba(255,255,255,.35);
+}
+.upload-zone-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  margin-top: 12px;
+}
+
+/* Navigation sous-étapes */
+.imp-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.imp-btn {
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  border: none;
+}
+.imp-btn--next {
+  background: rgba(20,184,166,.2);
+  color: #14b8a6;
+  border: 1px solid rgba(20,184,166,.25);
+}
+.imp-btn--next:hover {
+  background: rgba(20,184,166,.35);
+  color: #fff;
+}
+.imp-btn--back {
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.4);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.imp-btn--back:hover {
+  background: rgba(255,255,255,.1);
+  color: #fff;
+}
+
+/* Panel animation */
+.imp-panel {
+  animation: panelIn .3s ease;
+}
+@keyframes panelIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ══════════════════════════════════════════════
    NAV — Barre de progression 3 étapes
    1 Import ·········· 2 Configuration ·········· 3 Aperçu
    ══════════════════════════════════════════════ */
@@ -203,8 +397,23 @@ nav {
 .upload-box .ico { font-size: 32px !important; }
 
 /* ══════════════════════════════════════════════
-   CHOICE CARDS — surbrillance au hover
+   CHOICE CARDS — glassmorphism dans wizard, blanc dans config
    ══════════════════════════════════════════════ */
+.glass-card .choice-card {
+  background: rgba(255,255,255,.06) !important;
+  border: 2px solid rgba(255,255,255,.1) !important;
+}
+.glass-card .choice-card:hover {
+  border-color: rgba(56,189,248,.3) !important;
+  background: rgba(255,255,255,.1) !important;
+}
+.glass-card .choice-card.sel {
+  border-color: #14b8a6 !important;
+  background: rgba(20,184,166,.1) !important;
+}
+.glass-card .choice-card h3 { color: #fff !important; }
+.glass-card .choice-card p { color: rgba(255,255,255,.4) !important; }
+/* Config step — fond blanc */
 .choice-card {
   background: #fff !important;
   border: 2px solid #dce4ed !important;
@@ -230,6 +439,26 @@ nav {
 /* ══════════════════════════════════════════════
    INPUTS / SELECTS
    ══════════════════════════════════════════════ */
+/* Dans glass-card (wizard import) — transparent */
+.glass-card .sel-wrap select,
+.glass-card select,
+.glass-card .client-search,
+.glass-card input[type="text"] {
+  background: rgba(255,255,255,.08) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  color: #fff !important;
+}
+.glass-card .sel-wrap select:focus,
+.glass-card .client-search:focus,
+.glass-card input[type="text"]:focus {
+  border-color: #14b8a6 !important;
+  box-shadow: 0 0 0 3px rgba(20,184,166,.12) !important;
+}
+.glass-card select option { background: #0f1a2e !important; color: #fff !important; }
+.glass-card .sel-wrap label { color: #14b8a6 !important; }
+.glass-card input::placeholder,
+.glass-card .client-search::placeholder { color: rgba(255,255,255,.25) !important; }
+/* Dans les cards normales (config step) — blanc */
 .sel-wrap select, select,
 .client-search,
 input[type="text"], input[type="number"] {
