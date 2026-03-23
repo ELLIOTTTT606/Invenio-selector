@@ -221,8 +221,7 @@ function goToStep(n) {
 function buildConfig() {
   const d=state.parsedData,isHS=d.type==="HS";
   document.getElementById("cfgTitle").innerHTML='<span style="color:var(--teal)">'+d.modele+'</span>';
-  document.getElementById("cfgSub").textContent=(isHS?"🔥❄️ PAC":"❄️ GEG")+" • Taille "+d.size+" • "+state.file.name;
-  const sr=document.getElementById("selRegion");sr.innerHTML='<option value="">—</option>';
+  document.getElementById("cfgSub").textContent=(isHS?"🔥❄️ PAC":"❄️ GEG")+" • Taille "+d.size+" • "+(state.file ? state.file.name : d.modele || 'Projet rechargé');  const sr=document.getElementById("selRegion");sr.innerHTML='<option value="">—</option>';
   Object.keys(CONFIG.contacts).forEach(r=>{sr.innerHTML+='<option value="'+r+'">'+r+'</option>';});
   if(state.region){sr.value=state.region;onRegionChange();}
   buildAcoustic();buildOptions();
