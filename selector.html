@@ -30,79 +30,141 @@
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════
-     NOUVEAU STEP 0 — Remplace TOUT le bloc
-     <div class="import-screen visible" id="step0">...</div>
-     Garde le même id et classe pour que app.js fonctionne
+     NOUVEAU STEP 0 — Style identique à add-machine.html
+     Remplace TOUT <div class="import-screen visible" id="step0">...</div>
      ══════════════════════════════════════════════════════════ -->
 
 <div class="import-screen visible" id="step0">
 
-  <div class="wiz-card">
-    <div class="wiz-card-label">Fichier CSD</div>
-    <div class="wiz-drop" id="dropCSD" onclick="document.getElementById('fileCSD').click()">
-      <div class="wiz-drop-icon" id="icoCSD">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2"/></svg>
+  <div class="wizard-title">Nouvelle fiche de sélection</div>
+  <div class="wizard-sub">Importez le fichier source et configurez la machine</div>
+
+  <div class="steps-bar">
+    <div class="step-dot active" id="impDot0"></div>
+    <div class="step-dot" id="impDot1"></div>
+    <div class="step-dot" id="impDot2"></div>
+  </div>
+
+  <!-- ═══ SOUS-ÉTAPE 0 — Fichier CSD ═══ -->
+  <div class="imp-step-panel" id="impP0">
+    <div class="card">
+      <div class="field">
+        <label class="field-label">Fichier de sélection CSD</label>
+        <span class="field-hint">Glissez ou cliquez — format .docx ou .pdf</span>
+        <div class="upload-box" id="dropCSD" onclick="document.getElementById('fileCSD').click()">
+          <div class="ico" id="icoCSD">📄</div>
+          <h4 id="titleCSD">Déposez votre fichier ici</h4>
+          <p id="subCSD">Issu du configurateur Galletti</p>
+        </div>
+        <input type="file" id="fileCSD" accept=".docx,.pdf" style="display:none" onchange="handleCSD(this.files[0])">
       </div>
-      <h4 id="titleCSD">Glissez votre fiche CSD ici</h4>
-      <p id="subCSD">.docx ou .pdf — configurateur Galletti</p>
     </div>
-    <input type="file" id="fileCSD" accept=".docx,.pdf" style="display:none" onchange="handleCSD(this.files[0])">
-  </div>
-
-  <div class="wiz-card">
-    <div class="wiz-card-label">Machine</div>
-    <div class="choice-row" style="margin-bottom:14px">
-      <div class="choice-card" id="choiceGEG" onclick="selectType('CS')"><div class="ico">❄️</div><h3>Groupe d'Eau Glacée</h3><p>Froid seul</p></div>
-      <div class="choice-card" id="choicePAC" onclick="selectType('HS')"><div class="ico">🔥</div><h3>Pompe à Chaleur</h3><p>Chaud + Froid</p></div>
-    </div>
-    <div class="model-row">
-      <div class="sel-wrap"><label>Gamme</label><select id="selModel" onchange="onModelChange()" disabled><option value="">— Type d'abord —</option></select></div>
-      <div class="sel-wrap"><label>Taille</label><select id="selSize" disabled><option value="">—</option></select></div>
+    <div class="nav-btns">
+      <div></div>
+      <button class="btn btn-next" onclick="impGo(1)">Suivant</button>
     </div>
   </div>
 
-  <div class="wiz-card">
-    <div class="wiz-card-label">Client</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span class="client-count" id="clientCount" style="font-size:11px;color:#0d9488">📦 97 799 clients</span>
-      <span onclick="openClientUpdate()" style="font-size:10px;color:#14b8a6;cursor:pointer;font-weight:500">🔄 Actualiser</span>
+  <!-- ═══ SOUS-ÉTAPE 1 — Machine ═══ -->
+  <div class="imp-step-panel" id="impP1" style="display:none">
+    <div class="card">
+      <div class="field">
+        <label class="field-label">Type de machine</label>
+        <div class="choice-row">
+          <div class="choice-card" id="choiceGEG" onclick="selectType('CS')"><div class="ico">❄️</div><h3>Groupe d'Eau Glacée</h3><p>Froid seul</p></div>
+          <div class="choice-card" id="choicePAC" onclick="selectType('HS')"><div class="ico">🔥</div><h3>Pompe à Chaleur</h3><p>Chaud + Froid</p></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Gamme et taille</label>
+        <div class="model-row">
+          <div class="sel-wrap"><label>Gamme</label><select id="selModel" onchange="onModelChange()" disabled><option value="">— Type d'abord —</option></select></div>
+          <div class="sel-wrap"><label>Taille</label><select id="selSize" disabled><option value="">—</option></select></div>
+        </div>
+      </div>
     </div>
-    <div class="client-search-wrap">
-      <input class="client-search" id="clientSearch" type="text" placeholder="Rechercher un client..." oninput="searchClient(this.value)" onfocus="searchClient(this.value)" autocomplete="off">
-      <div class="client-results" id="clientResults"></div>
+    <div class="nav-btns">
+      <button class="btn btn-back" onclick="impGo(0)">Retour</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-skip" onclick="impGo(2)">Passer</button>
+        <button class="btn btn-next" onclick="impGo(2)">Suivant</button>
+      </div>
     </div>
-    <div class="client-selected" id="clientSelected"><span id="clientSelectedText"></span><span class="rm" onclick="clearClient()">✕</span></div>
-    <div style="display:flex;align-items:center;gap:8px;margin:10px 0 0">
-      <div style="flex:1;height:1px;background:#e2e6ea"></div>
-      <span style="font-size:9px;color:#8896a6;letter-spacing:1px">OU</span>
-      <div style="flex:1;height:1px;background:#e2e6ea"></div>
+  </div>
+
+  <!-- ═══ SOUS-ÉTAPE 2 — Client ═══ -->
+  <div class="imp-step-panel" id="impP2" style="display:none">
+    <div class="card">
+      <div class="field">
+        <label class="field-label">Client</label>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span class="field-hint" id="clientCount" style="margin:0">📦 97 799 clients en base</span>
+          <span onclick="openClientUpdate()" style="font-size:10px;color:var(--teal,#0d9488);cursor:pointer;font-weight:500">🔄 Actualiser</span>
+        </div>
+        <div class="client-search-wrap">
+          <input class="client-search" id="clientSearch" type="text" placeholder="Rechercher un client..." oninput="searchClient(this.value)" onfocus="searchClient(this.value)" autocomplete="off">
+          <div class="client-results" id="clientResults"></div>
+        </div>
+        <div class="client-selected" id="clientSelected"><span id="clientSelectedText"></span><span class="rm" onclick="clearClient()">✕</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin:12px 0 0">
+          <div style="flex:1;height:1px;background:#e2e6ea"></div>
+          <span style="font-size:9px;color:#8896a6;letter-spacing:1px">OU SAISIE MANUELLE</span>
+          <div style="flex:1;height:1px;background:#e2e6ea"></div>
+        </div>
+        <input class="client-search" id="clientManual" type="text" placeholder="Nom du client..." style="margin-top:8px" oninput="onManualClient(this.value)">
+        <input type="file" id="fileClients" accept=".xlsx,.xls" style="display:none" onchange="loadClientsExcel(this.files[0])">
+      </div>
     </div>
-    <input class="client-search" id="clientManual" type="text" placeholder="Saisie manuelle..." style="margin-top:8px" oninput="onManualClient(this.value)">
-    <input type="file" id="fileClients" accept=".xlsx,.xls" style="display:none" onchange="loadClientsExcel(this.files[0])">
+    <div class="nav-btns">
+      <button class="btn btn-back" onclick="impGo(1)">Retour</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-skip" onclick="impFinish()">Passer</button>
+        <button class="btn btn-next" onclick="impFinish()">Suivant</button>
+      </div>
+    </div>
   </div>
 
   <!-- MODAL RAPPEL -->
-
-  <div id="updateReminder" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:center;justify-content:center">
+  <div id="updateReminder" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center">
     <div style="background:#fff;border-radius:14px;padding:28px;max-width:440px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.2)">
       <div style="text-align:center;margin-bottom:16px"><span style="font-size:36px">📋</span></div>
       <h3 style="text-align:center;font-size:16px;color:#0f2244;margin-bottom:8px">Mise à jour clients</h3>
       <p style="text-align:center;font-size:12px;color:#8896a6;line-height:1.6;margin-bottom:20px">Mettre à jour régulièrement pour les derniers comptes.</p>
       <div style="display:flex;gap:10px">
-        <button onclick="dismissReminder();openClientUpdate();" style="flex:1;padding:10px;background:#14b8a6;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Actualiser</button>
+        <button onclick="dismissReminder();openClientUpdate();" style="flex:1;padding:10px;background:#0d9488;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Actualiser</button>
         <button onclick="dismissReminder()" style="flex:1;padding:10px;background:#f3f4f6;color:#6b7280;border:none;border-radius:8px;font-size:12px;cursor:pointer">Plus tard</button>
       </div>
     </div>
   </div>
 
   <div class="msg" id="msg"></div>
-  <div class="wiz-nav">
-    <div></div>
-    <button class="wiz-btn wiz-btn--next" id="btnGo" disabled onclick="analyzeAndGo()">Analyser et continuer →</button>
-    <span id="loader" style="display:none;color:#14b8a6;font-size:13px"><span class="spinner"></span> Analyse...</span>
-  </div>
+  <span id="loader" style="display:none;color:#0d9488;font-size:13px;text-align:center;display:block;margin-top:8px"><span class="spinner"></span> Analyse...</span>
+  <!-- btnGo caché mais toujours présent pour que checkReady() fonctionne -->
+  <button id="btnGo" style="display:none" disabled onclick="analyzeAndGo()"></button>
 </div>
-  <!-- ═══ SUB-STEP 1 — FICHIER CSD ═══ -->
+
+<script>
+function impGo(n) {
+  for (var i = 0; i <= 2; i++) {
+    var p = document.getElementById('impP' + i);
+    var d = document.getElementById('impDot' + i);
+    if (p) p.style.display = i === n ? 'block' : 'none';
+    if (d) d.className = 'step-dot' + (i === n ? ' active' : i < n ? ' done' : '');
+  }
+  window.scrollTo(0, 0);
+}
+
+function impFinish() {
+  // Déclencher l'analyse
+  var btn = document.getElementById('btnGo');
+  if (btn && !btn.disabled) {
+    analyzeAndGo();
+  } else {
+    // Si pas prêt, afficher un message
+    showMsg('warning', '⚠️ Veuillez au minimum importer un fichier CSD et sélectionner le type de machine.');
+  }
+}
+</script>  <!-- ═══ SUB-STEP 1 — FICHIER CSD ═══ -->
   <div class="imp-panel" id="impPanel1">
     <div class="glass-card">
       <div class="upload-zone-xl" id="dropCSD" onclick="document.getElementById('fileCSD').click()">
