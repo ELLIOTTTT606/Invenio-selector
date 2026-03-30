@@ -5,13 +5,22 @@
 //            options, plans, visuels) — style Barlow Condensed
 // ══════════════════════════════════════════════════════════════
 
+function getFontLinks() {
+  return [
+    'https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap',
+    'https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap',
+    'https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap',
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,600;1,400&display=swap'
+  ].map(function(href) {
+    return '<link rel="preconnect" href="https://fonts.googleapis.com"/>' +
+           '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>' +
+           '<link rel="stylesheet" href="' + href + '"/>';
+  }).join('\n');
+}
+
 function getPrintCSS() {
   return `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,600;1,400&display=swap');
 
     @page {
       size: A4 portrait;
@@ -316,6 +325,8 @@ function _printViaWindow(sourceEl) {
   var html = '<!DOCTYPE html>\n<html lang="fr">\n<head>\n';
   html += '<meta charset="UTF-8"/>\n';
   html += '<title>Fiche de Sélection</title>\n';
+  // Fonts via <link> (plus fiable que @import dans une popup)
+  html += getFontLinks() + '\n';
   html += '<style>\n' + getPrintCSS() + '\n</style>\n';
   html += '</head>\n<body>\n';
   html += content;
@@ -331,14 +342,23 @@ function _printViaWindow(sourceEl) {
   printWin.document.write(html);
   printWin.document.close();
 
+  // Attendre que les fonts Google soient chargées (document.fonts.ready)
   printWin.onload = function() {
-    setTimeout(function() {
-      printWin.focus();
-      printWin.print();
-    }, 1500);
+    if (printWin.document && printWin.document.fonts && printWin.document.fonts.ready) {
+      printWin.document.fonts.ready.then(function() {
+        printWin.focus();
+        printWin.print();
+      });
+    } else {
+      // Fallback navigateurs sans document.fonts
+      setTimeout(function() {
+        printWin.focus();
+        printWin.print();
+      }, 3000);
+    }
   };
 
-  // Fallback
+  // Fallback ultime si onload ne se déclenche pas
   setTimeout(function() {
     try {
       if (!printWin.closed) {
@@ -346,7 +366,7 @@ function _printViaWindow(sourceEl) {
         printWin.print();
       }
     } catch(e) {}
-  }, 3000);
+  }, 5000);
 }
 
 
