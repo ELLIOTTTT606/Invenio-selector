@@ -290,7 +290,11 @@ function getPrintCSS() {
 
 
 /**
- * downloadPDF — ouvre une fenêtre d'impression avec le contenu de #sheetContent
+ * downloadPDF — injecte le contenu dans un iframe caché puis print.
+ * Avantages vs popup :
+ * - Même origine → pas de blocage CSP/CORS
+ * - onload fiable → CSS appliqué avant impression
+ * - Fonts Google dans le cache navigateur
  */
 function downloadPDF() {
   var el = document.getElementById("sheetContent");
@@ -304,69 +308,64 @@ function downloadPDF() {
 
   setTimeout(function() {
     try {
-      if (typeof ProjetSave !== 'undefined') { ProjetSave.save(); }
-      _printViaWindow(el);
+      _printViaIframe(el);
     } catch(err) {
       console.error('PDF export error:', err);
       alert("Erreur lors de la préparation du PDF. Essayez Ctrl+P directement.");
     } finally {
-      if (btn) { btn.textContent = origText; btn.disabled = false; }
+      setTimeout(function() {
+        if (btn) { btn.textContent = origText; btn.disabled = false; }
+      }, 4000);
     }
   }, 100);
 }
 
 
 /**
- * _printViaWindow — clone #sheetContent dans une nouvelle fenêtre et lance l'impression
+ * _printViaIframe — iframe caché dans le DOM principal (même origine).
+ * Le CSS et les fonts s'appliquent correctement, onload est fiable.
  */
-function _printViaWindow(sourceEl) {
+function _printViaIframe(sourceEl) {
+  // Supprimer un iframe précédent
+  var old = document.getElementById('__print_iframe__');
+  if (old) old.parentNode.removeChild(old);
+
+  var iframe = document.createElement('iframe');
+  iframe.id = '__print_iframe__';
+  iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:210mm;height:297mm;border:none;visibility:hidden;';
+  document.body.appendChild(iframe);
+
   var content = sourceEl.innerHTML;
 
-  var html = '<!DOCTYPE html>\n<html lang="fr">\n<head>\n';
-  html += '<meta charset="UTF-8"/>\n';
-  html += '<title>Fiche de Sélection</title>\n';
-  // Fonts via <link> (plus fiable que @import dans une popup)
-  html += getFontLinks() + '\n';
-  html += '<style>\n' + getPrintCSS() + '\n</style>\n';
-  html += '</head>\n<body>\n';
+  var html = '<!DOCTYPE html><html lang="fr"><head>';
+  html += '<meta charset="UTF-8"/>';
+  html += '<title>Fiche de Sélection</title>';
+  html += getFontLinks();
+  html += '<style>' + getPrintCSS() + '</style>';
+  html += '</head><body>';
   html += content;
-  html += '\n</body>\n</html>';
+  html += '</body></html>';
 
-  var printWin = window.open('', '_blank', 'width=900,height=1200');
-  if (!printWin) {
-    alert("Le navigateur a bloqué la fenêtre popup.\nAutorisez les popups pour ce site, ou utilisez Ctrl+P.");
-    return;
-  }
-
-  printWin.document.open();
-  printWin.document.write(html);
-  printWin.document.close();
-
-  // Attendre que les fonts Google soient chargées (document.fonts.ready)
-  printWin.onload = function() {
-    if (printWin.document && printWin.document.fonts && printWin.document.fonts.ready) {
-      printWin.document.fonts.ready.then(function() {
-        printWin.focus();
-        printWin.print();
-      });
-    } else {
-      // Fallback navigateurs sans document.fonts
+  iframe.onload = function() {
+    var iDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var doP = function() {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
       setTimeout(function() {
-        printWin.focus();
-        printWin.print();
-      }, 3000);
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+      }, 2000);
+    };
+    if (iDoc.fonts && iDoc.fonts.ready) {
+      iDoc.fonts.ready.then(doP);
+    } else {
+      setTimeout(doP, 1500);
     }
   };
 
-  // Fallback ultime si onload ne se déclenche pas
-  setTimeout(function() {
-    try {
-      if (!printWin.closed) {
-        printWin.focus();
-        printWin.print();
-      }
-    } catch(e) {}
-  }, 5000);
+  var iDoc = iframe.contentDocument || iframe.contentWindow.document;
+  iDoc.open();
+  iDoc.write(html);
+  iDoc.close();
 }
 
 
