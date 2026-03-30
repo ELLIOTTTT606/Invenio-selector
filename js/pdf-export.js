@@ -1,40 +1,17 @@
 // ══════════════════════════════════════════════════════════════
-// PDF EXPORT v2 — Print-native (iframe + window.print)
-// ══════════════════════════════════════════════════════════════
-// Remplace l'approche html2pdf.js (html2canvas → raster → jsPDF)
-// par un rendu PDF vectoriel natif du navigateur.
-//
-// Avantages :
-// - Texte sélectionnable et cherchable dans le PDF
-// - Fonts Inter / DM Mono rendues nativement (pas rasterisées)
-// - SVG, gradients, ombres fidèles au rendu écran
-// - Fichier PDF 5-10x plus léger
-// - Découpage de pages propre via @page + page-break-*
-// - Fonctionne 100% côté client, zéro dépendance serveur
-//
-// Fonctionnement :
-// 1. Clone le HTML de #sheetContent
-// 2. L'injecte dans une iframe cachée avec un CSS print dédié
-// 3. Appelle iframe.contentWindow.print()
-// 4. Le navigateur ouvre la boîte de dialogue "Enregistrer en PDF"
-//
-// Note : L'utilisateur choisit "Enregistrer en PDF" dans la boîte
-// d'impression de Chrome/Edge/Firefox. C'est le standard pour avoir
-// un rendu vectoriel parfait côté client.
+// PDF EXPORT v3 — Print-native (window.print)
+// Page 1  : Cover (fond sombre, logo France Air, visuel PLP)
+// Page 2+ : Contenu fiche PLP (sommaire, tableau, prescription,
+//            options, plans, visuels) — style Barlow Condensed
 // ══════════════════════════════════════════════════════════════
 
-
-/**
- * CSS complet injecté dans l'iframe de print.
- * Reprend les styles de main.css + cover.css + pdf.css,
- * mais optimisé pour @page A4 portrait avec dimensions fixes.
- */
 function getPrintCSS() {
   return `
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,600;1,400&display=swap');
 
     @page {
       size: A4 portrait;
@@ -50,7 +27,11 @@ function getPrintCSS() {
       color-adjust: exact !important;
     }
 
+    /* ═══════════════════════════════════════════
+       VARIABLES GLOBALES
+       ═══════════════════════════════════════════ */
     :root {
+      /* Cover (navy/teal) */
       --navy:   #1a3050;
       --navy-l: #2a4a6e;
       --navy-d: #0f1f33;
@@ -62,6 +43,15 @@ function getPrintCSS() {
       --tx2:    #4a5568;
       --tx3:    #8896a6;
       --tx4:    #b8c4cf;
+      /* PLP pages */
+      --plp-bl:  #00527A;
+      --plp-bld: #003D5C;
+      --plp-cr:  #F2F2EF;
+      --plp-wh:  #FFFFFF;
+      --plp-gy:  #CCCCCC;
+      --plp-tx:  #333333;
+      --plp-bk:  #111111;
+      --plp-sel: #D6E8F2;
     }
 
     html, body {
@@ -75,7 +65,18 @@ function getPrintCSS() {
     }
 
     /* ═══════════════════════════════════════════
-       COVER PAGE
+       SAUT DE PAGE ENTRE COVER ET CONTENU PLP
+       ═══════════════════════════════════════════ */
+    .plp-page-break {
+      page-break-after: always;
+      break-after: page;
+      height: 0;
+      clear: both;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════
+       COVER PAGE (Page 1)
        ═══════════════════════════════════════════ */
     .cover {
       width: 210mm;
@@ -121,7 +122,7 @@ function getPrintCSS() {
     .cover .side-brand { position: absolute; right: 4mm; top: 53%; transform: translateY(-47%) rotate(180deg); writing-mode: vertical-rl; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.90); z-index: 4; white-space: nowrap; }
 
     .cover .machine-wrapper { position: absolute; left: 8mm; top: 55%; transform: translateY(-45%); height: 66%; width: auto; max-width: 55%; z-index: 2; }
-    .cover .machine-image { height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 10px 35px rgba(0,0,0,0.35)) drop-shadow(0 4px 12px rgba(0,0,0,0.25)) drop-shadow(0 2px 6px rgba(27,79,114,0.2)); }
+    .cover .machine-image { height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 10px 35px rgba(0,0,0,0.35)) drop-shadow(0 4px 12px rgba(0,0,0,0.25)); }
     .cover .machine-glow { position: absolute; left: 5%; top: 10%; width: 90%; height: 80%; background: radial-gradient(ellipse at 50% 55%, rgba(27,161,164,0.15) 0%, rgba(27,79,114,0.08) 40%, transparent 70%); z-index: -1; pointer-events: none; display: block; opacity: 0.7; }
     .cover .machine-reflect { display: none !important; }
     .cover .tech-lines { display: none !important; }
@@ -138,100 +139,149 @@ function getPrintCSS() {
     .cover .footer-right { font-size: 7px; color: rgba(255,255,255,0.30); letter-spacing: 0.04em; }
 
     /* ═══════════════════════════════════════════
-       PAGE BREAK BETWEEN COVER AND CONTENT
+       PLP PAGES (2+) — Barlow Condensed
        ═══════════════════════════════════════════ */
-    .page-break {
-      page-break-after: always;
-      break-after: page;
-      height: 0;
-      clear: both;
+    .plp-pg {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 20mm;
+      background: #fff !important;
+      position: relative;
+      page-break-before: always;
+      break-before: page;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Barlow', Arial, sans-serif;
+      font-size: 9.5px;
+      line-height: 1.65;
+      color: var(--plp-tx);
     }
+    .plp-pg:first-of-type { page-break-before: auto; break-before: auto; }
 
-    /* ═══════════════════════════════════════════
-       FICHE TECHNIQUE (pages de contenu)
-       ═══════════════════════════════════════════ */
-    .sh-sec {
-      padding: 7mm 10mm;
-      border-bottom: 1px solid #eee;
-      break-inside: avoid;
-    }
-    .sh-sec:last-child { border-bottom: none; }
+    /* Header */
+    .plp-hdr { height: 36px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--plp-gy); margin-bottom: 16px; padding-bottom: 6px; flex-shrink: 0; }
+    .plp-hdr-logo img { height: 24px; }
+    .plp-hdr-r { text-align: right; }
+    .plp-hdr-proj { font-family: 'Barlow', sans-serif; font-size: 8px; color: #666; }
+    .plp-hdr-ref { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 8px; color: var(--plp-tx); }
 
-    .stitle { display: flex; align-items: center; gap: 8px; margin-bottom: 4mm; }
-    .sbar { width: 3px; height: 18px; border-radius: 2px; background: var(--teal); }
-    .stitle h3 { font-size: 14px; font-weight: 600; color: var(--navy); }
+    /* Footer */
+    .plp-ftr { height: 24px; border-top: 1px solid var(--plp-gy); display: flex; align-items: center; justify-content: space-between; font-family: 'Barlow', sans-serif; font-size: 7.5px; color: #666; text-transform: uppercase; letter-spacing: .1em; margin-top: auto; padding-top: 5px; flex-shrink: 0; }
 
-    .sh-sub { font-size: 8px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 1.5px; margin: 3mm 0 2mm; }
+    /* Band */
+    .plp-band { background: var(--plp-bl) !important; padding: 12px 24px; margin-bottom: 18px; flex-shrink: 0; }
+    .plp-band-t { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--plp-wh); letter-spacing: .05em; }
+    .plp-band-s { font-family: 'Barlow', sans-serif; font-size: 9px; color: rgba(255,255,255,.8); margin-top: 2px; }
 
-    .sh-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
-    .sh-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2mm; }
+    /* Logo */
+    .plp-logo { display: inline-flex; align-items: baseline; gap: 4px; text-decoration: none; }
+    .plp-logo-fa { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; color: var(--plp-bl); letter-spacing: -.02em; }
+    .plp-logo-sep { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 12px; color: var(--plp-gy); margin: 0 2px; }
+    .plp-logo-inv { font-family: 'Barlow', sans-serif; font-weight: 400; font-size: 11px; color: #666; letter-spacing: .05em; font-style: italic; }
+    .plp-logo-sm .plp-logo-fa { font-size: 13px; }
+    .plp-logo-sm .plp-logo-sep { font-size: 10px; }
+    .plp-logo-sm .plp-logo-inv { font-size: 9px; }
 
-    .tbl-title { font-size: 10px; font-weight: 600; margin-bottom: 1mm; color: var(--navy); }
-    .mt { width: 100%; border-collapse: collapse; font-size: 9px; }
-    .mt td { padding: 1.5mm 2mm; border-bottom: 1px solid #f0f2f4; }
-    .mt tr:nth-child(even) { background: #f7f9fb !important; }
-    .mt .v { text-align: right; font-family: 'DM Mono', monospace; font-weight: 500; color: var(--navy); }
+    /* ─── SOMMAIRE ─── */
+    .plp-som { display: flex; flex: 1; background: var(--plp-cr) !important; position: relative; }
+    .plp-som-l { width: 25%; display: flex; align-items: flex-start; padding: 64px 0 0 28px; }
+    .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 180px; text-transform: uppercase; color: var(--plp-bl); letter-spacing: -.02em; line-height: .82; }
+    .plp-som-r { width: 75%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px 0; }
+    .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; margin-bottom: 10px; }
+    .plp-som-lbl { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--plp-bl); text-align: right; flex: 1; }
+    .plp-som-num { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 80px; line-height: 1; color: var(--plp-bl); margin-left: 16px; min-width: 110px; text-align: right; }
+    .plp-som-logo { position: absolute; top: 32px; right: 48px; }
+    .plp-som-logo img { height: 32px; }
 
-    .dc { background: #f7f9fb !important; padding: 2mm 3mm; border-radius: 3px; border: 1px solid #eef0f2; break-inside: avoid; }
-    .dc-l { font-size: 7px; color: var(--tx3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5mm; }
-    .dc-v { font-size: 10px; font-family: 'DM Mono', monospace; font-weight: 500; color: var(--navy); }
+    /* ─── TABLEAU COMPARATIF ─── */
+    .plp-tb { width: 100%; border-collapse: collapse; font-size: 9px; }
+    .plp-tb th, .plp-tb td { padding: 6px 10px; vertical-align: middle; }
+    .plp-tb thead th { background: var(--plp-bl) !important; color: var(--plp-wh); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; text-align: center; padding: 10px 12px; border: none; font-size: 10px; }
+    .plp-tb thead th + th { border-left: 1px solid rgba(255,255,255,.2); }
+    .plp-tb thead th.plp-lc { text-align: left; font-size: 8px; text-transform: uppercase; }
+    .plp-tb .plp-lc { width: 32%; text-align: left; font-family: 'Barlow', sans-serif; font-size: 9px; color: var(--plp-tx); background: var(--plp-cr) !important; border-right: 2px solid var(--plp-bl); }
+    .plp-tb tbody td { text-align: center; border-bottom: 1px solid var(--plp-gy); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 600; font-size: 10px; color: var(--plp-bk); background: var(--plp-cr) !important; }
+    .plp-tb .plp-gr td { background: var(--plp-wh) !important; font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--plp-bl); padding: 8px 12px; text-align: left; border-top: 2px solid var(--plp-bl); border-bottom: 1px solid var(--plp-gy); }
+    .plp-unit { font-family: 'Barlow', sans-serif; font-weight: 400; font-size: 8px; color: #666; margin-left: 3px; }
+    .plp-thr { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; }
+    .plp-thc { display: block; font-family: 'Barlow', sans-serif; font-weight: 400; font-size: 8px; opacity: .75; margin-top: 2px; }
 
-    /* Acoustique */
-    .ac-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm; }
-    .ac-card { padding: 3mm; border-radius: 4px; text-align: center; border: 1px solid #e2e6ea; background: #fff !important; break-inside: avoid; }
-    .ac-sel { border: 2px solid var(--teal); background: var(--teal-p) !important; }
-    .ac-dim { opacity: 0.35; }
-    .ac-card h4 { font-size: 10px; font-weight: 600; color: var(--navy); margin-bottom: 0.5mm; }
-    .ac-sub { font-size: 7px; color: var(--tx3); margin-bottom: 2mm; }
-    .ac-big { font-size: 20px; font-family: 'DM Mono', monospace; color: var(--teal); font-weight: 600; }
-    .ac-sm { font-size: 12px; font-family: 'DM Mono', monospace; color: var(--tx3); }
-    .ac-unit { font-size: 7px; color: var(--tx3); margin-bottom: 1mm; }
+    /* Acoustique mini cols */
+    .plp-acou-wrap { display: flex; gap: 4px; justify-content: center; }
+    .plp-acou-col { flex: 1; text-align: center; padding: 4px 3px; border-radius: 2px; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; }
+    .plp-acou-col.active { background: var(--plp-bl) !important; color: var(--plp-wh); font-weight: 700; }
+    .plp-acou-col.inactive { background: #e8e8e8 !important; color: #aaa; font-weight: 400; }
+    .plp-acou-lbl { font-size: 6.5px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; display: block; }
+    .plp-acou-val { font-size: 10px; font-weight: 700; display: block; }
 
-    /* Prestations */
-    .prest-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5mm; }
-    .prest-item { padding: 1.5mm 3mm; font-size: 9px; color: var(--tx2); border-radius: 3px; display: flex; gap: 2mm; align-items: flex-start; line-height: 1.4; }
-    .prest-item:nth-child(odd) { background: #f7f9fb !important; }
-    .prest-icon { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    /* Pompe cards */
+    .plp-pump-wrap { display: flex; gap: 4px; justify-content: center; }
+    .plp-pump-card { flex: 1; text-align: center; padding: 6px 4px; border-radius: 3px; font-family: 'Barlow Condensed', sans-serif; max-width: 80px; }
+    .plp-pump-on { background: var(--plp-bl) !important; color: var(--plp-wh); }
+    .plp-pump-off { background: #e8e8e8 !important; color: #aaa; }
+    .plp-pump-icon { font-size: 8px; display: block; margin-bottom: 1px; }
+    .plp-pump-lbl { font-weight: 700; font-size: 10px; display: block; letter-spacing: .05em; }
+    .plp-pump-data { font-size: 7.5px; font-weight: 400; display: block; margin-top: 2px; line-height: 1.3; opacity: .85; }
 
-    /* Dimensions image */
-    .dim-img { max-width: 100%; border: 1px solid #eee; border-radius: 3px; }
+    /* ─── PRESCRIPTION ─── */
+    .plp-presc { padding: 0 8px; }
+    .plp-pb { margin-bottom: 20px; break-inside: avoid; page-break-inside: avoid; }
+    .plp-pb-t { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--plp-bk); margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid var(--plp-bl); }
+    .plp-pb-x { font-family: 'Barlow', sans-serif; font-size: 9.5px; line-height: 1.65; color: var(--plp-tx); }
+    .plp-li { padding-left: 16px; position: relative; margin-bottom: 2px; }
+    .plp-li::before { content: "\2013"; position: absolute; left: 0; color: #666; }
 
-    /* Options table */
-    .sh-table { width: 100%; border-collapse: collapse; font-size: 9px; break-inside: avoid; }
-    .sh-table th { padding: 2mm 3mm; background: var(--navy) !important; color: #fff; font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; }
-    .sh-table td { padding: 2mm 3mm; border-bottom: 1px solid #f0f2f4; }
-    .sh-table tr:nth-child(even) { background: #f7f9fb !important; }
-    .sh-table .r { text-align: right; }
-    .sh-table tfoot td { font-weight: 700; }
+    /* ─── OPTIONS ─── */
+    .plp-cat { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--plp-bl); background: var(--plp-cr) !important; padding: 8px 12px; border-left: 4px solid var(--plp-bl); margin: 20px 0 8px; }
+    .plp-opt { display: flex; align-items: flex-start; padding: 10px 12px; border-bottom: 1px solid #e0e0e0; break-inside: avoid; page-break-inside: avoid; }
+    .plp-opt.plp-sel { background: var(--plp-sel) !important; border-left: 3px solid var(--plp-bl); }
+    .plp-opt.plp-unsel { opacity: .6; }
+    .plp-opt-info { flex: 55%; min-width: 0; }
+    .plp-opt-name { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--plp-bk); }
+    .plp-opt-desc { font-family: 'Barlow', sans-serif; font-size: 9px; color: #555; line-height: 1.5; margin-top: 3px; }
+    .plp-opt-use { font-family: 'Barlow', sans-serif; font-style: italic; font-size: 8.5px; color: #777; margin-top: 4px; }
+    .plp-opt-prix { width: 25%; text-align: right; padding-left: 12px; }
+    .plp-opt-ht { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; color: var(--plp-bk); }
+    .plp-opt-ttc { font-family: 'Barlow', sans-serif; font-size: 8.5px; color: #666; margin-top: 2px; }
+    .plp-opt-chk { width: 20%; display: flex; flex-direction: column; align-items: center; padding-left: 8px; }
+    .plp-chkbox { width: 16px; height: 16px; border: 1.5px solid var(--plp-bl); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--plp-wh); }
+    .plp-chkbox.checked { background: var(--plp-bl) !important; }
+    .plp-chk-lbl { font-size: 7px; color: #666; margin-top: 3px; text-transform: uppercase; }
 
-    /* Footer disclaimer */
+    /* ─── RÉCAP OPTIONS ─── */
+    .plp-recap { border: 2px solid var(--plp-bl); padding: 16px 24px; margin-top: 24px; break-inside: avoid; page-break-inside: avoid; }
+    .plp-recap-t { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; color: var(--plp-bl); margin-bottom: 12px; }
+    .plp-recap-tb { width: 100%; border-collapse: collapse; font-size: 9px; }
+    .plp-recap-tb th { background: var(--plp-bl) !important; color: var(--plp-wh); font-size: 8px; text-transform: uppercase; padding: 5px 8px; text-align: left; font-family: 'Barlow Condensed', sans-serif; }
+    .plp-recap-tb td { padding: 5px 8px; border-bottom: .5px solid #e0e0e0; font-family: 'Barlow', sans-serif; }
+    .plp-recap-tb tr:nth-child(even) td { background: var(--plp-cr) !important; }
+    .plp-recap-total td { background: var(--plp-bld) !important; color: var(--plp-wh); font-weight: 600; font-size: 10px; text-transform: uppercase; padding: 7px 8px; }
+
+    /* ─── IMAGES / PLANS ─── */
+    .plp-iz { border: 1px dashed #bbb; background: #f9f9f9 !important; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-size: 9px; color: #999; font-style: italic; min-height: 200mm; }
+    .plp-cap { font-family: 'Barlow', sans-serif; font-style: italic; font-size: 8px; color: #666; text-align: center; margin-top: 8px; }
+
+    /* ─── DISCLAIMER ─── */
     .sh-foot {
       padding: 4mm 10mm;
       font-size: 7px;
-      color: var(--tx4);
+      color: #b8c4cf;
       font-style: italic;
       line-height: 1.5;
       border-top: 1px solid #eee;
+      font-family: 'Inter', sans-serif;
     }
 
-    /* ═══════════════════════════════════════════
-       GLOBAL PRINT RULES
-       ═══════════════════════════════════════════ */
+    /* ─── UTILITAIRES GLOBAUX ─── */
     img { max-width: 100%; }
     a { text-decoration: none; color: inherit; }
-
-    /* Avoid page breaks inside important blocks */
-    .sh-sec, .ac-card, .dc, .sh-table, .prest-item {
-      break-inside: avoid;
-      page-break-inside: avoid;
-    }
+    .plp-opt, .plp-pb, .plp-recap, .plp-tb, .plp-recap-tb { break-inside: avoid; page-break-inside: avoid; }
   `;
 }
 
 
 /**
- * Ouvre le contenu de la fiche dans une fenêtre/iframe de print
- * pour générer un PDF vectoriel natif.
+ * downloadPDF — ouvre une fenêtre d'impression avec le contenu de #sheetContent
  */
 function downloadPDF() {
   var el = document.getElementById("sheetContent");
@@ -241,8 +291,8 @@ function downloadPDF() {
   var origText = btn ? btn.textContent : '';
   if (btn) { btn.textContent = '⏳ Préparation...'; btn.disabled = true; }
 
-  // Petit délai pour laisser le DOM se stabiliser
   if (typeof ProjetSave !== 'undefined') { ProjetSave.save(); }
+
   setTimeout(function() {
     try {
       if (typeof ProjetSave !== 'undefined') { ProjetSave.save(); }
@@ -258,26 +308,11 @@ function downloadPDF() {
 
 
 /**
- * Stratégie : ouvrir une nouvelle fenêtre avec le HTML complet
- * et un CSS print optimisé, puis appeler print().
- *
- * Avantages vs iframe :
- * - Pas de restrictions cross-origin
- * - Meilleure compatibilité Firefox
- * - L'utilisateur voit la preview avant d'imprimer
+ * _printViaWindow — clone #sheetContent dans une nouvelle fenêtre et lance l'impression
  */
 function _printViaWindow(sourceEl) {
-  // Collecter les images base64 depuis les assets cachés
-  var images = {};
-  ['asset_machine', 'asset_eurovent', 'asset_r290', 'asset_franceair_white'].forEach(function(id) {
-    var img = document.getElementById(id);
-    if (img) images[id] = img.src;
-  });
-
-  // Cloner le contenu
   var content = sourceEl.innerHTML;
 
-  // Construire le HTML complet
   var html = '<!DOCTYPE html>\n<html lang="fr">\n<head>\n';
   html += '<meta charset="UTF-8"/>\n';
   html += '<title>Fiche de Sélection</title>\n';
@@ -286,7 +321,6 @@ function _printViaWindow(sourceEl) {
   html += content;
   html += '\n</body>\n</html>';
 
-  // Ouvrir dans une nouvelle fenêtre
   var printWin = window.open('', '_blank', 'width=900,height=1200');
   if (!printWin) {
     alert("Le navigateur a bloqué la fenêtre popup.\nAutorisez les popups pour ce site, ou utilisez Ctrl+P.");
@@ -297,18 +331,14 @@ function _printViaWindow(sourceEl) {
   printWin.document.write(html);
   printWin.document.close();
 
-  // Attendre le chargement des fonts puis imprimer
   printWin.onload = function() {
-    // Attendre que les Google Fonts soient chargées
     setTimeout(function() {
       printWin.focus();
       printWin.print();
-      // Note : on ne ferme pas la fenêtre automatiquement
-      // pour que l'utilisateur puisse réessayer si besoin
     }, 1500);
   };
 
-  // Fallback si onload ne se déclenche pas
+  // Fallback
   setTimeout(function() {
     try {
       if (!printWin.closed) {
@@ -321,7 +351,7 @@ function _printViaWindow(sourceEl) {
 
 
 // ══════════════════════════════════════════════════════════════
-// FONCTIONS UTILITAIRES (conservées de l'original)
+// FONCTIONS UTILITAIRES (anciennes — conservées pour compatibilité)
 // ══════════════════════════════════════════════════════════════
 
 function st(t) {
