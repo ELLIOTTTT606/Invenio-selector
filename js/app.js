@@ -413,7 +413,9 @@ function buildPreview() {
       #sheetContent .plp-recap-total td { background: #003D5C !important; color: #fff; font-weight: 600; font-size: 10px; padding: 7px 8px; }
       #sheetContent .plp-iz { border: 1px dashed #bbb; background: #f9f9f9 !important; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-size: 9px; color: #999; font-style: italic; min-height: 120px; }
       #sheetContent .plp-cap { font-style: italic; font-size: 8px; color: #666; text-align: center; margin-top: 8px; }
-      #sheetContent .plp-pg { margin-top: 0; padding-top: 12mm; padding-bottom: 12mm; min-height: auto !important; }
+      #sheetContent .plp-pg { margin-top: 0; padding-top: 15mm; padding-bottom: 15mm; }
+      /* Sommaire : hauteur A4 pleine */
+      #sheetContent .plp-pg-som { padding-top: 0 !important; padding-bottom: 0 !important; min-height: 297mm !important; }
       #sheetContent .cover .info-value { font-size: 13px !important; font-weight: 600; color: #1B3A5C; }
       #sheetContent .cover .info-label { font-size: 9px !important; }
       #sheetContent .cover .info-card { padding: 5mm 6mm !important; }
@@ -570,7 +572,7 @@ function buildPreview() {
   h += '<svg class="cover-v2-plp-svg" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">';
   // "PLP" : x=-12 pour coller au bord gauche, y=1110 (plus haut qu'avant = 1140)
   // font-size=520 pour remplir vraiment le tiers bas
-  h += '<text x="-12" y="1110" ';
+  h += '<text x="-12" y="1090" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
   h += 'font-size="520" font-weight="400" ';
   h += 'fill="#1B3A5C" ';
@@ -580,7 +582,7 @@ function buildPreview() {
   // "45" : positionné juste après le dernier P
   // PLP 3 lettres × ~290px chacune (520px font) = ~870px → mais avec kerning ça coupe plus tôt
   // On place le "45" à x=640, y=1060 (un peu au-dessus de la baseline PLP)
-  h += '<text x="638" y="1055" ';
+  h += '<text x="510" y="1010" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
   h += 'font-size="175" font-weight="400" ';
   h += 'fill="#00A896" ';
@@ -594,7 +596,7 @@ function buildPreview() {
   // ══════════════════════════════════════════
   // PAGE 2 — SOMMAIRE
   // ══════════════════════════════════════════
-  h += '<div class="plp-pg" style="padding:0;background:#F2F2EF!important">';
+  h += '<div class="plp-pg plp-pg-som" style="padding:0;background:#F2F2EF!important">';
   h += '<div class="plp-som">';
   h += '<div class="plp-som-l"><div class="plp-som-txt">SOMMAIRE</div></div>';
   h += '<div class="plp-som-r">';
@@ -614,7 +616,7 @@ function buildPreview() {
   var typeLabel = isHS ? 'PAC réversible — R290' : "Groupe d'eau glacée — R290";
   var sousTitre = isHS ? "PAC réversible air-eau R290" : "Groupe d'eau glacée air-eau R290";
 
-  h += '<div class="plp-pg" style="padding:8mm 12mm;">';
+  h += '<div class="plp-pg">';
   h += plpHdr();
   h += plpBand('01', 'Tableau comparatif', 'Gamme PLP — ' + sousTitre);
   h += '<table class="plp-tb"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">'+modele+'</span><span class="plp-thc">'+typeLabel+'</span></th></tr></thead>';
