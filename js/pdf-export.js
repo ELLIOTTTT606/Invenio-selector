@@ -94,11 +94,17 @@ function getPrintCSS() {
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: linear-gradient(160deg, #0d1926 0%, #1a3050 30%, #1e3d5f 60%, #162d47 100%) !important;
+      background: #00527A !important;
       color: #fff;
       page-break-after: always;
       break-after: page;
     }
+
+    .cover .product-hero { flex: 1; position: relative; background: #F2F2EF !important; border: 1px solid rgba(255,255,255,0.45); border-radius: 3px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
+
+    .cover .info-value { font-size: 12px !important; font-weight: 600; color: #1B3A5C; line-height: 1.3; }
+    .cover .info-label { font-size: 8px !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #1ba1a4; margin-bottom: 1mm; }
+    .cover .info-card { background: rgba(255,255,255,0.92) !important; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; padding: 4mm 6mm; overflow: hidden; min-width: 0; }
 
     .cover .page-network { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     .cover .accent-bar { position: absolute; top: 0; left: 0; width: 100%; height: 3.5px; background: linear-gradient(90deg, #1ba1a4 0%, #147888 40%, transparent 80%); z-index: 5; }
@@ -153,7 +159,7 @@ function getPrintCSS() {
     .plp-pg {
       width: 210mm;
       min-height: 297mm;
-      padding: 20mm;
+      padding: 12mm 12mm;
       background: #fff !important;
       position: relative;
       page-break-before: always;
@@ -165,6 +171,7 @@ function getPrintCSS() {
       line-height: 1.65;
       color: var(--plp-tx);
     }
+    .plp-opt-section { font-weight: 600; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--plp-bl); }
     .plp-pg:first-of-type { page-break-before: auto; break-before: auto; }
 
     /* Header */
