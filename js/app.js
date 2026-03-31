@@ -6,6 +6,7 @@ let state = {
   selectedModel: null, selectedSize: null, selectedClient: null,
   region: "", contact: null, versionAcoustique: "standard",
   selectedOptions: {}, step: 0, dimensionImage: null,
+  remiseOptions: 0,
 };
 
 // ══════════════════════════════════════════════
@@ -177,7 +178,6 @@ async function analyzeAndGo() {
 // STEP 0 — NAVIGATION SOUS-ÉTAPES IMPORT
 // ══════════════════════════════════════════════
 function impGo(n) {
-  // Valider avant d'avancer
   if (n === 1 && !state.file) {
     showMsg("error", "Veuillez d'abord importer un fichier CSD (.docx ou .pdf).");
     return;
@@ -186,14 +186,36 @@ function impGo(n) {
     showMsg("error", "Veuillez sélectionner le type de machine.");
     return;
   }
-  // Afficher le bon panel
+  // Lire la remise si on quitte l'étape 1
+  if (n === 2) {
+    var remEl = document.getElementById('inputRemise');
+    if (remEl) state.remiseOptions = parseFloat(remEl.value) || 0;
+  }
+  // Injecter champ remise dans impP1 si pas encore présent
+  if (n === 1 && !document.getElementById('inputRemise')) {
+    var p1 = document.getElementById('impP1');
+    if (p1) {
+      var remDiv = document.createElement('div');
+      remDiv.className = 'card';
+      remDiv.style.marginTop = '12px';
+      remDiv.innerHTML = '<div class="field">'
+        + '<label class="field-label">Remise options &amp; accessoires</label>'
+        + '<span class="field-hint">En %, appliquée sur le prix catalogue de chaque option</span>'
+        + '<input type="number" id="inputRemise" min="0" max="100" step="0.5" placeholder="Ex : 15" '
+        + 'style="width:140px;margin-top:8px;padding:8px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:13px" '
+        + 'value="'+(state.remiseOptions||'')+'" oninput="state.remiseOptions=parseFloat(this.value)||0"/>'
+        + '<span style="color:rgba(255,255,255,.5);font-size:11px;margin-left:6px">%</span>'
+        + '</div>';
+      var navBtns = p1.querySelector('.nav-btns');
+      if (navBtns) p1.insertBefore(remDiv, navBtns);
+    }
+  }
   [0, 1, 2].forEach(function(i) {
     var panel = document.getElementById('impP' + i);
     var dot   = document.getElementById('impDot' + i);
     if (panel) panel.style.display = (i === n) ? '' : 'none';
     if (dot)   dot.className = 'step-dot' + (i === n ? ' active' : i < n ? ' done' : '');
   });
-  // Sur la dernière sous-étape, activer le bouton si client ou projet rempli
   if (n === 2) checkReady();
 }
 
@@ -391,6 +413,11 @@ function buildPreview() {
       #sheetContent .plp-recap-total td { background: #003D5C !important; color: #fff; font-weight: 600; font-size: 10px; padding: 7px 8px; }
       #sheetContent .plp-iz { border: 1px dashed #bbb; background: #f9f9f9 !important; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-size: 9px; color: #999; font-style: italic; min-height: 120px; }
       #sheetContent .plp-cap { font-style: italic; font-size: 8px; color: #666; text-align: center; margin-top: 8px; }
+      #sheetContent .plp-pg { margin-top: 0; padding-top: 12mm; padding-bottom: 12mm; }
+      #sheetContent .cover .info-value { font-size: 13px !important; font-weight: 600; color: #1B3A5C; }
+      #sheetContent .cover .info-label { font-size: 9px !important; }
+      #sheetContent .cover .info-card { padding: 5mm 6mm !important; }
+      #sheetContent .plp-opt-section { font-weight: 600; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.04em; color: #00527A; display: inline; }
       #sheetContent .plp-page-break { display: none; }
       #sheetContent .sh-foot { padding: 8px 10px; font-size: 7px; color: #b8c4cf; font-style: italic; border-top: 1px solid #eee; }
     `;
@@ -447,13 +474,14 @@ function buildPreview() {
     contact2 = regionContacts.find(function(c) { return c.nom !== state.contact.nom; }) || null;
   }
 
-  h += '<div class="cover" style="background-color:#1a3151!important">';
+  // Cover : fond bleu PLP (#00527A), hero beige (#F2F2EF), logo centré
+  h += '<div class="cover" style="background:#00527A!important">';
   h += '<div class="page-network"><svg width="100%" height="100%" viewBox="0 0 800 1130" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">';
-  h += '<line x1="0" y1="150" x2="800" y2="500" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/><line x1="100" y1="0" x2="700" y2="1130" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.8"/><line x1="0" y1="800" x2="800" y2="300" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.8"/><line x1="300" y1="0" x2="100" y2="1130" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.7"/><line x1="0" y1="450" x2="800" y2="900" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.8"/><line x1="500" y1="0" x2="300" y2="1130" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.8"/><line x1="0" y1="1000" x2="800" y2="100" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.7"/><line x1="700" y1="0" x2="200" y2="1130" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.7"/><line x1="0" y1="600" x2="600" y2="0" stroke="#ffffff" stroke-opacity="0.08" stroke-width="0.8"/><line x1="200" y1="1130" x2="800" y2="700" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.7"/>';
-  h += '<circle cx="200" cy="350" r="120" fill="#ffffff" fill-opacity="0.02"/><circle cx="600" cy="800" r="100" fill="#ffffff" fill-opacity="0.015"/><circle cx="400" cy="600" r="80" fill="#ffffff" fill-opacity="0.015"/>';
+  h += '<line x1="0" y1="150" x2="800" y2="500" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1"/><line x1="100" y1="0" x2="700" y2="1130" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.8"/><line x1="0" y1="800" x2="800" y2="300" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.8"/><line x1="300" y1="0" x2="100" y2="1130" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.7"/>';
   h += '</svg></div>';
   h += '<div class="accent-bar"></div>';
-  h += '<div class="header"><img class="company-logo" src="' + document.getElementById("asset_franceair_white").src + '" alt="France Air Invenio" /></div>';
+  // Logo centré
+  h += '<div class="header" style="display:flex;justify-content:center;align-items:center;padding:10mm 0 0 0"><img class="company-logo" src="' + document.getElementById("asset_franceair_white").src + '" alt="France Air Invenio" style="height:28mm;width:auto;mix-blend-mode:normal" /></div>';
   h += '<div class="title-section"><div class="title-label">Projet</div><h1 class="project-title">' + nomProjet + '</h1><div class="title-underline"></div></div>';
   h += '<div class="info-section"><div class="info-grid">';
   h += '<div class="info-card"><div class="info-label">Date</div><div class="info-value">' + dateStr + '</div></div>';
@@ -464,15 +492,18 @@ function buildPreview() {
   h += '<div class="info-card"><div class="info-label">Le Technico-Commercial Sédentaire</div><div class="info-value">' + (contact2 ? contact2.nom : '—') + '</div></div>';
   h += '</div></div>';
   h += '<div class="separator"></div>';
-  h += '<div class="product-section"><div class="product-hero">';
-  h += '<svg class="arc-svg" viewBox="0 0 1000 600" preserveAspectRatio="none"><path d="M 1000 0 L 1000 600 C 900 600, 720 500, 690 300 C 720 100, 900 0, 1000 0 Z" fill="#1a3151"/><defs><clipPath id="arcClipLines"><path d="M 1000 0 L 1000 600 C 900 600 720 500 690 300 C 720 100 900 0 1000 0 Z"/></clipPath></defs><g clip-path="url(#arcClipLines)"><line x1="650" y1="0" x2="1000" y2="400" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/><line x1="700" y1="600" x2="1000" y2="100" stroke="#ffffff" stroke-opacity="0.06" stroke-width="0.8"/><line x1="680" y1="200" x2="1000" y2="550" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.8"/><line x1="750" y1="0" x2="850" y2="600" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.7"/></g></svg>';
-  h += '<div class="hero-shine"></div><div class="particle p1"></div><div class="particle p2"></div><div class="particle p3"></div><div class="particle p4"></div>';
-  h += '<div class="plp-title">' + gammeShort + ' <span class="plp-size">' + (sz || '') + '</span></div>';
-  h += '<div class="side-brand">INVENIO × GALLETTI</div>';
-  h += '<div class="machine-wrapper"><div class="machine-glow"></div><div class="machine-reflect"></div>';
-  h += '<svg class="tech-lines" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="80" stroke="rgba(27,161,164,0.15)" stroke-width="0.5" stroke-dasharray="4 6"/><circle cx="100" cy="100" r="60" stroke="rgba(27,79,114,0.1)" stroke-width="0.3" stroke-dasharray="3 8"/></svg>';
-  h += '<img class="machine-image" src="' + document.getElementById("asset_machine").src + '" alt="' + modele + '" /></div>';
-  h += '<div class="cert-stack"><img class="cert-img-eurovent" src="' + document.getElementById("asset_eurovent").src + '" alt="Eurovent" /><img class="cert-img-r290" src="' + document.getElementById("asset_r290").src + '" alt="R290" /></div>';
+  // Hero beige F2F2EF
+  h += '<div class="product-section"><div class="product-hero" style="background:#F2F2EF!important">';
+  h += '<svg class="arc-svg" viewBox="0 0 1000 600" preserveAspectRatio="none"><path d="M 1000 0 L 1000 600 C 900 600, 720 500, 690 300 C 720 100, 900 0, 1000 0 Z" fill="#00527A"/><defs><clipPath id="arcClipLines"><path d="M 1000 0 L 1000 600 C 900 600 720 500 690 300 C 720 100 900 0 1000 0 Z"/></clipPath></defs></svg>';
+  h += '<div class="hero-shine"></div><div class="particle p1"></div><div class="particle p2"></div>';
+  // Titre PLP grand
+  h += '<div class="plp-title" style="color:#003D5C">' + gammeShort + ' <span class="plp-size" style="color:#00527A">' + (sz || '') + '</span></div>';
+  h += '<div class="side-brand" style="color:rgba(0,82,122,0.7)">INVENIO × GALLETTI</div>';
+  // Machine : image propre, centrée verticalement
+  h += '<div class="machine-wrapper" style="top:50%;transform:translateY(-50%)">';
+  h += '<img class="machine-image" src="' + document.getElementById("asset_machine").src + '" alt="' + modele + '" style="filter:drop-shadow(0 8px 24px rgba(0,0,0,0.20))" /></div>';
+  // Eurovent seulement (pas R290)
+  h += '<div class="cert-stack"><img class="cert-img-eurovent" src="' + document.getElementById("asset_eurovent").src + '" alt="Eurovent" /></div>';
   h += '</div></div>';
   h += '<div class="footer-line"></div>';
   h += '<div class="footer"><div class="footer-left"><span class="footer-brand">INVENIO × GALLETTI</span>  —  Solutions thermodynamiques</div><div class="footer-right">Document confidentiel  ·  Page 1</div></div>';
@@ -481,15 +512,18 @@ function buildPreview() {
   // ══════════════════════════════════════════
   // PAGE 2 — SOMMAIRE
   // ══════════════════════════════════════════
-  h += '<div class="plp-pg" style="padding:0;background:var(--plp-cr)">';
+  h += '<div class="plp-pg" style="padding:0;background:#F2F2EF!important">';
   h += '<div class="plp-som">';
   h += '<div class="plp-som-l"><div class="plp-som-txt">SOMMAIRE</div></div>';
   h += '<div class="plp-som-r">';
   ['TABLEAU COMPARATIF','PRESCRIPTION TECHNIQUE','OPTIONS ET ACCESSOIRES','PLANS DIMENSIONNELS','VISUELS PRODUIT'].forEach(function(lbl, i) {
-    h += '<div class="plp-som-item"><span class="plp-som-lbl">'+lbl+'</span><span class="plp-som-num">0'+(i+1)+'.</span></div>';
+    h += '<div class="plp-som-item" style="align-items:baseline">'
+       + '<span class="plp-som-lbl" style="line-height:1">'+lbl+'</span>'
+       + '<span class="plp-som-num" style="line-height:1">0'+(i+1)+'.</span>'
+       + '</div>';
   });
   h += '</div>';
-  h += '<div class="plp-som-logo"><div class="plp-logo"><span class="plp-logo-fa">FRANCE AIR</span><span class="plp-logo-sep">&times;</span><span class="plp-logo-inv">Invenio</span></div></div>';
+  // Pas de logo haut droite
   h += '</div></div>';
 
   // ══════════════════════════════════════════
@@ -498,10 +532,10 @@ function buildPreview() {
   var typeLabel = isHS ? 'PAC réversible — R290' : "Groupe d'eau glacée — R290";
   var sousTitre = isHS ? "PAC réversible air-eau R290" : "Groupe d'eau glacée air-eau R290";
 
-  h += '<div class="plp-pg">';
+  h += '<div class="plp-pg" style="padding:8mm 12mm;">';
   h += plpHdr();
   h += plpBand('01', 'Tableau comparatif', 'Gamme PLP — ' + sousTitre);
-  h += '<table class="plp-tb"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">'+modele+'</span><span class="plp-thc">'+typeLabel+'</span></th></tr></thead><tbody>';
+  h += '<table class="plp-tb" style="break-inside:avoid;page-break-inside:avoid"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">'+modele+'</span><span class="plp-thc">'+typeLabel+'</span></th></tr></thead><tbody>';
 
   // Refroidissement
   h += '<tr class="plp-gr"><td colspan="2">Refroidissement</td></tr>';
@@ -590,7 +624,7 @@ function buildPreview() {
   // ══════════════════════════════════════════
   h += '<div class="plp-pg">';
   h += plpHdr();
-  h += plpBand('03','Options et accessoires','Prix HT par taille — mis à jour depuis la base Galletti');
+  h += plpBand('03','Options et accessoires','Prix nets — remise ' + (state.remiseOptions || 0) + ' %');
 
   var allOpts = CONFIG.options.filter(function(o) { return o.type.includes(d.type); });
   var cats2 = [], catMap = {};
@@ -599,36 +633,48 @@ function buildPreview() {
     catMap[o.cat].push(o);
   });
 
+  var remise = typeof state.remiseOptions === 'number' ? state.remiseOptions : 0;
+
   cats2.forEach(function(cat) {
-    h += '<div class="plp-cat">'+cat+'</div>';
+    h += '<div class="plp-cat" style="break-before:avoid;page-break-before:avoid">'+cat+'</div>';
     catMap[cat].forEach(function(opt) {
       var isSel = !!state.selectedOptions[opt.id];
       var p = getPrice(opt, sz);
-      var pHT = typeof p === 'number' ? (p === 0 ? 'Inclus' : fmt(p)+' € HT') : p;
-      var pTTC = (typeof p === 'number' && p > 0) ? fmtPrix(p*1.2)+' € TTC' : '';
+      var pNet = '';
+      if (p === 'Sur demande') { pNet = 'Sur demande'; }
+      else if (p === 'N.D') { pNet = 'N.D'; }
+      else if (p === 0) { pNet = 'Inclus'; }
+      else if (typeof p === 'number') {
+        var net = p * (1 - remise / 100);
+        pNet = fmt(Math.round(net)) + ' €';
+      }
       var desc = (typeof OPTION_DESCRIPTIONS !== 'undefined' && OPTION_DESCRIPTIONS[opt.id]) ? OPTION_DESCRIPTIONS[opt.id] : '';
-      h += '<div class="plp-opt '+(isSel?'plp-sel':'plp-unsel')+'">';
+      // Nettoyer les emojis du début des lignes de description
+      var descClean = desc.replace(/🔧\s*Fonctionnement\s*/g, '<span class="plp-opt-section">Fonctionnement</span> ')
+                         .replace(/✅\s*Quand la sélectionner\s*/g, '<span class="plp-opt-section">Quand la sélectionner</span> ');
+      h += '<div class="plp-opt '+(isSel?'plp-sel':'plp-unsel')+'" style="break-inside:avoid;page-break-inside:avoid">';
       h += '<div class="plp-opt-info"><div class="plp-opt-name">'+opt.nom+'</div>';
-      if (desc) h += '<div class="plp-opt-desc">'+desc+'</div>';
+      if (descClean) h += '<div class="plp-opt-desc">'+descClean+'</div>';
       h += '</div>';
-      h += '<div class="plp-opt-prix"><div class="plp-opt-ht">'+pHT+'</div>'+(pTTC?'<div class="plp-opt-ttc">'+pTTC+'</div>':'')+'</div>';
+      h += '<div class="plp-opt-prix"><div class="plp-opt-ht">'+pNet+'</div></div>';
       h += '<div class="plp-opt-chk"><div class="plp-chkbox'+(isSel?' checked':'')+'">'+( isSel?'&#10003;':'')+'</div><div class="plp-chk-lbl">'+(isSel?'Retenu':'')+'</div></div>';
       h += '</div>';
     });
   });
 
-  // Récap options sélectionnées
+  // Récap options sélectionnées — prix nets
   if (selOpts.length > 0) {
-    h += '<div class="plp-recap"><div class="plp-recap-t">Récapitulatif des options sélectionnées</div>';
-    h += '<table class="plp-recap-tb"><thead><tr><th>Option</th><th style="text-align:right">Prix HT</th><th style="text-align:right">TVA 20%</th><th style="text-align:right">Prix TTC</th></tr></thead><tbody>';
-    var totalHT = 0;
+    h += '<div class="plp-recap" style="break-inside:avoid;page-break-inside:avoid"><div class="plp-recap-t">Récapitulatif des options sélectionnées</div>';
+    h += '<table class="plp-recap-tb"><thead><tr><th>Option</th><th style="text-align:right">Prix net</th></tr></thead><tbody>';
+    var totalNet = 0;
     selOpts.forEach(function(o) {
       var p = getPrice(o, sz);
       var px = typeof p === 'number' ? p : 0;
-      totalHT += px;
-      h += '<tr><td>'+o.nom+'</td><td style="text-align:right">'+(px?fmt(px)+' €':'Sur devis')+'</td><td style="text-align:right">'+(px?fmtPrix(px*0.2)+' €':'—')+'</td><td style="text-align:right">'+(px?fmtPrix(px*1.2)+' €':'—')+'</td></tr>';
+      var net = px * (1 - remise / 100);
+      totalNet += net;
+      h += '<tr><td>'+o.nom+'</td><td style="text-align:right">'+(px?fmt(Math.round(net))+' €':'Sur devis')+'</td></tr>';
     });
-    h += '<tr class="plp-recap-total"><td>TOTAL OPTIONS</td><td style="text-align:right">'+fmtPrix(totalHT)+' €</td><td style="text-align:right">'+fmtPrix(totalHT*0.2)+' €</td><td style="text-align:right">'+fmtPrix(totalHT*1.2)+' €</td></tr>';
+    h += '<tr class="plp-recap-total"><td>TOTAL OPTIONS</td><td style="text-align:right">'+fmt(Math.round(totalNet))+' €</td></tr>';
     h += '</tbody></table></div>';
   }
 
