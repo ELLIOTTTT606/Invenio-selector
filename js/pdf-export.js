@@ -160,7 +160,7 @@ function getPrintCSS() {
     .plp-pg {
       width: 210mm;
       min-height: auto;
-      padding: 12mm 12mm;
+      padding: 15mm 12mm;
       background: #fff !important;
       position: relative;
       page-break-before: always;
@@ -174,6 +174,7 @@ function getPrintCSS() {
     }
     .plp-opt-section { font-weight: 600; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--plp-bl); }
     .plp-pg:first-of-type { page-break-before: auto; break-before: auto; }
+    .plp-pg-som { padding-top: 0 !important; padding-bottom: 0 !important; min-height: 297mm !important; }
 
     /* Header */
     .plp-hdr { height: 36px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--plp-gy); margin-bottom: 16px; padding-bottom: 6px; flex-shrink: 0; }
