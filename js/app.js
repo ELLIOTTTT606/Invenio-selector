@@ -413,7 +413,7 @@ function buildPreview() {
       #sheetContent .plp-recap-total td { background: #003D5C !important; color: #fff; font-weight: 600; font-size: 10px; padding: 7px 8px; }
       #sheetContent .plp-iz { border: 1px dashed #bbb; background: #f9f9f9 !important; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-size: 9px; color: #999; font-style: italic; min-height: 120px; }
       #sheetContent .plp-cap { font-style: italic; font-size: 8px; color: #666; text-align: center; margin-top: 8px; }
-      #sheetContent .plp-pg { margin-top: 0; padding-top: 12mm; padding-bottom: 12mm; }
+      #sheetContent .plp-pg { margin-top: 0; padding-top: 12mm; padding-bottom: 12mm; min-height: auto !important; }
       #sheetContent .cover .info-value { font-size: 13px !important; font-weight: 600; color: #1B3A5C; }
       #sheetContent .cover .info-label { font-size: 9px !important; }
       #sheetContent .cover .info-card { padding: 5mm 6mm !important; }
@@ -533,22 +533,22 @@ function buildPreview() {
   // SVG : fond + dégradé diagonal + 2 lignes V + 2 lignes H
   h += '<svg class="cover-v2-grid" viewBox="0 0 794 1123" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">';
   h += '<defs>';
-  // Dégradé diagonal : coins pleins, centre délavé
+  // Fond de base identique au sommaire
   h += '<linearGradient id="diagFade" x1="0%" y1="100%" x2="100%" y2="0%">';
   h += '<stop offset="0%" stop-color="#F2F2EF" stop-opacity="1"/>';
-  h += '<stop offset="42%" stop-color="#FFFFFF" stop-opacity="0.55"/>';
-  h += '<stop offset="58%" stop-color="#FFFFFF" stop-opacity="0.55"/>';
+  h += '<stop offset="35%" stop-color="#FAFAFA" stop-opacity="1"/>';
+  h += '<stop offset="65%" stop-color="#FAFAFA" stop-opacity="1"/>';
   h += '<stop offset="100%" stop-color="#F2F2EF" stop-opacity="1"/>';
   h += '</linearGradient>';
   h += '</defs>';
   h += '<rect width="794" height="1123" fill="#F2F2EF"/>';
   h += '<rect width="794" height="1123" fill="url(#diagFade)"/>';
-  // 2 lignes verticales (tiers gauche et droit)
-  h += '<line x1="265" y1="0" x2="265" y2="1123" stroke="#C8CDD6" stroke-width="0.8"/>';
-  h += '<line x1="530" y1="0" x2="530" y2="1123" stroke="#C8CDD6" stroke-width="0.8"/>';
-  // 2 lignes horizontales (tiers haut et bas)
-  h += '<line x1="0" y1="374" x2="794" y2="374" stroke="#C8CDD6" stroke-width="0.8"/>';
-  h += '<line x1="0" y1="748" x2="794" y2="748" stroke="#C8CDD6" stroke-width="0.8"/>';
+  // 2 lignes verticales (tiers)
+  h += '<line x1="265" y1="0" x2="265" y2="1123" stroke="#D8DAE0" stroke-width="0.8"/>';
+  h += '<line x1="530" y1="0" x2="530" y2="1123" stroke="#D8DAE0" stroke-width="0.8"/>';
+  // 2 lignes horizontales (tiers)
+  h += '<line x1="0" y1="374" x2="794" y2="374" stroke="#D8DAE0" stroke-width="0.8"/>';
+  h += '<line x1="0" y1="748" x2="794" y2="748" stroke="#D8DAE0" stroke-width="0.8"/>';
   h += '</svg>';
 
   // Logos haut de page — PNG noirs sur fond clair : France Air ok, Invenio ok
@@ -564,26 +564,25 @@ function buildPreview() {
   h += '</div>';
 
   // Spacer flexible — pousse PLP vers le bas
-  // PLP géant en SVG absolu — fiable en print (pas de CSS layout)
-  // A4 = 794x1123 px (96dpi). PLP occupe le tiers bas de la page.
-  // viewBox de la cover-v2 SVG = 0 0 794 1123
-  // On injecte un second SVG par-dessus en position absolute
+  // PLP géant en SVG absolu — fiable en print
   var plpLabel = gammeShort; // "PLP"
-  var szLabel = sz || '';
+  var szLabel = (sz || '').replace(/^0+/, ''); // supprimer zéros initiaux : "045" → "45"
   h += '<svg class="cover-v2-plp-svg" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">';
-  // "PLP" : ancré bas-gauche, déborde légèrement
-  h += '<text x="-8" y="1140" ';
+  // "PLP" : x=-12 pour coller au bord gauche, y=1110 (plus haut qu'avant = 1140)
+  // font-size=520 pour remplir vraiment le tiers bas
+  h += '<text x="-12" y="1110" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="480" font-weight="400" ';
+  h += 'font-size="520" font-weight="400" ';
   h += 'fill="#1B3A5C" ';
-  h += 'letter-spacing="-10">';
+  h += 'letter-spacing="-12">';
   h += plpLabel;
   h += '</text>';
-  // Numéro taille : ancré bas-droite, décalé à droite du P final
-  // PLP à 480px → largeur approx 700px pour 3 lettres → "045" commence vers x=530
-  h += '<text x="535" y="1075" ';
+  // "45" : positionné juste après le dernier P
+  // PLP 3 lettres × ~290px chacune (520px font) = ~870px → mais avec kerning ça coupe plus tôt
+  // On place le "45" à x=640, y=1060 (un peu au-dessus de la baseline PLP)
+  h += '<text x="638" y="1055" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="160" font-weight="400" ';
+  h += 'font-size="175" font-weight="400" ';
   h += 'fill="#00A896" ';
   h += 'letter-spacing="-3">';
   h += szLabel;
@@ -618,10 +617,10 @@ function buildPreview() {
   h += '<div class="plp-pg" style="padding:8mm 12mm;">';
   h += plpHdr();
   h += plpBand('01', 'Tableau comparatif', 'Gamme PLP — ' + sousTitre);
-  h += '<table class="plp-tb" style="break-inside:avoid;page-break-inside:avoid"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">'+modele+'</span><span class="plp-thc">'+typeLabel+'</span></th></tr></thead><tbody>';
+  h += '<table class="plp-tb"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">'+modele+'</span><span class="plp-thc">'+typeLabel+'</span></th></tr></thead>';
 
   // Refroidissement
-  h += '<tr class="plp-gr"><td colspan="2">Refroidissement</td></tr>';
+  h += '<tbody style="break-inside:avoid;page-break-inside:avoid"><tr class="plp-gr"><td colspan="2">Refroidissement</td></tr>';
   if (d.refroidissement) {
     h += '<tr><td class="plp-lc">Conditions eau entrée / sortie</td><td>'+(d.refroidissement.tempEntreeEau||'—')+' / '+(d.refroidissement.tempSortieEau||'—')+'<span class="plp-unit"> °C</span></td></tr>';
     h += '<tr><td class="plp-lc">Température air extérieur</td><td>'+(d.refroidissement.tempAirExt||'—')+'<span class="plp-unit"> °C</span></td></tr>';
@@ -634,7 +633,7 @@ function buildPreview() {
 
   // Chauffage (PAC)
   if (isHS) {
-    h += '<tr class="plp-gr"><td colspan="2">Chauffage</td></tr>';
+    h += '</tbody><tbody style="break-inside:avoid;page-break-inside:avoid"><tr class="plp-gr"><td colspan="2">Chauffage</td></tr>';
     if (d.chauffage) {
       h += '<tr><td class="plp-lc">Conditions eau entrée / sortie</td><td>'+(d.chauffage.tempEntreeEau||'—')+' / '+(d.chauffage.tempSortieEau||'—')+'<span class="plp-unit"> °C</span></td></tr>';
       h += '<tr><td class="plp-lc">Température air extérieur</td><td>'+(d.chauffage.tempAirExt||'—')+'<span class="plp-unit"> °C</span></td></tr>';
@@ -648,19 +647,19 @@ function buildPreview() {
   }
 
   // Hydraulique
-  h += '<tr class="plp-gr"><td colspan="2">Hydraulique</td></tr>';
+  h += '</tbody><tbody style="break-inside:avoid;page-break-inside:avoid"><tr class="plp-gr"><td colspan="2">Hydraulique</td></tr>';
   h += '<tr><td class="plp-lc">Débit d\'eau</td><td>'+(rf.debitEau||'—')+'<span class="plp-unit"> m³/h</span></td></tr>';
   h += '<tr><td class="plp-lc">Pertes de charge réseau</td><td>'+(rf.perteCharge||'—')+'<span class="plp-unit"> kPa</span></td></tr>';
   h += '<tr><td class="plp-lc">Pompe intégrée</td><td>'+buildPumpWrap(d)+'</td></tr>';
 
   // Electrique
-  h += '<tr class="plp-gr"><td colspan="2">Électrique</td></tr>';
+  h += '</tbody><tbody style="break-inside:avoid;page-break-inside:avoid"><tr class="plp-gr"><td colspan="2">Électrique</td></tr>';
   h += '<tr><td class="plp-lc">Courant absorbé max (FLA)</td><td>'+(cd.maxCourant||'—')+'<span class="plp-unit"> A</span></td></tr>';
   h += '<tr><td class="plp-lc">Courant de démarrage (LRA)</td><td>'+(cd.courantDemarrage||'—')+'<span class="plp-unit"> A</span></td></tr>';
   h += '<tr><td class="plp-lc">Alimentation</td><td>'+(d.alimentation||'400 V / 3+N / 50 Hz')+'</td></tr>';
 
   // Acoustique
-  h += '<tr class="plp-gr"><td colspan="2">Acoustique</td></tr>';
+  h += '</tbody><tbody style="break-inside:avoid;page-break-inside:avoid"><tr class="plp-gr"><td colspan="2">Acoustique</td></tr>';
   h += '<tr><td class="plp-lc">Puissance acoustique Lw</td><td>';
   h += buildAcouWrap(cd.lwStandard,cd.lwSilencieuse,cd.lwUltra,cd.lpStandard,cd.lpSilencieuse,cd.lpUltra,state.versionAcoustique,'lw');
   h += '<span class="plp-unit" style="display:block;text-align:center;margin-top:2px">dB(A)</span></td></tr>';
@@ -669,7 +668,7 @@ function buildPreview() {
   h += '<span class="plp-unit" style="display:block;text-align:center;margin-top:2px">dB(A)</span></td></tr>';
 
   // Réfrigérant & divers
-  h += '<tr class="plp-gr"><td colspan="2">Réfrigérant &amp; divers</td></tr>';
+  h += '</tbody><tbody style="break-inside:avoid;page-break-inside:avoid"><tr class="plp-gr"><td colspan="2">Réfrigérant &amp; divers</td></tr>';
   h += '<tr><td class="plp-lc">Fluide frigorigène</td><td>'+(d.refrigerant||'R290 (propane)')+'</td></tr>';
   h += '<tr><td class="plp-lc">GWP</td><td>'+(d.gwp||'3')+'</td></tr>';
   h += '<tr><td class="plp-lc">Compresseurs</td><td>'+(cd.compresseursCircuits||'—')+'</td></tr>';
