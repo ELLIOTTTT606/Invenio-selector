@@ -320,24 +320,12 @@ function getPrintCSS() {
       font-weight: 400; font-size: 19px; line-height: 1.2;
       color: #1B3A5C; margin-top: 4mm;
     }
-    .cover-v2-spacer { flex: 1; min-height: 10mm; z-index: 1; }
-    .cover-v2-plp-zone {
-      position: relative; z-index: 2;
-      display: flex; align-items: flex-end;
-      margin-left: -4mm; margin-bottom: -12mm;
-      line-height: 0.82; flex-shrink: 0;
-    }
-    .cover-v2-plp-text {
-      font-family: 'Anton', 'Arial Black', Arial, sans-serif;
-      font-weight: 400; font-size: 320px;
-      color: #1B3A5C; letter-spacing: -6px; line-height: 0.82;
-    }
-    .cover-v2-plp-num {
-      font-family: 'Anton', 'Arial Black', Arial, sans-serif;
-      font-weight: 400; font-size: 110px;
-      color: #00A896; letter-spacing: -2px;
-      margin-bottom: 18mm; margin-left: 4mm;
-      align-self: flex-end; line-height: 1;
+    .cover-v2-spacer { display: none; }
+    /* PLP en SVG absolu — fonctionne en print */
+    .cover-v2-plp-svg {
+      position: absolute;
+      inset: 0; width: 100%; height: 100%;
+      z-index: 3; pointer-events: none; overflow: visible;
     }
 
     /* ─── UTILITAIRES GLOBAUX ─── */
