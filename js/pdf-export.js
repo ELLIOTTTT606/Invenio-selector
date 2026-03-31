@@ -238,7 +238,7 @@ function getPrintCSS() {
     .plp-pb-t { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--plp-bk); margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid var(--plp-bl); }
     .plp-pb-x { font-family: 'Barlow', sans-serif; font-size: 9.5px; line-height: 1.65; color: var(--plp-tx); }
     .plp-li { padding-left: 16px; position: relative; margin-bottom: 2px; }
-    .plp-li::before { content: "\2013"; position: absolute; left: 0; color: #666; }
+    .plp-li::before { content: "–"; position: absolute; left: 0; color: #666; }
 
     /* ─── OPTIONS ─── */
     .plp-cat { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--plp-bl); background: var(--plp-cr) !important; padding: 8px 12px; border-left: 4px solid var(--plp-bl); margin: 20px 0 8px; }
