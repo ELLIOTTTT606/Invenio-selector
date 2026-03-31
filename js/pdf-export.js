@@ -159,7 +159,7 @@ function getPrintCSS() {
        ═══════════════════════════════════════════ */
     .plp-pg {
       width: 210mm;
-      min-height: 297mm;
+      min-height: auto;
       padding: 12mm 12mm;
       background: #fff !important;
       position: relative;
@@ -321,12 +321,13 @@ function getPrintCSS() {
       color: #1B3A5C; margin-top: 4mm;
     }
     .cover-v2-spacer { display: none; }
-    /* PLP en SVG absolu — fonctionne en print */
     .cover-v2-plp-svg {
       position: absolute;
       inset: 0; width: 100%; height: 100%;
       z-index: 3; pointer-events: none; overflow: visible;
     }
+    /* Fix tableau : pas de min-height forcing, sauts de page naturels */
+    .plp-pg { min-height: auto !important; }
 
     /* ─── UTILITAIRES GLOBAUX ─── */
     img { max-width: 100%; }
