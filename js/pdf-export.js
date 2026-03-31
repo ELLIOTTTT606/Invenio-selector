@@ -288,6 +288,50 @@ function getPrintCSS() {
       font-family: 'Inter', sans-serif;
     }
 
+    /* ─── COVER V2 ─── */
+    .cover-v2 {
+      width: 210mm; height: 297mm;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      background: #ECEEF2 !important;
+      page-break-after: always; break-after: page;
+    }
+    .cover-v2-grid { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+    .cover-v2-header {
+      position: relative; z-index: 2;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10mm 12mm 0 12mm;
+    }
+    .cover-v2-logo-fa { height: 12mm; width: auto; }
+    .cover-v2-logo-inv { height: 8mm; width: auto; }
+    .cover-v2-title-zone { position: relative; z-index: 2; padding: 18mm 12mm 0 12mm; }
+    .cover-v2-title {
+      font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-weight: 800; font-size: 52px; line-height: 1.05;
+      color: #1B3A5C; text-transform: uppercase; letter-spacing: -0.5px;
+    }
+    .cover-v2-subtitle {
+      font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-weight: 700; font-size: 20px; line-height: 1.3;
+      color: #1B3A5C; margin-top: 6mm;
+    }
+    .cover-v2-plp-zone {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      display: flex; align-items: flex-end;
+      padding: 0 10mm 0 4mm; line-height: 0.85;
+    }
+    .cover-v2-plp-text {
+      font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-weight: 800; font-size: 260px;
+      color: #1B3A5C; letter-spacing: -4px; margin-bottom: -10mm;
+    }
+    .cover-v2-plp-num {
+      font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-weight: 800; font-size: 120px;
+      color: #00A896; letter-spacing: -2px;
+      margin-bottom: 4mm; margin-left: 4mm; align-self: flex-end;
+    }
+
     /* ─── UTILITAIRES GLOBAUX ─── */
     img { max-width: 100%; }
     a { text-decoration: none; color: inherit; }
