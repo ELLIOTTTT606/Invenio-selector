@@ -423,49 +423,62 @@ function buildPreview() {
       /* ─── COVER V2 ─── */
       @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
       #sheetContent .cover-v2 {
-        width: 210mm; height: 297mm;
+        width: 210mm; min-height: 297mm;
         position: relative; overflow: hidden;
         display: flex; flex-direction: column;
         background: #F2F2EF;
         page-break-after: always; break-after: page;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.12);
+        margin-bottom: 20px;
       }
-      #sheetContent .cover-v2-grid { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+      #sheetContent .cover-v2-grid { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
       #sheetContent .cover-v2-header {
         position: relative; z-index: 2;
-        display: flex; justify-content: space-between; align-items: center;
+        display: flex; justify-content: space-between; align-items: flex-start;
         padding: 9mm 10mm 0 10mm;
+        flex-shrink: 0;
       }
       #sheetContent .cover-v2-logo-fa { height: 11mm; width: auto; }
-      #sheetContent .cover-v2-logo-inv { height: 7mm; width: auto; }
+      #sheetContent .cover-v2-logo-inv { height: 7mm; width: auto; margin-top: 2mm; }
       #sheetContent .cover-v2-title-zone {
         position: relative; z-index: 2;
-        padding: 14mm 10mm 0 10mm;
+        padding: 16mm 8mm 0 8mm;
         text-align: center;
+        flex-shrink: 0;
       }
       #sheetContent .cover-v2-title {
-        font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 400; font-size: 58px; line-height: 1;
+        font-family: 'Anton', 'Arial Black', Arial, sans-serif;
+        font-weight: 400; font-size: 72px; line-height: 1;
         color: #1B3A5C; letter-spacing: 0.5px;
       }
       #sheetContent .cover-v2-subtitle {
-        font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 400; font-size: 19px; line-height: 1.2;
-        color: #1B3A5C; margin-top: 3mm;
+        font-family: 'Anton', 'Arial Black', Arial, sans-serif;
+        font-weight: 400; font-size: 22px; line-height: 1.2;
+        color: #1B3A5C; margin-top: 4mm;
       }
+      /* Spacer flexible — pousse le PLP vers le bas */
+      #sheetContent .cover-v2-spacer { flex: 1; min-height: 20mm; z-index: 1; }
       #sheetContent .cover-v2-plp-zone {
-        position: absolute; bottom: -8mm; left: -2mm; right: 0; z-index: 2;
-        display: flex; align-items: flex-end; line-height: 0.82;
+        position: relative; z-index: 2;
+        display: flex; align-items: flex-end;
+        margin-left: -4mm;
+        margin-bottom: -12mm;
+        line-height: 0.82;
+        flex-shrink: 0;
+        overflow: visible;
       }
       #sheetContent .cover-v2-plp-text {
-        font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 400; font-size: 320px;
-        color: #1B3A5C; letter-spacing: -6px;
+        font-family: 'Anton', 'Arial Black', Arial, sans-serif;
+        font-weight: 400; font-size: 370px;
+        color: #1B3A5C; letter-spacing: -8px;
+        line-height: 0.82;
       }
       #sheetContent .cover-v2-plp-num {
-        font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 400; font-size: 110px;
+        font-family: 'Anton', 'Arial Black', Arial, sans-serif;
+        font-weight: 400; font-size: 130px;
         color: #00A896; letter-spacing: -2px;
-        margin-bottom: 14mm; margin-left: 2mm; align-self: flex-end;
+        margin-bottom: 18mm; margin-left: 4mm;
+        align-self: flex-end; line-height: 1;
       }
     `;
     document.head.appendChild(styleEl);
@@ -552,7 +565,7 @@ function buildPreview() {
   h += '<line x1="0" y1="748" x2="794" y2="748" stroke="#C8CDD6" stroke-width="0.8"/>';
   h += '</svg>';
 
-  // Logos haut de page
+  // Logos haut de page — PNG noirs sur fond clair : France Air ok, Invenio ok
   h += '<div class="cover-v2-header">';
   h += '<img class="cover-v2-logo-fa" src="data:image/png;base64,' + FA_B64 + '" alt="France Air"/>';
   h += '<img class="cover-v2-logo-inv" src="data:image/png;base64,' + INV_B64 + '" alt="Invenio"/>';
@@ -563,6 +576,9 @@ function buildPreview() {
   h += '<div class="cover-v2-title">' + nomProjet + '</div>';
   h += '<div class="cover-v2-subtitle">' + coverSousTitre + '</div>';
   h += '</div>';
+
+  // Spacer flexible — pousse PLP vers le bas
+  h += '<div class="cover-v2-spacer"></div>';
 
   // PLP géant bas page + numéro taille
   h += '<div class="cover-v2-plp-zone">';
