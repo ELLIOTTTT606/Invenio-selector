@@ -174,6 +174,61 @@ async function analyzeAndGo() {
 }
 
 // ══════════════════════════════════════════════
+// STEP 0 — NAVIGATION SOUS-ÉTAPES IMPORT
+// ══════════════════════════════════════════════
+function impGo(n) {
+  // Valider avant d'avancer
+  if (n === 1 && !state.file) {
+    showMsg("error", "Veuillez d'abord importer un fichier CSD (.docx ou .pdf).");
+    return;
+  }
+  if (n === 2 && !state.machineType) {
+    showMsg("error", "Veuillez sélectionner le type de machine.");
+    return;
+  }
+  // Afficher le bon panel
+  [0, 1, 2].forEach(function(i) {
+    var panel = document.getElementById('impP' + i);
+    var dot   = document.getElementById('impDot' + i);
+    if (panel) panel.style.display = (i === n) ? '' : 'none';
+    if (dot)   dot.className = 'step-dot' + (i === n ? ' active' : i < n ? ' done' : '');
+  });
+  // Sur la dernière sous-étape, activer le bouton si client ou projet rempli
+  if (n === 2) checkReady();
+}
+
+// Ouvre la modale de mise à jour des clients (Excel)
+function openClientUpdate() {
+  var inp = document.getElementById('fileClients');
+  if (!inp) {
+    // Créer dynamiquement si absent
+    inp = document.createElement('input');
+    inp.type = 'file';
+    inp.id = 'fileClients';
+    inp.accept = '.xlsx,.xls';
+    inp.style.display = 'none';
+    inp.onchange = function() { loadClientsExcel(this.files[0]); };
+    document.body.appendChild(inp);
+  }
+  inp.click();
+}
+
+// Ouvre la modale de mise à jour des prix (Excel)
+function openPriceUpdate() {
+  var inp = document.getElementById('filePricesBtn');
+  if (!inp) {
+    inp = document.createElement('input');
+    inp.type = 'file';
+    inp.id = 'filePricesBtn';
+    inp.accept = '.xlsx,.xls';
+    inp.style.display = 'none';
+    inp.onchange = function() { loadPricesExcel(this.files[0]); };
+    document.body.appendChild(inp);
+  }
+  inp.click();
+}
+
+// ══════════════════════════════════════════════
 // NAVIGATION
 // ══════════════════════════════════════════════
 function goToStep(n) {
