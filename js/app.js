@@ -420,6 +420,49 @@ function buildPreview() {
       #sheetContent .plp-opt-section { font-weight: 600; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.04em; color: #00527A; display: inline; }
       #sheetContent .plp-page-break { display: none; }
       #sheetContent .sh-foot { padding: 8px 10px; font-size: 7px; color: #b8c4cf; font-style: italic; border-top: 1px solid #eee; }
+      /* ─── COVER V2 ─── */
+      #sheetContent .cover-v2 {
+        width: 210mm; height: 297mm;
+        position: relative; overflow: hidden;
+        display: flex; flex-direction: column;
+        background: #ECEEF2;
+        page-break-after: always; break-after: page;
+      }
+      #sheetContent .cover-v2-grid { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+      #sheetContent .cover-v2-header {
+        position: relative; z-index: 2;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 10mm 12mm 0 12mm;
+      }
+      #sheetContent .cover-v2-logo-fa { height: 12mm; width: auto; }
+      #sheetContent .cover-v2-logo-inv { height: 8mm; width: auto; }
+      #sheetContent .cover-v2-title-zone { position: relative; z-index: 2; padding: 18mm 12mm 0 12mm; }
+      #sheetContent .cover-v2-title {
+        font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 800; font-size: 52px; line-height: 1.05;
+        color: #1B3A5C; text-transform: uppercase; letter-spacing: -0.5px;
+      }
+      #sheetContent .cover-v2-subtitle {
+        font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 700; font-size: 20px; line-height: 1.3;
+        color: #1B3A5C; margin-top: 6mm;
+      }
+      #sheetContent .cover-v2-plp-zone {
+        position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+        display: flex; align-items: flex-end;
+        padding: 0 10mm 0 4mm; line-height: 0.85;
+      }
+      #sheetContent .cover-v2-plp-text {
+        font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 800; font-size: 260px;
+        color: #1B3A5C; letter-spacing: -4px; margin-bottom: -10mm;
+      }
+      #sheetContent .cover-v2-plp-num {
+        font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 800; font-size: 120px;
+        color: #00A896; letter-spacing: -2px;
+        margin-bottom: 4mm; margin-left: 4mm; align-self: flex-end;
+      }
     `;
     document.head.appendChild(styleEl);
   }
@@ -474,40 +517,74 @@ function buildPreview() {
     contact2 = regionContacts.find(function(c) { return c.nom !== state.contact.nom; }) || null;
   }
 
-  // Cover : fond bleu PLP (#00527A), hero beige (#F2F2EF), logo centré
-  h += '<div class="cover" style="background:#00527A!important">';
-  h += '<div class="page-network"><svg width="100%" height="100%" viewBox="0 0 800 1130" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">';
-  h += '<line x1="0" y1="150" x2="800" y2="500" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1"/><line x1="100" y1="0" x2="700" y2="1130" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.8"/><line x1="0" y1="800" x2="800" y2="300" stroke="#ffffff" stroke-opacity="0.05" stroke-width="0.8"/><line x1="300" y1="0" x2="100" y2="1130" stroke="#ffffff" stroke-opacity="0.04" stroke-width="0.7"/>';
-  h += '</svg></div>';
-  h += '<div class="accent-bar"></div>';
-  // Logo centré
-  h += '<div class="header" style="display:flex;justify-content:center;align-items:center;padding:10mm 0 0 0"><img class="company-logo" src="' + document.getElementById("asset_franceair_white").src + '" alt="France Air Invenio" style="height:28mm;width:auto;mix-blend-mode:normal" /></div>';
-  h += '<div class="title-section"><div class="title-label">Projet</div><h1 class="project-title">' + nomProjet + '</h1><div class="title-underline"></div></div>';
-  h += '<div class="info-section"><div class="info-grid">';
-  h += '<div class="info-card"><div class="info-label">Date</div><div class="info-value">' + dateStr + '</div></div>';
-  h += '<div class="info-card"><div class="info-label">' + (state.region ? 'Région' : 'Localisation') + '</div><div class="info-value">' + (state.region || '—') + '</div></div>';
-  h += '<div class="info-card"><div class="info-label">Client</div><div class="info-value">' + clientNom + '</div></div>';
-  h += '</div><div class="info-row-2">';
-  h += '<div class="info-card"><div class="info-label">Le Technico-Commercial Itinérant</div><div class="info-value">' + (state.contact ? state.contact.nom : '—') + '</div></div>';
-  h += '<div class="info-card"><div class="info-label">Le Technico-Commercial Sédentaire</div><div class="info-value">' + (contact2 ? contact2.nom : '—') + '</div></div>';
-  h += '</div></div>';
-  h += '<div class="separator"></div>';
-  // Hero beige F2F2EF
-  h += '<div class="product-section"><div class="product-hero" style="background:#F2F2EF!important">';
-  h += '<svg class="arc-svg" viewBox="0 0 1000 600" preserveAspectRatio="none"><path d="M 1000 0 L 1000 600 C 900 600, 720 500, 690 300 C 720 100, 900 0, 1000 0 Z" fill="#00527A"/><defs><clipPath id="arcClipLines"><path d="M 1000 0 L 1000 600 C 900 600 720 500 690 300 C 720 100 900 0 1000 0 Z"/></clipPath></defs></svg>';
-  h += '<div class="hero-shine"></div><div class="particle p1"></div><div class="particle p2"></div>';
-  // Titre PLP grand
-  h += '<div class="plp-title" style="color:#003D5C">' + gammeShort + ' <span class="plp-size" style="color:#00527A">' + (sz || '') + '</span></div>';
-  h += '<div class="side-brand" style="color:rgba(0,82,122,0.7)">INVENIO × GALLETTI</div>';
-  // Machine : image propre, centrée verticalement
-  h += '<div class="machine-wrapper" style="top:50%;transform:translateY(-50%)">';
-  h += '<img class="machine-image" src="' + document.getElementById("asset_machine").src + '" alt="' + modele + '" style="filter:drop-shadow(0 8px 24px rgba(0,0,0,0.20))" /></div>';
-  // Eurovent seulement (pas R290)
-  h += '<div class="cert-stack"><img class="cert-img-eurovent" src="' + document.getElementById("asset_eurovent").src + '" alt="Eurovent" /></div>';
-  h += '</div></div>';
-  h += '<div class="footer-line"></div>';
-  h += '<div class="footer"><div class="footer-left"><span class="footer-brand">INVENIO × GALLETTI</span>  —  Solutions thermodynamiques</div><div class="footer-right">Document confidentiel  ·  Page 1</div></div>';
-  h += '</div>'; // .cover
+  // ── Sous-titre dynamique selon type machine ──
+  var coverSousTitre = isHS ? "Fiche de sélection d'une pompe à chaleur" : "Fiche de sélection d'un groupe d'eau glacée";
+
+  // ── Cover nouvelle maquette ──
+  // Fond gris clair avec grille SVG en filigrane, logos couleur en haut, titre + PLP géant
+  h += '<div class="cover-v2">';
+
+  // Fond : grille SVG pleine page
+  h += '<svg class="cover-v2-grid" viewBox="0 0 794 1123" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">';
+  // Dégradé radial léger (coin haut droit plus clair)
+  h += '<defs>';
+  h += '<radialGradient id="bgGrad" cx="80%" cy="10%" r="70%">';
+  h += '<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>';
+  h += '<stop offset="100%" stop-color="#E8EBF0" stop-opacity="0"/>';
+  h += '</radialGradient>';
+  h += '</defs>';
+  h += '<rect width="794" height="1123" fill="#ECEEF2"/>';
+  h += '<rect width="794" height="1123" fill="url(#bgGrad)"/>';
+  // Grille verticales — 4 colonnes
+  var cols = [0, 198.5, 397, 595.5, 794];
+  cols.forEach(function(x) {
+    h += '<line x1="'+x+'" y1="0" x2="'+x+'" y2="1123" stroke="#C8CDD6" stroke-width="0.6"/>';
+  });
+  // Grille horizontales — espacement 140px
+  for (var y = 0; y <= 1123; y += 140) {
+    h += '<line x1="0" y1="'+y+'" x2="794" y2="'+y+'" stroke="#C8CDD6" stroke-width="0.6"/>';
+  }
+  h += '</svg>';
+
+  // ── Logos haut de page ──
+  h += '<div class="cover-v2-header">';
+  // Logo France Air gauche — placeholder remplacé par asset_franceair_color quand fourni
+  var assetFAColor = document.getElementById("asset_franceair_color");
+  if (assetFAColor && assetFAColor.src && assetFAColor.src.length > 50) {
+    h += '<img class="cover-v2-logo-fa" src="' + assetFAColor.src + '" alt="France Air"/>';
+  } else {
+    // Fallback SVG inline France Air style script
+    h += '<svg class="cover-v2-logo-fa" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">';
+    h += '<text x="0" y="36" font-family="Georgia,serif" font-size="28" font-style="italic" font-weight="400" fill="#1B3A5C" letter-spacing="-0.5">France Air</text>';
+    h += '<path d="M150 8 Q155 4 160 10 Q165 14 158 18" stroke="#E8312A" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
+    h += '</svg>';
+  }
+  // Logo Invenio droite — placeholder remplacé par asset_invenio_color quand fourni
+  var assetInvenio = document.getElementById("asset_invenio_color");
+  if (assetInvenio && assetInvenio.src && assetInvenio.src.length > 50) {
+    h += '<img class="cover-v2-logo-inv" src="' + assetInvenio.src + '" alt="Invenio"/>';
+  } else {
+    // Fallback texte
+    h += '<svg class="cover-v2-logo-inv" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">';
+    h += '<text x="0" y="28" font-family="Arial,sans-serif" font-size="22" font-weight="300" fill="#1B3A5C" letter-spacing="1">Invenio</text>';
+    h += '<circle cx="108" cy="8" r="3" fill="#00A896"/>';
+    h += '</svg>';
+  }
+  h += '</div>'; // .cover-v2-header
+
+  // ── Zone titre centrale ──
+  h += '<div class="cover-v2-title-zone">';
+  h += '<div class="cover-v2-title">' + nomProjet + '</div>';
+  h += '<div class="cover-v2-subtitle">' + coverSousTitre + '</div>';
+  h += '</div>';
+
+  // ── PLP géant en bas + numéro taille ──
+  h += '<div class="cover-v2-plp-zone">';
+  h += '<div class="cover-v2-plp-text">' + gammeShort + '</div>';
+  h += '<div class="cover-v2-plp-num">' + (sz || '') + '</div>';
+  h += '</div>';
+
+  h += '</div>'; // .cover-v2
 
   // ══════════════════════════════════════════
   // PAGE 2 — SOMMAIRE
