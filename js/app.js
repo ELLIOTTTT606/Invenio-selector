@@ -456,29 +456,15 @@ function buildPreview() {
         font-weight: 400; font-size: 22px; line-height: 1.2;
         color: #1B3A5C; margin-top: 4mm;
       }
-      /* Spacer flexible — pousse le PLP vers le bas */
-      #sheetContent .cover-v2-spacer { flex: 1; min-height: 20mm; z-index: 1; }
-      #sheetContent .cover-v2-plp-zone {
-        position: relative; z-index: 2;
-        display: flex; align-items: flex-end;
-        margin-left: -4mm;
-        margin-bottom: -12mm;
-        line-height: 0.82;
-        flex-shrink: 0;
+      /* Spacer flex */
+      #sheetContent .cover-v2-spacer { display: none; }
+      /* PLP SVG — position absolute sur la cover, pleine hauteur */
+      #sheetContent .cover-v2-plp-svg {
+        position: absolute;
+        inset: 0; width: 100%; height: 100%;
+        z-index: 3;
+        pointer-events: none;
         overflow: visible;
-      }
-      #sheetContent .cover-v2-plp-text {
-        font-family: 'Anton', 'Arial Black', Arial, sans-serif;
-        font-weight: 400; font-size: 370px;
-        color: #1B3A5C; letter-spacing: -8px;
-        line-height: 0.82;
-      }
-      #sheetContent .cover-v2-plp-num {
-        font-family: 'Anton', 'Arial Black', Arial, sans-serif;
-        font-weight: 400; font-size: 130px;
-        color: #00A896; letter-spacing: -2px;
-        margin-bottom: 18mm; margin-left: 4mm;
-        align-self: flex-end; line-height: 1;
       }
     `;
     document.head.appendChild(styleEl);
@@ -578,13 +564,31 @@ function buildPreview() {
   h += '</div>';
 
   // Spacer flexible — pousse PLP vers le bas
-  h += '<div class="cover-v2-spacer"></div>';
-
-  // PLP géant bas page + numéro taille
-  h += '<div class="cover-v2-plp-zone">';
-  h += '<div class="cover-v2-plp-text">' + gammeShort + '</div>';
-  h += '<div class="cover-v2-plp-num">' + (sz || '') + '</div>';
-  h += '</div>';
+  // PLP géant en SVG absolu — fiable en print (pas de CSS layout)
+  // A4 = 794x1123 px (96dpi). PLP occupe le tiers bas de la page.
+  // viewBox de la cover-v2 SVG = 0 0 794 1123
+  // On injecte un second SVG par-dessus en position absolute
+  var plpLabel = gammeShort; // "PLP"
+  var szLabel = sz || '';
+  h += '<svg class="cover-v2-plp-svg" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">';
+  // "PLP" : ancré bas-gauche, déborde légèrement
+  h += '<text x="-8" y="1140" ';
+  h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
+  h += 'font-size="480" font-weight="400" ';
+  h += 'fill="#1B3A5C" ';
+  h += 'letter-spacing="-10">';
+  h += plpLabel;
+  h += '</text>';
+  // Numéro taille : ancré bas-droite, décalé à droite du P final
+  // PLP à 480px → largeur approx 700px pour 3 lettres → "045" commence vers x=530
+  h += '<text x="535" y="1075" ';
+  h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
+  h += 'font-size="160" font-weight="400" ';
+  h += 'fill="#00A896" ';
+  h += 'letter-spacing="-3">';
+  h += szLabel;
+  h += '</text>';
+  h += '</svg>';
 
   h += '</div>'; // .cover-v2
 
