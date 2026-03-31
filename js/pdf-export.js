@@ -297,43 +297,47 @@ function getPrintCSS() {
       background: #F2F2EF !important;
       page-break-after: always; break-after: page;
     }
-    .cover-v2-grid { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+    .cover-v2-grid { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
     .cover-v2-header {
       position: relative; z-index: 2;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 9mm 10mm 0 10mm;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 9mm 10mm 0 10mm; flex-shrink: 0;
     }
     .cover-v2-logo-fa { height: 11mm; width: auto; }
-    .cover-v2-logo-inv { height: 7mm; width: auto; }
+    .cover-v2-logo-inv { height: 7mm; width: auto; margin-top: 2mm; }
     .cover-v2-title-zone {
       position: relative; z-index: 2;
-      padding: 14mm 10mm 0 10mm;
-      text-align: center;
+      padding: 16mm 8mm 0 8mm;
+      text-align: center; flex-shrink: 0;
     }
     .cover-v2-title {
-      font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Anton', 'Arial Black', Arial, sans-serif;
       font-weight: 400; font-size: 58px; line-height: 1;
       color: #1B3A5C; letter-spacing: 0.5px;
     }
     .cover-v2-subtitle {
-      font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Anton', 'Arial Black', Arial, sans-serif;
       font-weight: 400; font-size: 19px; line-height: 1.2;
-      color: #1B3A5C; margin-top: 3mm;
+      color: #1B3A5C; margin-top: 4mm;
     }
+    .cover-v2-spacer { flex: 1; min-height: 10mm; z-index: 1; }
     .cover-v2-plp-zone {
-      position: absolute; bottom: -8mm; left: -2mm; right: 0; z-index: 2;
-      display: flex; align-items: flex-end; line-height: 0.82;
+      position: relative; z-index: 2;
+      display: flex; align-items: flex-end;
+      margin-left: -4mm; margin-bottom: -12mm;
+      line-height: 0.82; flex-shrink: 0;
     }
     .cover-v2-plp-text {
-      font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Anton', 'Arial Black', Arial, sans-serif;
       font-weight: 400; font-size: 320px;
-      color: #1B3A5C; letter-spacing: -6px;
+      color: #1B3A5C; letter-spacing: -6px; line-height: 0.82;
     }
     .cover-v2-plp-num {
-      font-family: 'Anton', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Anton', 'Arial Black', Arial, sans-serif;
       font-weight: 400; font-size: 110px;
       color: #00A896; letter-spacing: -2px;
-      margin-bottom: 14mm; margin-left: 2mm; align-self: flex-end;
+      margin-bottom: 18mm; margin-left: 4mm;
+      align-self: flex-end; line-height: 1;
     }
 
     /* ─── UTILITAIRES GLOBAUX ─── */
