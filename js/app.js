@@ -549,14 +549,11 @@ function buildPreview() {
   var coverSousTitre = isHS ? "Fiche de sélection d'une pompe à chaleur" : "Fiche de sélection d'un groupe d'eau glacée";
   var szDisplay = sz ? String(parseInt(sz, 10)) : '';
 
-  // Sélection de la cover selon la gamme
-  var COVER_B64 = (typeof COVERS !== 'undefined' && COVERS[gamme]) ? COVERS[gamme] : '';
-
   h += '<div class="cover-v2">';
 
-  // Image de fond pleine page
-  h += '<img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" ';
-  h += 'src="' + COVER_B64 + '" alt="Cover"/>';
+  // Image de fond — src remplacé dynamiquement après chargement covers.js
+  h += '<img id="coverImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" ';
+  h += 'src="" alt="Cover"/>';
 
   // SVG overlay : titre + sous-titre + numéro taille
   h += '<svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible" ';
@@ -791,6 +788,23 @@ function buildPreview() {
   h += '</div>';
 
   document.getElementById("sheetContent").innerHTML = h;
+
+  // Charger covers.js à la demande et injecter la cover
+  (function loadCover(gamme) {
+    function setCover(src) {
+      var img = document.getElementById('coverImg');
+      if (img) img.src = src;
+    }
+    if (typeof COVERS !== 'undefined') {
+      setCover(COVERS[gamme] || '');
+    } else {
+      var s = document.createElement('script');
+      s.src = 'js/covers.js';
+      s.onload = function() { setCover((COVERS && COVERS[gamme]) ? COVERS[gamme] : ''); };
+      s.onerror = function() { setCover(''); };
+      document.head.appendChild(s);
+    }
+  })(gamme);
 }
 
 // ══════════════════════════════════════════════
