@@ -201,14 +201,14 @@ function getPrintCSS() {
     .plp-logo-sm .plp-logo-inv { font-size: 9px; }
 
     /* ─── SOMMAIRE ─── */
-    .plp-som { display: flex; flex: 1; background: var(--plp-cr) !important; position: relative; }
-    .plp-som-l { width: 25%; display: flex; align-items: flex-start; padding: 64px 0 0 28px; }
-    .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 180px; text-transform: uppercase; color: var(--plp-bl); letter-spacing: -.02em; line-height: .82; }
-    .plp-som-r { width: 75%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px 0; }
-    .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; margin-bottom: 10px; }
-    .plp-som-lbl { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--plp-bl); text-align: right; flex: 1; }
-    .plp-som-num { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 80px; line-height: 1; color: var(--plp-bl); margin-left: 16px; min-width: 110px; text-align: right; }
-    .plp-som-logo { position: absolute; top: 32px; right: 48px; }
+    .plp-som { display: flex; width: 210mm; height: 297mm; background: #F2F2EF !important; position: relative; }
+    .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 40mm 0 0 12mm; overflow: hidden; }
+    .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 180px; text-transform: uppercase; color: #00527A; line-height: .82; letter-spacing: -2px; }
+    .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: center; padding: 0 14mm 0 0; gap: 8mm; }
+    .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; }
+    .plp-som-lbl { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: #00527A; text-align: right; flex: 1; }
+    .plp-som-num { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 80px; line-height: 1; color: #00527A; margin-left: 8mm; min-width: 110px; text-align: right; }
+    .plp-som-logo { display: none; }
     .plp-som-logo img { height: 32px; }
 
     /* ─── TABLEAU COMPARATIF ─── */
