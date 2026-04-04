@@ -355,14 +355,14 @@ function buildPreview() {
       #sheetContent .plp-logo-fa { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; color: #00527A; }
       #sheetContent .plp-logo-sep { font-weight: 300; font-size: 10px; color: #ccc; margin: 0 2px; }
       #sheetContent .plp-logo-inv { font-size: 9px; color: #666; font-style: italic; }
-      #sheetContent .plp-som { display: flex; flex: 1; background: #F2F2EF !important; position: relative; min-height: 200mm; }
-      #sheetContent .plp-som-l { width: 25%; display: flex; align-items: flex-start; padding: 64px 0 0 28px; }
-      #sheetContent .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 120px; text-transform: uppercase; color: #00527A; line-height: .82; }
-      #sheetContent .plp-som-r { width: 75%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px 0; }
-      #sheetContent .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; margin-bottom: 10px; }
-      #sheetContent .plp-som-lbl { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: #00527A; text-align: right; flex: 1; }
-      #sheetContent .plp-som-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 60px; line-height: 1; color: #00527A; margin-left: 16px; min-width: 90px; text-align: right; }
-      #sheetContent .plp-som-logo { position: absolute; top: 32px; right: 48px; }
+      #sheetContent .plp-som { display: flex; width: 100%; height: 100%; background: #F2F2EF !important; position: relative; }
+      #sheetContent .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 40mm 0 0 12mm; overflow: hidden; }
+      #sheetContent .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 180px; text-transform: uppercase; color: #00527A; line-height: .82; letter-spacing: -2px; }
+      #sheetContent .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: center; padding: 0 14mm 0 0; gap: 8mm; }
+      #sheetContent .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; }
+      #sheetContent .plp-som-lbl { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: #00527A; text-align: right; flex: 1; }
+      #sheetContent .plp-som-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 80px; line-height: 1; color: #00527A; margin-left: 8mm; min-width: 110px; text-align: right; }
+      #sheetContent .plp-som-logo { display: none; }
       #sheetContent .plp-tb { width: 100%; border-collapse: collapse; font-size: 9px; }
       #sheetContent .plp-tb th, #sheetContent .plp-tb td { padding: 6px 10px; vertical-align: middle; }
       #sheetContent .plp-tb thead th { background: #00527A !important; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-align: center; padding: 10px 12px; font-size: 10px; }
