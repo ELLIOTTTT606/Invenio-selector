@@ -1,23 +1,31 @@
-// ─── MODELS_DB — 14 gammes Galletti ─────────────────────────────────────────
-// sizes: [] = à compléter, type: HS=PAC / CS=GEG / les deux apparaissent dans les deux
+// ─── MODELS_DB — Gammes Galletti ──────────────────────────────────────────────
 var MODELS_DB = {
   HS: [
-    { gamme: 'PLP',      nom: 'PLP',      sizes: [] },
-    { gamme: 'PLN',      nom: 'PLN',      sizes: [] },
-    { gamme: 'MLP',      nom: 'MLP',      sizes: [] },
-    { gamme: 'MLI',      nom: 'MLI',      sizes: [] },
-    { gamme: 'VLS',      nom: 'VLS',      sizes: [] },
-    { gamme: 'VLS-HR',   nom: 'VLS-HR',   sizes: [] },
-    { gamme: 'PLI',      nom: 'PLI',      sizes: [] },
-    { gamme: 'E-VITECH', nom: 'E-VITECH', sizes: [] },
+    { gamme: 'PLN',     nom: 'PLN',     refrigerant: 'R290',  sizes: ['52','72','82','104','114','134','154'] },
+    { gamme: 'MLP',     nom: 'MLP',     refrigerant: 'R290',  sizes: ['06','08','10','12','16','26','30'] },
+    { gamme: 'PLP',     nom: 'PLP',     refrigerant: 'R290',  sizes: ['37','45','52','57','62'] },
+    { gamme: 'MLI',     nom: 'MLI',     refrigerant: 'R32',   sizes: ['06','08','10','12','16','18','22','26','30'] },
+    { gamme: 'GLE',     nom: 'GLE',     refrigerant: 'R454B', sizes: ['658','748','818','900','942','1072'] },
+    { gamme: 'PLE',     nom: 'PLE',     refrigerant: 'R454B', sizes: ['52','62','72','82','92','102','122','132','142','152'] },
+    { gamme: 'VLS',     nom: 'VLS',     refrigerant: 'R454B', sizes: ['162','202','234','254','274','314','344','374','414','456','546','576'] },
+    { gamme: 'PLI',     nom: 'PLI',     refrigerant: 'R454B', sizes: ['35','40','45','50'] },
+    { gamme: 'LCX',     nom: 'LCX',     refrigerant: 'R410A', sizes: ['92','102','122','124','142','144','162','164','174','194','214','244','274','294','324','364'] },
+    { gamme: 'MPE',     nom: 'MPE',     refrigerant: 'R410A', sizes: ['04','05','07','08','09','10','13','14','15','18','20','21','24','27','28','32','35','40','54','66','30','34','42','61','69','76'] },
+    { gamme: 'LCC',     nom: 'LCC',     refrigerant: 'R410A', sizes: ['52','62','72','82','92','102','112','132','142','162','182','204'] },
+    { gamme: 'MPED',    nom: 'MPED',    refrigerant: 'R410A', sizes: ['07','08','10','13','15','18','20','24','27','28','32','35','40','54','66','30','34','45','61','69','76'] },
+    { gamme: 'EVITECH', nom: 'EVITECH', refrigerant: 'R410A', sizes: ['52','62','72','82','92','104','124','154','174','184'] },
   ],
   CS: [
-    { gamme: 'GLE',      nom: 'GLE',      sizes: [] },
-    { gamme: 'LCX',      nom: 'LCX',      sizes: [] },
-    { gamme: 'MPF',      nom: 'MPF',      sizes: [] },
-    { gamme: 'LCC',      nom: 'LCC',      sizes: [] },
-    { gamme: 'MPED',     nom: 'MPED',     sizes: [] },
-    { gamme: 'E-VITECH', nom: 'E-VITECH', sizes: [] },
+    { gamme: 'PLN',     nom: 'PLN',     refrigerant: 'R290',  sizes: ['52','72','82','104','114','134','154'] },
+    { gamme: 'PLP',     nom: 'PLP',     refrigerant: 'R290',  sizes: ['37','45','52','57','62'] },
+    { gamme: 'GLE',     nom: 'GLE',     refrigerant: 'R454B', sizes: ['658','748','818','900','942','1072'] },
+    { gamme: 'PLE',     nom: 'PLE',     refrigerant: 'R454B', sizes: ['52','62','72','82','92','102','122','132','142','152'] },
+    { gamme: 'VLS',     nom: 'VLS',     refrigerant: 'R454B', sizes: ['162','202','234','254','274','314','344','374','414','456','546','576'] },
+    { gamme: 'PLI',     nom: 'PLI',     refrigerant: 'R454B', sizes: ['35','40','45','50'] },
+    { gamme: 'LCX',     nom: 'LCX',     refrigerant: 'R410A', sizes: ['92','102','122','124','142','144','162','164','174','194','214','244','274','294','324','364'] },
+    { gamme: 'MPE',     nom: 'MPE',     refrigerant: 'R410A', sizes: ['04','05','07','08','09','10','13','14','15','18','20','21','24','27','28','32','35','40','54','66','30','34','42','61','69','76'] },
+    { gamme: 'LCC',     nom: 'LCC',     refrigerant: 'R410A', sizes: ['52','62','72','82','92','102','112','132','142','162','182','204'] },
+    { gamme: 'MPED',    nom: 'MPED',    refrigerant: 'R410A', sizes: ['07','08','10','13','15','18','20','24','27','28','32','35','40','54','66','30','34','45','61','69','76'] },
   ]
 };
 
