@@ -202,11 +202,11 @@ function getPrintCSS() {
 
     /* ─── SOMMAIRE ─── */
     .plp-som { display: flex; width: 210mm; height: 297mm; background: #F2F2EF !important; position: relative; overflow: hidden; }
-    .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 0; overflow: hidden; }
-    .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 210px; text-transform: uppercase; color: #00527A; line-height: .82; letter-spacing: -4px; height: 297mm; display: flex; align-items: center; }
-    .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: center; padding: 0 14mm 0 0; gap: 10mm; }
+    .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 8mm 0 0 0; overflow: hidden; }
+    .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 230px; text-transform: uppercase; color: #00527A; line-height: .82; letter-spacing: -4px; }
+    .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 14mm 30mm 0; gap: 6mm; }
     .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; }
-    .plp-som-lbl { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #00527A; text-align: right; flex: 1; }
+    .plp-som-lbl { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: #00527A; text-align: right; flex: 1; }
     .plp-som-num { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; font-size: 90px; line-height: 1; color: #00527A; margin-left: 6mm; min-width: 115px; text-align: right; }
     .plp-som-logo { display: none; }
     .plp-som-logo img { height: 32px; }
