@@ -356,11 +356,11 @@ function buildPreview() {
       #sheetContent .plp-logo-sep { font-weight: 300; font-size: 10px; color: #ccc; margin: 0 2px; }
       #sheetContent .plp-logo-inv { font-size: 9px; color: #666; font-style: italic; }
       #sheetContent .plp-som { display: flex; width: 210mm; height: 297mm; background: #F2F2EF !important; position: relative; overflow: hidden; }
-      #sheetContent .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 0; overflow: hidden; }
-      #sheetContent .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 210px; text-transform: uppercase; color: #00527A; line-height: .82; letter-spacing: -4px; height: 297mm; display: flex; align-items: center; }
-      #sheetContent .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: center; padding: 0 14mm 0 0; gap: 10mm; }
+      #sheetContent .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 8mm 0 0 0; overflow: hidden; }
+      #sheetContent .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 230px; text-transform: uppercase; color: #00527A; line-height: .82; letter-spacing: -4px; }
+      #sheetContent .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 14mm 30mm 0; gap: 6mm; }
       #sheetContent .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; }
-      #sheetContent .plp-som-lbl { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #00527A; text-align: right; flex: 1; }
+      #sheetContent .plp-som-lbl { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: #00527A; text-align: right; flex: 1; }
       #sheetContent .plp-som-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 90px; line-height: 1; color: #00527A; margin-left: 6mm; min-width: 115px; text-align: right; }
       #sheetContent .plp-som-logo { display: none; }
       #sheetContent .plp-tb { width: 100%; border-collapse: collapse; font-size: 9px; }
