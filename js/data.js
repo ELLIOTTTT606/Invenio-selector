@@ -203,23 +203,6 @@ const CONFIG = {
 
 };
 
-
-// ════════════════════════════════════════════
-// MODÈLES DISPONIBLES PAR GAMME
-// ════════════════════════════════════════════
-const MODELS_DB = {
-  CS: [ // Groupes d'eau glacée
-    { gamme: "PLP", nom: "PLP CS", sizes: ["037","045","052","057","062"] },
-    { gamme: "PLE", nom: "PLE CS", sizes: [] },  // À compléter
-    { gamme: "MLI", nom: "MLI CS", sizes: [] },   // À compléter
-  ],
-  HS: [ // Pompes à chaleur
-    { gamme: "PLP", nom: "PLP HS", sizes: ["037","045","052","057","062"] },
-    { gamme: "PLE", nom: "PLE HS", sizes: [] },
-    { gamme: "MLI", nom: "MLI HS", sizes: [] },
-  ]
-};
-
 // ════════════════════════════════════════════
 // BASE CLIENTS (chargée dynamiquement via Excel)
 // ════════════════════════════════════════════
