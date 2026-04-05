@@ -812,7 +812,7 @@ function buildPreview() {
       s.onerror = function() { setCover(''); };
       document.head.appendChild(s);
     }
-  })(gamme);
+  })(gammeShort);
 }
 
 // ══════════════════════════════════════════════
