@@ -561,30 +561,30 @@ function buildPreview() {
 
   // Image de fond — src remplacé dynamiquement après chargement covers.js
   h += '<img id="coverImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" ';
-  h += 'src="" alt="Cover"/>';
+ h += 'src="" alt="Cover"/>';
 
   // SVG overlay : titre + sous-titre + numéro taille
   h += '<svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible" ';
   h += 'viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">';
 
-  // Titre projet (centré, y=236, font-size=60)
-  h += '<text x="397" y="236" ';
+  // Titre projet (centré horizontalement, zone haute ~y=220)
+  h += '<text x="397" y="220" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="60" fill="#1B3A5C" text-anchor="middle">';
+  h += 'font-size="58" fill="#2f4a6f" text-anchor="middle" font-weight="400">';
   h += nomProjet;
   h += '</text>';
 
-  // Sous-titre (centré, y=236+60+2=298, font-size=23)
-  h += '<text x="397" y="298" ';
+  // Sous-titre
+  h += '<text x="397" y="268" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="23" fill="#1B3A5C" text-anchor="middle">';
+  h += 'font-size="22" fill="#2f4a6f" text-anchor="middle" font-weight="400">';
   h += coverSousTitre;
   h += '</text>';
 
-  // Numéro taille (x=603, y=1123, font-size=115)
-  h += '<text x="603" y="1123" ';
+  // Numéro taille — bas droite, légèrement sorti du bas comme sur le visuel
+  h += '<text x="700" y="1110" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="115" fill="#00A896">';
+  h += 'font-size="130" fill="#00A896" text-anchor="end">';
   h += szDisplay;
   h += '</text>';
 
