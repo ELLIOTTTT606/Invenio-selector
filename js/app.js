@@ -518,8 +518,7 @@ function buildPreview() {
   const clientNom = cl ? cl.nom : '—';
   const dateStr = d.date || new Date().toLocaleDateString("fr-FR");
   const modele = d.modele || ('PLP' + sz + (isHS ? 'HS' : 'CS'));
-  const gammeShort = (d.gamme || 'PLP').split(' ')[0];
-
+const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
   // Helpers header/footer PLP
   function plpHdr() {
     return '<div class="plp-hdr">'
