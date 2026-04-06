@@ -580,13 +580,6 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
   h += coverSousTitre;
   h += '</text>';
 
-  // Numéro taille — bas droite, légèrement sorti du bas comme sur le visuel
-  h += '<text x="700" y="1110" ';
-  h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="130" fill="#00A896" text-anchor="end">';
-  h += szDisplay;
-  h += '</text>';
-
   h += '</svg>';
   h += '</div>'; // .cover-v2
 
