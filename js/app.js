@@ -811,6 +811,10 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
     s.onerror = function() { _setCover(''); };
     document.head.appendChild(s);
   }
+}
+
+// ══════════════════════════════════════════════
+// ADMIN (Step 3)
 
 // ══════════════════════════════════════════════
 // ADMIN (Step 3)
