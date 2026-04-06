@@ -558,25 +558,15 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
 
   h += '<div class="cover-v2">';
 
-  // Image de fond — src remplacé dynamiquement après chargement covers.js
-  h += '<img id="coverImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" ';
- h += 'src="" alt="Cover"/>';
-
-  // SVG overlay : titre + sous-titre + numéro taille
-  h += '<svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible" ';
-  h += 'viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">';
-
-  // Titre projet (centré horizontalement, zone haute ~y=220)
-  h += '<text x="397" y="220" ';
+// Bloc titre centré verticalement dans la zone dégradée (y≈310 sur viewBox 1123)
+  h += '<text x="397" y="290" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="58" fill="#2f4a6f" text-anchor="middle" font-weight="400">';
+  h += 'font-size="60" fill="#2f4a6f" text-anchor="middle">';
   h += nomProjet;
   h += '</text>';
-
-  // Sous-titre
-  h += '<text x="397" y="268" ';
+  h += '<text x="397" y="340" ';
   h += 'font-family="Anton,Arial Black,Arial,sans-serif" ';
-  h += 'font-size="22" fill="#2f4a6f" text-anchor="middle" font-weight="400">';
+  h += 'font-size="22" fill="#2f4a6f" text-anchor="middle">';
   h += coverSousTitre;
   h += '</text>';
 
@@ -588,8 +578,7 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
   // ══════════════════════════════════════════
   h += '<div class="plp-pg plp-pg-som" style="padding:0;background:#F2F2EF!important">';
   h += '<div class="plp-som">';
-  h += '<div class="plp-som-l"><div class="plp-som-txt">SOMMAIRE</div></div>';
-  h += '<div class="plp-som-r">';
+  h += '<div class="plp-som-l" style="overflow:visible!important"><div class="plp-som-txt" style="padding-bottom:10mm">SOMMAIRE</div></div>';  h += '<div class="plp-som-r">';
   ['TABLEAU COMPARATIF','PRESCRIPTION TECHNIQUE','OPTIONS ET ACCESSOIRES','PLANS DIMENSIONNELS','VISUELS PRODUIT'].forEach(function(lbl, i) {
     h += '<div class="plp-som-item" style="align-items:baseline">'
        + '<span class="plp-som-lbl" style="line-height:1">'+lbl+'</span>'
