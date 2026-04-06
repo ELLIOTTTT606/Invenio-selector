@@ -796,23 +796,21 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
 
   document.getElementById("sheetContent").innerHTML = h;
 
-  // Charger covers.js à la demande et injecter la cover
-  (function loadCover(gamme) {
-    function setCover(src) {
-      var img = document.getElementById('coverImg');
-      if (img) img.src = src;
-    }
-    if (typeof COVERS !== 'undefined') {
-      setCover(COVERS[gamme] || '');
-    } else {
-      var s = document.createElement('script');
-      s.src = 'js/covers.js';
-      s.onload = function() { setCover((COVERS && COVERS[gamme]) ? COVERS[gamme] : ''); };
-      s.onerror = function() { setCover(''); };
-      document.head.appendChild(s);
-    }
-  })(gammeShort);
-}
+  // Injecter la cover selon la gamme sélectionnée
+  var _gammeForCover = state.selectedModel || gammeShort;
+  function _setCover(src) {
+    var img = document.getElementById('coverImg');
+    if (img) img.src = src;
+  }
+  if (typeof COVERS !== 'undefined') {
+    _setCover(COVERS[_gammeForCover] || '');
+  } else {
+    var s = document.createElement('script');
+    s.src = 'js/covers.js';
+    s.onload = function() { _setCover((COVERS && COVERS[_gammeForCover]) ? COVERS[_gammeForCover] : ''); };
+    s.onerror = function() { _setCover(''); };
+    document.head.appendChild(s);
+  }
 
 // ══════════════════════════════════════════════
 // ADMIN (Step 3)
