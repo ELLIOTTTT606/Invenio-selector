@@ -796,18 +796,20 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
 
   document.getElementById("sheetContent").innerHTML = h;
 
-  // Injecter la cover selon la gamme sélectionnée
+ // Injecter la cover selon la gamme sélectionnée
   var _gammeForCover = state.selectedModel || gammeShort;
+  var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || '';
   function _setCover(src) {
     var img = document.getElementById('coverImg');
-    if (img) img.src = src;
+    if (img && typeof src === 'string') img.src = src;
   }
   if (typeof COVERS !== 'undefined') {
-var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || '';
-_setCover((COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : '');  } else {
+    _setCover((COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : '');
+  } else {
     var s = document.createElement('script');
     s.src = 'js/covers.js';
-s.onload = function() { var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || ''; _setCover((COVERS && COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : ''); };    s.onerror = function() { _setCover(''); };
+    s.onload = function() { _setCover((COVERS && COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : ''); };
+    s.onerror = function() { _setCover(''); };
     document.head.appendChild(s);
   }
 }
