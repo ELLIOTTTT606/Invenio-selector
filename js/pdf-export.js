@@ -95,7 +95,7 @@ function getPrintCSS() {
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: #00527A !important;
+      background: #2f4a6f !important;
       color: #fff;
       page-break-after: always;
       break-after: page;
