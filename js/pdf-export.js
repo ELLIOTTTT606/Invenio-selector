@@ -54,7 +54,7 @@ function getPrintCSS() {
       --tx3:    #8896a6;
       --tx4:    #b8c4cf;
       /* PLP pages */
-      --plp-bl:  #00527A;
+      --plp-bl:  #2f4a6f;
       --plp-bld: #003D5C;
       --plp-cr:  #F2F2EF;
       --plp-wh:  #FFFFFF;
