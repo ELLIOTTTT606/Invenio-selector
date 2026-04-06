@@ -807,8 +807,7 @@ var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || '
 _setCover((COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : '');  } else {
     var s = document.createElement('script');
     s.src = 'js/covers.js';
-    s.onload = function() { _setCover((COVERS && COVERS[_gammeForCover]) ? COVERS[_gammeForCover] : ''); };
-    s.onerror = function() { _setCover(''); };
+s.onload = function() { var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || ''; _setCover((COVERS && COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : ''); };    s.onerror = function() { _setCover(''); };
     document.head.appendChild(s);
   }
 }
