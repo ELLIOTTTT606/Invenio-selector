@@ -803,8 +803,8 @@ const gammeShort = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
     if (img) img.src = src;
   }
   if (typeof COVERS !== 'undefined') {
-    _setCover(COVERS[_gammeForCover] || '');
-  } else {
+var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || '';
+_setCover((COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : '');  } else {
     var s = document.createElement('script');
     s.src = 'js/covers.js';
     s.onload = function() { _setCover((COVERS && COVERS[_gammeForCover]) ? COVERS[_gammeForCover] : ''); };
