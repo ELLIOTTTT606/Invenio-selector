@@ -1,4 +1,4 @@
-// ─── MODELS_DB — Gammes Galletti ─────────────────────────────────────────────
+// ─── MODELS_DB ────────────────────────────────────────────────────────────────
 var MODELS_DB = {
   HS: [
     { gamme: 'PLN',     nom: 'PLN',     refrigerant: 'R290',  sizes: ['52','72','82','104','114','134','154'] },
@@ -29,47 +29,200 @@ var MODELS_DB = {
   ]
 };
 
-// ─── CARTE FRANCE — données régions ───────────────────────────────────────────
-var FRANCE_REGIONS = {
-  'NORD': {
-    path: 'M185,30 L240,25 L265,55 L270,90 L245,110 L210,100 L185,80 Z',
-    cx: 225, cy: 68,
-    contacts: []
+// ─── CONTACTS DB — France Air ─────────────────────────────────────────────────
+var CONTACTS_DB = {
+  "CENTRE EST": {
+    "directeur": {"nom":"Léonard AUBERGER","poste":"Directeur régional","tel":"06 73 65 23 87","email":"leonard.auberger@france-air.com"},
+    "tci": [
+      {"nom":"Yann LOPEZ","tel":"06 78 98 72 89","email":"yann.lopez@france-air.com","secteur":"Saint-Priest (01 69)"},
+      {"nom":"Tanguy CROGUENNEC","tel":"06 80 91 10 95","email":"tanguy.croguennec@france-air.com","secteur":"Dép. 69"},
+      {"nom":"Anthony ARNAUD","tel":"06 87 60 87 32","email":"anthony.arnaud@france-air.com","secteur":"Dép. 42 69"},
+      {"nom":"Rudy HADJADJ","tel":"06 07 35 66 57","email":"rudy.hadjadj@france-air.com","secteur":"Dép. 07 26 42"},
+      {"nom":"Rodolphe LELIEVRE","tel":"06 83 81 10 34","email":"rodolphe.lelievre@france-air.com","secteur":"Dép. 73 74"},
+      {"nom":"Nathalie POUZIOUX","tel":"06 82 82 38 29","email":"nathalie.pouzioux@france-air.com","secteur":"Dép. 38"},
+      {"nom":"Romain BARRAUD","tel":"06 80 91 10 81","email":"romain.barraud@france-air.com","secteur":"Dép. 15 43 63"}
+    ],
+    "tcs": [
+      {"nom":"Azzedine YAHI","tel":"04 72 90 16 40","email":"azzedine.Yahi@france-air.com","secteur":"Lyon"},
+      {"nom":"Abdelkader MESBAH","tel":"04 72 90 16 40","email":"abdelkader.mesbah@france-air.com","secteur":"Lyon"},
+      {"nom":"Matthieu RIBERON","tel":"04 72 90 16 40","email":"matthieu.riberon@france-air.com","secteur":"Lyon"},
+      {"nom":"Hervé CELETTE","tel":"04 72 90 16 40","email":"herve.celette@france-air.com","secteur":"Lyon"},
+      {"nom":"Anthony CORBET","tel":"04 72 90 16 40","email":"anthony.corbet@france-air.com","secteur":"Grenoble"},
+      {"nom":"Gildas CLERC","tel":"04 72 90 16 40","email":"gildas.clerc@france-air.com","secteur":"Grenoble"},
+      {"nom":"Nicolas SOULIER","tel":"04 73 35 08 22","email":"nicolas.soulier@france-air.com","secteur":"Clermont-Ferrand"}
+    ]
   },
-  'EST': {
-    path: 'M265,55 L320,45 L345,80 L340,130 L300,145 L265,115 L245,110 L270,90 Z',
-    cx: 300, cy: 95,
-    contacts: []
+  "EST": {
+    "directeur": {"nom":"Sébastien ANDLAUER","poste":"Directeur régional","tel":"06 85 54 08 04","email":"sebastien.andlauer@france-air.com"},
+    "tci": [
+      {"nom":"Rachid CHROUKATE","tel":"06 87 21 52 75","email":"rachid.chroukate@france-air.com","secteur":"Dép. 67"},
+      {"nom":"Florent GARCIA","tel":"06 87 60 85 10","email":"florent.garcia@france-air.com","secteur":"Dép. 67"},
+      {"nom":"André TROC","tel":"06 07 78 03 19","email":"andre.troc@france-air.com","secteur":"Dép. 25 52 68 70 90"},
+      {"nom":"Jonathan DETTWILLER","tel":"06 80 18 51 36","email":"jonathan.dettwiller@france-air.com","secteur":"Dép. 57 Luxembourg"},
+      {"nom":"Matthieu ROBERT","tel":"06 82 82 38 37","email":"matthieu.robert@france-air.com","secteur":"Dép. 54 88"},
+      {"nom":"Quentin BOUDREY","tel":"06 88 77 72 74","email":"quentin.boudrey@france-air.com","secteur":"Dép. 08 10 51 55"},
+      {"nom":"Olivier GENIAUT","tel":"06 74 84 77 70","email":"olivier.geniaut@france-air.com","secteur":"Dép. 21 39 71 89"}
+    ],
+    "tcs": [
+      {"nom":"Seyrani GUNDOGAN","tel":"04 48 40 40 40","email":"seyrani.gundogan@france-air.com","secteur":"Strasbourg"},
+      {"nom":"Damien BABE","tel":"04 48 40 40 40","email":"damien.babe@france-air.com","secteur":"Strasbourg"},
+      {"nom":"Quentin JUD","tel":"04 48 40 40 40","email":"quentin.jud@france-air.com","secteur":"Metz"},
+      {"nom":"Alice CLEMENT","tel":"04 48 40 40 40","email":"alice.clement@france-air.com","secteur":"Reims"},
+      {"nom":"Blandine BOUDAUD","tel":"04 48 40 40 40","email":"blandine.boudaud@france-air.com","secteur":"Dijon"}
+    ]
   },
-  'PARIS EST': {
-    path: 'M210,100 L245,110 L265,115 L255,145 L220,155 L195,135 Z',
-    cx: 230, cy: 128,
-    contacts: []
+  "NORD": {
+    "directeur": {"nom":"Anne Charlotte LOTHER","poste":"Directrice régionale","tel":"06 74 97 61 41","email":"acharlotte.lother@france-air.com"},
+    "tci": [
+      {"nom":"Valentin GRADECKI","tel":"06 80 91 10 80","email":"valentin.gradecki@france-air.com","secteur":"Dép. 59"},
+      {"nom":"Julien BERNARD","tel":"06 74 41 93 44","email":"julien.bernard@france-air.com","secteur":"Dép. 59"},
+      {"nom":"Rémi DOUAY","tel":"06 82 76 29 82","email":"remi.douay@france-air.com","secteur":"Dép. 02 59"},
+      {"nom":"Alexey MATYUSHOV","tel":"06 74 97 61 41","email":"alexey.matyushov@france-air.com","secteur":"Dép. 62"},
+      {"nom":"Jean-Christophe GOUT","tel":"06 74 59 06 14","email":"jchristophe.gout@france-air.com","secteur":"Dép. 76"},
+      {"nom":"Valentin GUERIN","tel":"06 32 04 68 52","email":"valentin.guerin@france-air.com","secteur":"Dép. 14 27 50 61"},
+      {"nom":"Mikael LENOBLE","tel":"07 86 49 28 08","email":"mikael.lenoble@france-air.com","secteur":"Dép. 02 60 80"}
+    ],
+    "tcs": [
+      {"nom":"Larbi HAMMANE","tel":"03 20 61 37 30","email":"larbi.hammane@france-air.com","secteur":"Lille"},
+      {"nom":"Laurent FOUACHE","tel":"03 20 61 37 30","email":"laurent.fouache@france-air.com","secteur":"Lille"},
+      {"nom":"Rodrigue DEMASSIET","tel":"03 20 61 37 30","email":"rodrigue.demassiet@france-air.com","secteur":"Rouen"},
+      {"nom":"Thibault CHERON","tel":"03 20 61 37 30","email":"thibault.cheron@france-air.com","secteur":"Rouen"},
+      {"nom":"Clément DAUNAS","tel":"03 20 61 37 30","email":"clement.daunas@france-air.com","secteur":"Nord"},
+      {"nom":"Bruno LANIER","tel":"03 20 61 37 30","email":"bruno.lanier@france-air.com","secteur":"Nord"}
+    ]
   },
-  'PARIS OUEST': {
-    path: 'M155,90 L210,100 L195,135 L165,145 L140,120 Z',
-    cx: 178, cy: 118,
-    contacts: []
+  "OUEST": {
+    "directeur": {"nom":"Dominique GABORIT","poste":"Directeur régional","tel":"06 86 44 71 72","email":"dominique.gaborit@france-air.com"},
+    "tci": [
+      {"nom":"Geoffrey DABIN","tel":"06 83 68 07 82","email":"geoffrey.dabin@france-air.com","secteur":"Dép. 79 85"},
+      {"nom":"Samuel MICHEL","tel":"06 31 09 09 73","email":"samuel.michel@france-air.com","secteur":"Dép. 44 49 72 53"},
+      {"nom":"Florian MARGUET","tel":"06 85 93 77 01","email":"florian.marguet@france-air.com","secteur":"Dép. 44"},
+      {"nom":"Jean-Yves LE DIASCORN","tel":"06 80 91 10 89","email":"jyves.lediasc@france-air.com","secteur":"Dép. 35 56"},
+      {"nom":"Nicolas LE FLOCH MORVAN","tel":"06 45 27 72 10","email":"nicolas.lefloch-morvan@france-air.com","secteur":"Dép. 29"},
+      {"nom":"Stéphane COUASNON","tel":"06 88 20 60 08","email":"stephane.couasnon@france-air.com","secteur":"Dép. 22 35"},
+      {"nom":"Nicolas JAULIN","tel":"06 82 95 25 97","email":"nicolas.jaulin@france-air.com","secteur":"Dép. 36 37 86"}
+    ],
+    "tcs": [
+      {"nom":"Antoine MAUFFRAIS","tel":"02 51 77 84 10","email":"antoine.mauffrais@france-air.com","secteur":"Nantes"},
+      {"nom":"Jordan RENARD","tel":"02 51 77 84 10","email":"jordan.renard@france-air.com","secteur":"Nantes"},
+      {"nom":"Benoit ORHANT","tel":"02 51 77 84 10","email":"benoit.orhant@france-air.com","secteur":"Rennes"},
+      {"nom":"Pierig ROULETTE","tel":"02 51 77 84 10","email":"pierig.roulette@france-air.com","secteur":"Rennes"},
+      {"nom":"Joyce GUIGUI","tel":"04 73 35 08 22","email":"joyce.guigui@france-air.com","secteur":"Tours"}
+    ]
   },
-  'OUEST': {
-    path: 'M60,100 L155,90 L140,120 L150,175 L120,220 L70,240 L30,200 L25,145 Z',
-    cx: 100, cy: 168,
-    contacts: []
+  "PARIS EST": {
+    "directeur": {"nom":"Jan Erik CARDON","poste":"Directeur régional","tel":"06 73 18 08 43","email":"janerik.cardon@france-air.com"},
+    "tci": [
+      {"nom":"Christophe CHABANAIS","tel":"06 89 08 87 15","email":"christophe.chabanais@france-air.com","secteur":"Dép. 95"},
+      {"nom":"Thomas KRAJEWSKI","tel":"06 73 19 47 53","email":"thomas.krajewski@france-air.com","secteur":"93 Sud"},
+      {"nom":"Patrick FERT","tel":"07 48 10 32 01","email":"patrick.fert@france-air.com","secteur":"93 Nord / 95 Sud"},
+      {"nom":"Frédéric GILLOT","tel":"06 74 90 57 04","email":"frederic.gillot@france-air.com","secteur":"94 Ouest"},
+      {"nom":"Marc MENDES","tel":"06 77 27 80 85","email":"marc.mendes@france-air.com","secteur":"Dép. 77"},
+      {"nom":"Mounia HIRECHE","tel":"06 77 34 26 97","email":"mounia.hireche@france-air.com","secteur":"94 Est"}
+    ],
+    "tcs": [
+      {"nom":"Imad BENYAMNA","tel":"01 60 49 00 33","email":"imad.benyamna@france-air.com","secteur":"La Courneuve"},
+      {"nom":"Maria CHEMALY","tel":"01 60 49 00 33","email":"maria.chemaly@france-air.com","secteur":"La Courneuve"},
+      {"nom":"Leonardo BELLANOVA","tel":"01 60 49 00 33","email":"leonardo.bellanova@france-air.com","secteur":"La Courneuve"},
+      {"nom":"Sylvain PLOMTEUX","tel":"01 69 34 85 00","email":"sylvain.plomteux@france-air.com","secteur":"Noisy"},
+      {"nom":"Julien LABORDE","tel":"01 69 34 85 00","email":"julien.laborde@france-air.com","secteur":"Noisy"},
+      {"nom":"Lucie DORGET","tel":"01 69 34 85 00","email":"lucie.dorget@france-air.com","secteur":"Noisy"}
+    ]
   },
-  'CENTRE EST': {
-    path: 'M195,135 L255,145 L300,145 L305,210 L270,250 L220,255 L180,225 L165,180 Z',
-    cx: 240, cy: 195,
-    contacts: []
+  "PARIS OUEST": {
+    "directeur": {"nom":"Jean Baptiste RAGUET","poste":"Directeur régional","tel":"06 07 22 01 42","email":"jbaptiste.raguet@france-air.com"},
+    "tci": [
+      {"nom":"Aurélien DUBOIS","tel":"06 73 78 44 83","email":"aurelien.dubois@france-air.com","secteur":"91 Est"},
+      {"nom":"Nicolas JONCKHEERE","tel":"06 22 70 92 68","email":"nicolas.jonckheere@france-air.com","secteur":"91 Ouest"},
+      {"nom":"Christophe COUILLARD","tel":"06 77 87 78 73","email":"christophe.couillard@france-air.com","secteur":"Dép. 78"},
+      {"nom":"Manuel CORDEIRO","tel":"06 74 84 77 77","email":"manuel.cordeiro@france-air.com","secteur":"92 Nord"},
+      {"nom":"Marin BOISSAN","tel":"06 45 86 02 41","email":"marin.boissan@france-air.com","secteur":"92 Sud"},
+      {"nom":"Loïc ESLIER","tel":"06 27 84 51 64","email":"loic.eslier@france-air.com","secteur":"Dép. 28 41 45"}
+    ],
+    "tcs": [
+      {"nom":"Zineb BERNARD","tel":"01 69 34 85 00","email":"zineb.bernard@france-air.com","secteur":"Chilly"},
+      {"nom":"Louis BERMEJO","tel":"01 69 34 85 00","email":"louis.bermejo@france-air.com","secteur":"Chilly"},
+      {"nom":"Quentin BEDON","tel":"01 69 34 85 00","email":"quentin.bedon@france-air.com","secteur":"Chilly"},
+      {"nom":"Aziz MAKLOUF","tel":"01 60 49 00 33","email":"aziz.maklouf@france-air.com","secteur":"Colombes"},
+      {"nom":"Jérôme ROBERT","tel":"01 60 49 00 33","email":"jerome.robert@france-air.com","secteur":"Colombes"},
+      {"nom":"Anderson LALANNE","tel":"01 69 34 85 00","email":"anderson.lalanne@france-air.com","secteur":"Colombes"}
+    ]
   },
-  'SUD OUEST': {
-    path: 'M30,200 L120,220 L150,175 L165,180 L180,225 L160,290 L120,330 L60,340 L20,290 Z',
-    cx: 100, cy: 270,
-    contacts: []
+  "SUD EST": {
+    "directeur": {"nom":"Christophe DIKBEYEKIAN","poste":"Directeur régional","tel":"06 80 91 10 91","email":"christophe.dikbeyekian@france-air.com"},
+    "tci": [
+      {"nom":"Jérôme HALINGRE","tel":"07 86 15 26 30","email":"jerome.halingre@france-air.com","secteur":"Dép. 13 83 84"},
+      {"nom":"Bruno TAGLIARINO","tel":"06 79 27 16 06","email":"bruno.tagliarino@france-air.com","secteur":"Dép. 04 05 13"},
+      {"nom":"Julien COLLESI","tel":"06 80 91 10 86","email":"Julien.collesi@france-air.com","secteur":"Dép. 06 83 Monaco"},
+      {"nom":"Frédéric MARTIN","tel":"06 87 60 87 27","email":"frederic.martin@france-air.com","secteur":"Dép. 06 20 83"},
+      {"nom":"Adrien BELTRAN","tel":"07 86 26 18 99","email":"adrien.beltran@france-air.com","secteur":"Dép. 34 66"},
+      {"nom":"Olivier VIALA","tel":"06 08 76 46 93","email":"olivier.viala@france-air.com","secteur":"Dép. 11 30 34 48"}
+    ],
+    "tcs": [
+      {"nom":"Nadine VEYRET","tel":"04 42 03 30 32","email":"nadine.veyret@france-air.com","secteur":"Aubagne"},
+      {"nom":"Laurent SIDOLLE","tel":"04 42 03 30 32","email":"laurent.sidolle@france-air.com","secteur":"Aubagne"},
+      {"nom":"Sylvain PONCET","tel":"04 42 03 30 32","email":"sylvain.poncet@france-air.com","secteur":"Nice"},
+      {"nom":"Khalid AIT OMARAT","tel":"04 42 03 30 32","email":"khalid.ait-omarat@france-air.com","secteur":"Nice"},
+      {"nom":"Sabine TASTEMAIN","tel":"04 42 03 30 32","email":"sabine.tastemain@france-air.com","secteur":"Montpellier"},
+      {"nom":"Manon DELORT","tel":"04 42 03 30 32","email":"manon.delort@france-air.com","secteur":"Montpellier"}
+    ]
   },
-  'SUD EST': {
-    path: 'M180,225 L220,255 L270,250 L305,210 L330,260 L310,330 L260,365 L180,355 L140,310 L120,330 L160,290 Z',
-    cx: 240, cy: 295,
-    contacts: []
+  "SUD OUEST": {
+    "directeur": {"nom":"Emeline BABOLA","poste":"Directrice régionale","tel":"06 86 54 99 61","email":"emeline.babola@france-air.com"},
+    "tci": [
+      {"nom":"Jean-Luc GAURON","tel":"06 80 91 10 88","email":"jluc.gauron@france-air.com","secteur":"Dép. 31 Nord 32 46 82"},
+      {"nom":"Jimmy RAMIER","tel":"06 75 23 62 59","email":"jimmy.ramier@france-air.com","secteur":"Dép. 09 12 31 Sud 81"},
+      {"nom":"Olivier SANCHEZ","tel":"06 88 20 60 20","email":"olivier.sanchez@france-air.com","secteur":"Dép. 40 64 65"},
+      {"nom":"Alain BALEYRAT","tel":"06 88 05 97 46","email":"alain.baleyrat@france-air.com","secteur":"Dép. 16 17 33 Nord"},
+      {"nom":"José MONTERO","tel":"06 85 41 13 00","email":"jose.montero@france-air.com","secteur":"33 Ouest"},
+      {"nom":"Bastien LAMONTAGNE","tel":"06 83 81 07 30","email":"bastien.lamontagne@france-air.com","secteur":"Dép. 19 24 87"},
+      {"nom":"Quentin GOURIOU","tel":"07 48 15 26 14","email":"quentin.gouriou@france-air.com","secteur":"Dép. 33 Est 47"}
+    ],
+    "tcs": [
+      {"nom":"Olivier MAURY","tel":"05 61 43 68 38","email":"olivier.maury@france-air.com","secteur":"Toulouse"},
+      {"nom":"Yohann WOZNIAK","tel":"05 61 43 68 38","email":"yohann.wozniak@france-air.com","secteur":"Toulouse"},
+      {"nom":"Quentin CABURET","tel":"05 61 43 68 38","email":"bayonne@france-air.com","secteur":"Bayonne"},
+      {"nom":"Bruno BOUQUET","tel":"05 61 43 68 38","email":"bordeaux@france-air.com","secteur":"Bordeaux"},
+      {"nom":"Quentin BERNOS","tel":"05 61 43 68 38","email":"bordeaux@france-air.com","secteur":"Bordeaux"},
+      {"nom":"Hassane HAIMOUD","tel":"05 61 43 68 38","email":"bordeaux@france-air.com","secteur":"Bordeaux"}
+    ]
+  }
+};
+
+// ─── FRANCE MAP SVG — paths réels des régions France Air ─────────────────────
+// Viewbox 0 0 600 680 — coordonnées approximatives des frontières réelles
+var FRANCE_MAP_PATHS = {
+  "NORD": {
+    d: "M 230 10 L 320 10 L 355 30 L 370 55 L 350 80 L 330 95 L 295 100 L 270 90 L 245 75 L 225 55 L 210 35 Z",
+    label: "NORD", lx: 290, ly: 55
+  },
+  "EST": {
+    d: "M 330 95 L 355 30 L 370 55 L 410 50 L 440 75 L 450 120 L 440 155 L 415 175 L 385 180 L 355 165 L 330 140 L 310 120 L 295 100 Z",
+    label: "EST", lx: 385, ly: 120
+  },
+  "PARIS EST": {
+    d: "M 270 90 L 295 100 L 310 120 L 305 145 L 280 155 L 255 148 L 240 130 L 245 105 Z",
+    label: "PARIS EST", lx: 278, ly: 125
+  },
+  "PARIS OUEST": {
+    d: "M 210 95 L 245 75 L 245 105 L 240 130 L 220 140 L 195 130 L 185 110 Z",
+    label: "PARIS OUEST", lx: 218, ly: 110
+  },
+  "OUEST": {
+    d: "M 55 90 L 130 75 L 160 80 L 185 110 L 195 130 L 190 175 L 175 220 L 145 265 L 100 285 L 55 270 L 30 225 L 25 165 L 40 115 Z",
+    label: "OUEST", lx: 115, ly: 185
+  },
+  "CENTRE EST": {
+    d: "M 220 140 L 255 148 L 280 155 L 305 145 L 330 140 L 355 165 L 360 210 L 345 255 L 310 275 L 270 285 L 235 275 L 205 255 L 190 220 L 195 175 L 210 155 Z",
+    label: "CENTRE EST", lx: 278, ly: 215
+  },
+  "SUD OUEST": {
+    d: "M 55 270 L 100 285 L 145 265 L 175 280 L 190 310 L 185 350 L 165 390 L 130 415 L 85 420 L 45 395 L 25 350 L 30 290 Z",
+    label: "SUD OUEST", lx: 115, ly: 345
+  },
+  "SUD EST": {
+    d: "M 175 280 L 205 255 L 235 275 L 270 285 L 310 275 L 345 255 L 375 265 L 400 305 L 405 355 L 385 400 L 350 430 L 290 445 L 230 435 L 185 410 L 165 375 L 165 390 L 185 350 L 190 310 Z",
+    label: "SUD EST", lx: 292, ly: 360
   }
 };
 
@@ -79,50 +232,45 @@ var state = {
   selectedModel: null, selectedSize: null, selectedClient: null,
   region: '', contact: null, versionAcoustique: 'standard',
   selectedOptions: {}, step: 0, dimensionImage: null,
-  remiseOptions: 0,
+  remiseOptions: 0
 };
 
-// ─── FILE PARSING — détection depuis le nom du fichier ───────────────────────
+// ─── PARSING NOM DE FICHIER ───────────────────────────────────────────────────
 function parseFilename(filename) {
   var name = filename.replace(/\.[^.]+$/, '').toUpperCase().replace(/[-_ ]/g, '');
   var result = { gamme: null, size: null, type: null };
 
-  // Détection gamme (ordre par longueur décroissante)
-  var gammes = Object.keys(MODELS_DB.HS).map(function(i) { return MODELS_DB.HS[i].gamme; })
-    .concat(Object.keys(MODELS_DB.CS).map(function(i) { return MODELS_DB.CS[i].gamme; }))
-    .filter(function(v, i, a) { return a.indexOf(v) === i; })
-    .sort(function(a, b) { return b.length - a.length; });
+  // Détection type : priorité sur HS/CS avant H/C seul
+  if (/HS/.test(name)) result.type = 'HS';
+  else if (/CS/.test(name)) result.type = 'CS';
+  else if (/H/.test(name)) result.type = 'HS';
+  else if (/C/.test(name)) result.type = 'CS';
 
-  for (var i = 0; i < gammes.length; i++) {
-    if (name.startsWith(gammes[i])) {
-      result.gamme = gammes[i];
-      break;
-    }
+  // Détection gamme (ordre longueur décroissante)
+  var allGammes = [];
+  ['HS','CS'].forEach(function(t) {
+    (MODELS_DB[t] || []).forEach(function(m) {
+      if (allGammes.indexOf(m.gamme) === -1) allGammes.push(m.gamme);
+    });
+  });
+  allGammes.sort(function(a, b) { return b.length - a.length; });
+
+  for (var i = 0; i < allGammes.length; i++) {
+    if (name.startsWith(allGammes[i])) { result.gamme = allGammes[i]; break; }
   }
 
+  // Détection taille
   if (result.gamme) {
-    var rest = name.slice(result.gamme.length);
-    // Détection type : H ou HS = PAC, C ou CS = GEG
-    var typeMatch = rest.match(/(HS|CS|H|C)$/i);
-    if (typeMatch) {
-      result.type = typeMatch[1].toUpperCase().startsWith('H') ? 'HS' : 'CS';
-      rest = rest.slice(0, rest.length - typeMatch[1].length);
-    }
-    // Détection taille
+    var rest = name.slice(result.gamme.length).replace(/H[S]?|C[S]?$/gi, '');
     var allSizes = [];
-    var allModels = (MODELS_DB.HS || []).concat(MODELS_DB.CS || []);
-    allModels.forEach(function(m) {
-      if (m.gamme === result.gamme) {
-        m.sizes.forEach(function(s) { if (allSizes.indexOf(s) === -1) allSizes.push(s); });
-      }
+    ['HS','CS'].forEach(function(t) {
+      (MODELS_DB[t] || []).forEach(function(m) {
+        if (m.gamme === result.gamme) m.sizes.forEach(function(s) { if (allSizes.indexOf(s) === -1) allSizes.push(s); });
+      });
     });
-    // Chercher la taille la plus longue qui match
     allSizes.sort(function(a, b) { return b.length - a.length; });
     for (var j = 0; j < allSizes.length; j++) {
-      if (rest === allSizes[j] || rest.includes(allSizes[j])) {
-        result.size = allSizes[j];
-        break;
-      }
+      if (rest === allSizes[j] || rest.startsWith(allSizes[j])) { result.size = allSizes[j]; break; }
     }
   }
   return result;
@@ -132,41 +280,34 @@ function parseFilename(filename) {
 function handleCSD(f) {
   if (!f) return;
   var isDocx = f.name.match(/\.docx?$/i);
-  var isPdf = f.name.match(/\.pdf$/i);
-  if (!isDocx && !isPdf) { showMsg('error', 'Format non supporté. Importez un fichier .docx ou .pdf'); return; }
+  var isPdf  = f.name.match(/\.pdf$/i);
+  if (!isDocx && !isPdf) { showMsg('error', 'Format non supporté (.docx ou .pdf)'); return; }
   state.file = f;
   state.fileType = isPdf ? 'pdf' : 'docx';
 
-  // Update UI
-  var box = document.getElementById('dropCSD');
-  box.classList.add('has-file');
+  document.getElementById('dropCSD').classList.add('has-file');
   document.getElementById('uz-title').textContent = f.name;
   document.getElementById('uz-sub').textContent = (f.size / 1024).toFixed(0) + ' Ko — ' + (isPdf ? 'PDF' : 'DOCX');
 
-  // Parse filename
-  var detected = parseFilename(f.name);
-  var detWrap = document.getElementById('detWrap');
-  detWrap.style.display = 'flex';
-  document.getElementById('detGamme').textContent = detected.gamme || 'Gamme non détectée';
-  document.getElementById('detSize').textContent = detected.size ? 'Taille ' + detected.size : 'Taille non détectée';
-  document.getElementById('detType').textContent = detected.type === 'HS' ? 'Pompe à chaleur' : detected.type === 'CS' ? "Groupe d'eau glacée" : 'Type non détecté';
+  var det = parseFilename(f.name);
+  document.getElementById('detWrap').style.display = 'flex';
+  document.getElementById('detGamme').textContent = det.gamme || 'Gamme non détectée';
+  document.getElementById('detSize').textContent = det.size ? 'Taille ' + det.size : 'Taille non détectée';
+  document.getElementById('detType').textContent = det.type === 'HS' ? 'Pompe à chaleur' : det.type === 'CS' ? "Groupe d'eau glacée" : 'Type non détecté';
 
-  // Auto-fill selectors
-  if (detected.type) {
-    selectType(detected.type);
-    if (detected.gamme) {
+  // Auto-remplir les selectors
+  if (det.type) {
+    selectType(det.type);
+    if (det.gamme) {
       var selModel = document.getElementById('selModel');
-      selModel.value = detected.gamme;
-      state.selectedModel = detected.gamme;
-      onModelChange(detected.size);
+      selModel.value = det.gamme;
+      state.selectedModel = det.gamme;
+      onModelChange(det.size);
     }
   }
-
-  hideMsg();
-  checkReady();
+  hideMsg(); checkReady();
 }
 
-// Drag & drop
 (function() {
   var drop = document.getElementById('dropCSD');
   if (!drop) return;
@@ -185,9 +326,8 @@ function selectType(type) {
   sel.disabled = false;
   (MODELS_DB[type] || []).forEach(function(m) {
     var opt = document.createElement('option');
-    opt.value = m.gamme;
-    opt.textContent = m.nom;
-    if (m.sizes.length === 0) { opt.disabled = true; opt.textContent += ' (bientôt disponible)'; }
+    opt.value = m.gamme; opt.textContent = m.nom;
+    if (!m.sizes.length) { opt.disabled = true; opt.textContent += ' (bientôt disponible)'; }
     sel.appendChild(opt);
   });
   document.getElementById('selSize').innerHTML = '<option value="">Gamme d\'abord</option>';
@@ -203,7 +343,7 @@ function onModelChange(preSize) {
   var model = (MODELS_DB[state.machineType] || []).find(function(m) { return m.gamme === gamme; });
   selS.innerHTML = '<option value="">Taille</option>';
   (model ? model.sizes : []).forEach(function(s) {
-    var opt = document.createElement('option'); opt.value = s; opt.textContent = s; selS.appendChild(opt);
+    var o = document.createElement('option'); o.value = s; o.textContent = s; selS.appendChild(o);
   });
   selS.disabled = false;
   if (preSize && model && model.sizes.indexOf(preSize) !== -1) { selS.value = preSize; state.selectedSize = preSize; }
@@ -212,30 +352,6 @@ function onModelChange(preSize) {
 }
 
 // ─── CLIENTS ──────────────────────────────────────────────────────────────────
-async function loadClientsExcel(f) {
-  if (!f) return;
-  showMsg('success', '⏳ Chargement des clients...');
-  try {
-    var data = await f.arrayBuffer();
-    var wb = XLSX.read(data, { type: 'array' });
-    var ws = wb.Sheets[wb.SheetNames[0]];
-    var rows = XLSX.utils.sheet_to_json(ws, { header: 1 });
-    var start = 0;
-    if (rows.length > 0 && typeof rows[0][0] === 'string' && rows[0][0].toLowerCase().includes('code')) start = 1;
-    CLIENTS = [];
-    for (var i = start; i < rows.length; i++) {
-      var r = rows[i];
-      if (r && r[0] && r[1]) CLIENTS.push([String(r[0]).trim(), String(r[1]).trim()]);
-    }
-    if (typeof TursoSync !== 'undefined' && TursoSync.isConnected()) {
-      DB.clients.bulkImport(CLIENTS).then(function(n) { console.log('✅ ' + n + ' clients synchronisés'); });
-    }
-    updateClientCount();
-    showMsg('success', '✅ ' + CLIENTS.length.toLocaleString('fr-FR') + ' clients importés');
-    setTimeout(hideMsg, 2500);
-  } catch(e) { showMsg('error', 'Erreur lecture Excel : ' + e.message); }
-}
-
 async function searchClient(q) {
   var box = document.getElementById('clientResults');
   if (!q || q.length < 2) { box.classList.remove('open'); return; }
@@ -248,8 +364,7 @@ async function searchClient(q) {
   }
   if (!results.length) { box.innerHTML = '<div style="padding:10px;font-size:12px;color:rgba(255,255,255,.3)">Aucun résultat</div>'; box.classList.add('open'); return; }
   box.innerHTML = results.map(function(c) {
-    return '<div class="client-result" onclick="pickClient(\'' + c[0].replace(/'/g, "\\'") + '\',\'' + c[1].replace(/'/g, "\\'") + '\')">' +
-      '<span>' + c[1] + '</span><span class="code">' + c[0] + '</span></div>';
+    return '<div class="client-result" onclick="pickClient(\'' + c[0].replace(/'/g,"\\'") + '\',\'' + c[1].replace(/'/g,"\\'") + '\')"><span>' + c[1] + '</span><span class="code">' + c[0] + '</span></div>';
   }).join('');
   box.classList.add('open');
 }
@@ -258,7 +373,7 @@ function pickClient(code, nom) {
   state.selectedClient = { code: code, nom: nom };
   document.getElementById('clientResults').classList.remove('open');
   document.getElementById('clientSearch').value = '';
-  document.getElementById('clientManual').value = '';
+  if (document.getElementById('clientManual')) document.getElementById('clientManual').value = '';
   document.getElementById('clientSelectedText').textContent = nom + ' — ' + code;
   document.getElementById('clientSelected').classList.add('visible');
   checkReady();
@@ -268,7 +383,7 @@ function clearClient() {
   state.selectedClient = null;
   document.getElementById('clientSelected').classList.remove('visible');
   document.getElementById('clientSearch').value = '';
-  document.getElementById('clientManual').value = '';
+  if (document.getElementById('clientManual')) document.getElementById('clientManual').value = '';
   checkReady();
 }
 
@@ -294,8 +409,8 @@ document.addEventListener('click', function(e) {
 function updateClientCount() {
   var el = document.getElementById('clientCount');
   if (el) el.textContent = CLIENTS.length.toLocaleString('fr-FR') + ' clients en base';
-  var searchEl = document.getElementById('clientSearch');
-  if (searchEl) searchEl.placeholder = 'Rechercher parmi ' + CLIENTS.length.toLocaleString('fr-FR') + ' clients…';
+  var s = document.getElementById('clientSearch');
+  if (s && CLIENTS.length) s.placeholder = 'Rechercher parmi ' + CLIENTS.length.toLocaleString('fr-FR') + ' clients…';
 }
 
 // ─── VALIDATION ───────────────────────────────────────────────────────────────
@@ -312,53 +427,44 @@ async function analyzeAndGo() {
   document.getElementById('btnGo').disabled = true;
   try {
     if (state.fileType === 'pdf') {
-      showMsg('error', 'Le parsing PDF n\'est pas encore disponible. Exportez la fiche en .docx depuis le configurateur Galletti.');
-      document.getElementById('loader').style.display = 'none';
-      checkReady();
-      return;
+      showMsg('error', "Le parsing PDF n'est pas encore disponible. Exportez en .docx depuis le configurateur Galletti.");
+      document.getElementById('loader').style.display = 'none'; checkReady(); return;
     }
     var _savedModel = state.selectedModel;
-    var _savedSize = state.selectedSize;
+    var _savedSize  = state.selectedSize;
     var data = await parseDocx(state.file);
     if (data._hasHeating && state.machineType === 'CS') {
-      showMsg('warning', 'Ce fichier contient des données chauffage — type corrigé en PAC.');
-      state.machineType = 'HS'; selectType('HS');
+      showMsg('warning', 'Fichier PAC — type corrigé.'); state.machineType = 'HS'; selectType('HS');
     } else if (!data._hasHeating && state.machineType === 'HS') {
-      showMsg('warning', "Pas de données chauffage — type corrigé en Groupe d'Eau Glacée.");
-      state.machineType = 'CS'; selectType('CS');
+      showMsg('warning', "Fichier GEG — type corrigé."); state.machineType = 'CS'; selectType('CS');
     }
-    state.selectedModel = _savedModel;
-    state.selectedSize = _savedSize;
-    data.type = state.machineType;
-    data.size = state.selectedSize;
+    state.selectedModel = _savedModel; state.selectedSize = _savedSize;
+    data.type = state.machineType; data.size = state.selectedSize;
     state.parsedData = data;
-    if (!state.selectedModel) state.selectedModel = data.gamme || '';
-    if (!state.selectedSize) state.selectedSize = data.size || '';
+    if (!state.selectedModel) state.selectedModel = (data.gamme || '').split(' ')[0];
+    if (!state.selectedSize)  state.selectedSize  = data.size || '';
     state.dimensionImage = data.dimensionImage;
+
     var missing = [];
     if (!data.modele) missing.push('modèle');
     if (!data.resultsFroid.puissanceFrigo && !data.resultsChaud) missing.push('puissances');
     if (!data.commonData.lwStandard) missing.push('données acoustiques');
     if (!data.date) missing.push('date');
-    if (missing.length > 0) {
-      showMsg('warning', 'Données incomplètes : ' + missing.join(', ') + '. Le format du fichier a peut-être changé.');
+    if (missing.length) {
+      showMsg('warning', 'Données incomplètes : ' + missing.join(', '));
       setTimeout(function() { offerCSDHelp(data, missing); }, 500);
     } else {
       showMsg('success', data.modele + ' — ' + (data.type === 'HS' ? 'PAC' : 'GEG') + ' — Taille ' + data.size);
     }
-    // Copier num/nom projet du step 0 vers step 1
-    var n1 = document.getElementById('inputNumProjet');
-    var n2 = document.getElementById('inputNumProjet2');
-    if (n1 && n2 && n1.value) n2.value = n1.value;
-    var m1 = document.getElementById('inputNomProjet');
-    var m2 = document.getElementById('inputNomProjet2');
-    if (m1 && m2 && m1.value) m2.value = m1.value;
+    // Sync projet
+    var n0 = document.getElementById('inputNumProjet'), n1 = document.getElementById('inputNumProjet2');
+    if (n0 && n1 && n0.value && !n1.value) n1.value = n0.value;
+    var m0 = document.getElementById('inputNomProjet'), m1 = document.getElementById('inputNomProjet2');
+    if (m0 && m1 && m0.value && !m1.value) m1.value = m0.value;
+
     setTimeout(function() { goToStep(1); }, 800);
-  } catch(e) {
-    showMsg('error', 'Erreur : ' + e.message); console.error(e);
-  } finally {
-    document.getElementById('loader').style.display = 'none'; checkReady();
-  }
+  } catch(e) { showMsg('error', 'Erreur : ' + e.message); console.error(e); }
+  finally { document.getElementById('loader').style.display = 'none'; checkReady(); }
 }
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
@@ -366,8 +472,7 @@ function goToStep(n) {
   if (n >= 1 && !state.parsedData) return;
   state.step = n;
   ['step0','step1','step2','step3'].forEach(function(id, i) {
-    var el = document.getElementById(id);
-    if (el) el.classList.toggle('visible', i === n);
+    var el = document.getElementById(id); if (el) el.classList.toggle('visible', i === n);
   });
   document.querySelectorAll('.nav-step').forEach(function(el) {
     var s = parseInt(el.dataset.step);
@@ -381,92 +486,136 @@ function goToStep(n) {
 }
 
 // ─── CARTE FRANCE ─────────────────────────────────────────────────────────────
-function buildFranceMap(activeRegion) {
+function buildFranceMap(active) {
   var svg = document.getElementById('france-map');
   if (!svg) return;
-
   var html = '';
-  Object.keys(FRANCE_REGIONS).forEach(function(nom) {
-    var r = FRANCE_REGIONS[nom];
-    var isActive = nom === activeRegion;
-    var fill = isActive ? '#2f4a6f' : 'rgba(255,255,255,.06)';
-    var stroke = isActive ? '#5b84b1' : 'rgba(255,255,255,.12)';
-    var textColor = isActive ? '#fff' : 'rgba(255,255,255,.35)';
-    var label = nom.replace('PARIS EST', 'P. EST').replace('PARIS OUEST', 'P. OUEST').replace('CENTRE EST', 'C. EST').replace('SUD OUEST', 'S. OUEST').replace('SUD EST', 'S. EST');
-    html += '<path d="' + r.path + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5" style="cursor:pointer;transition:fill .2s" onclick="selectRegionMap(\'' + nom + '\')" />';
-    html += '<text x="' + r.cx + '" y="' + (r.cy + 4) + '" text-anchor="middle" font-size="10" fill="' + textColor + '" style="pointer-events:none;font-family:IBM Plex Sans,sans-serif;font-weight:500">' + label + '</text>';
+  Object.keys(FRANCE_MAP_PATHS).forEach(function(nom) {
+    var r = FRANCE_MAP_PATHS[nom];
+    var isA = nom === active;
+    html += '<path d="' + r.d + '" fill="' + (isA ? '#2f4a6f' : 'rgba(47,74,111,0.18)') + '" stroke="' + (isA ? '#5b84b1' : 'rgba(47,74,111,0.45)') + '" stroke-width="1.5" style="cursor:pointer;transition:all .25s" onclick="selectRegionMap(\'' + nom + '\')" />';
+    html += '<text x="' + r.lx + '" y="' + (r.ly + 4) + '" text-anchor="middle" font-size="11" fill="' + (isA ? '#fff' : 'rgba(180,200,230,0.7)') + '" style="pointer-events:none;font-family:IBM Plex Sans,sans-serif;font-weight:' + (isA ? '600' : '400') + '">' + r.label + '</text>';
   });
+  // Corse
+  html += '<path d="M 430 415 L 445 405 L 455 415 L 460 435 L 450 455 L 435 460 L 425 445 L 425 428 Z" fill="' + (active === 'SUD EST' ? '#2f4a6f' : 'rgba(47,74,111,0.18)') + '" stroke="rgba(47,74,111,0.45)" stroke-width="1.5" style="cursor:pointer" onclick="selectRegionMap(\'SUD EST\')" />';
   svg.innerHTML = html;
 }
 
-function buildRegionList(activeRegion) {
+function buildRegionList(active) {
   var list = document.getElementById('regionList');
   if (!list) return;
-  list.innerHTML = Object.keys(FRANCE_REGIONS).map(function(nom) {
-    var isActive = nom === activeRegion;
-    return '<div class="region-item' + (isActive ? ' active' : '') + '" onclick="selectRegionMap(\'' + nom + '\')">' +
+  list.innerHTML = Object.keys(CONTACTS_DB).map(function(nom) {
+    var isA = nom === active;
+    return '<div class="region-item' + (isA ? ' active' : '') + '" onclick="selectRegionMap(\'' + nom + '\')">' +
       '<div class="region-dot"></div>' + nom + '</div>';
   }).join('');
 }
 
 function selectRegionMap(nom) {
   state.region = nom;
-  // Sync with dropdown
-  var selRegion = document.getElementById('selRegion');
-  if (selRegion) { selRegion.value = nom; onRegionChange(); }
+  var sr = document.getElementById('selRegion');
+  if (sr) { sr.value = nom; }
   buildFranceMap(nom);
   buildRegionList(nom);
-  buildContactCards(nom);
+  renderContactSection(nom);
 }
 
-function buildContactCards(region) {
-  var wrap = document.getElementById('contactCards');
+// ─── SECTION INTERLOCUTEURS ───────────────────────────────────────────────────
+function renderContactSection(region) {
+  var wrap = document.getElementById('contactSection');
   if (!wrap) return;
-  var contacts = CONFIG.contacts[region] || [];
-  if (!contacts.length) { wrap.style.display = 'none'; return; }
-  wrap.style.display = 'flex';
-  wrap.innerHTML = contacts.map(function(c) {
-    var isTCS = c.poste && c.poste.toLowerCase().includes('sédentaire');
-    var initials = c.nom.split(' ').filter(function(w) { return w === w.toUpperCase() && w.length > 1; }).slice(0, 2).map(function(w) { return w[0]; }).join('') || c.nom.substring(0, 2).toUpperCase();
-    return '<div class="contact-card">' +
-      '<div class="avatar ' + (isTCS ? 'tcs' : 'tci') + '">' + initials + '</div>' +
-      '<div><div class="contact-name">' + c.nom + '</div>' +
-      '<div class="contact-role">' + c.poste + '</div>' +
-      '<div class="contact-detail">' + (c.email || '') + (c.tel ? ' — ' + c.tel : '') + '</div></div></div>';
-  }).join('');
+  var db = CONTACTS_DB[region];
+  if (!db) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+
+  var html = '<div class="contact-section-title">Interlocuteurs — ' + region + '</div>';
+
+  // Directeur
+  if (db.directeur) {
+    html += '<div class="contact-block">';
+    html += '<div class="contact-role-label">Directeur régional</div>';
+    html += buildContactCard(db.directeur, 'dir');
+    html += '</div>';
+  }
+
+  // TCI
+  if (db.tci && db.tci.length) {
+    html += '<div class="contact-block">';
+    html += '<div class="contact-role-label">TCI — Commerciaux itinérants</div>';
+    html += '<div class="contact-grid">';
+    // Montrer les 2 premiers, avec "voir plus" si besoin
+    var tciDisplay = db.tci.slice(0, 4);
+    tciDisplay.forEach(function(c) { html += buildContactCard(c, 'tci'); });
+    html += '</div></div>';
+  }
+
+  // TCS
+  if (db.tcs && db.tcs.length) {
+    html += '<div class="contact-block">';
+    html += '<div class="contact-role-label">TCS — Commerciaux sédentaires</div>';
+    html += '<div class="contact-grid">';
+    db.tcs.slice(0, 4).forEach(function(c) { html += buildContactCard(c, 'tcs'); });
+    html += '</div></div>';
+  }
+
+  // Créateur de fiche (menu déroulant)
+  html += '<div class="contact-block">';
+  html += '<div class="contact-role-label">Créateur de la fiche</div>';
+  html += '<select id="selCreateur" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:14px;outline:none;">';
+  html += '<option value="">Sélectionner</option>';
+  var allContacts = [];
+  if (db.directeur) allContacts.push(db.directeur);
+  (db.tci || []).forEach(function(c) { allContacts.push(c); });
+  (db.tcs || []).forEach(function(c) { allContacts.push(c); });
+  allContacts.forEach(function(c) {
+    html += '<option value="' + c.nom + '">' + c.nom + (c.poste ? ' — ' + c.poste : '') + '</option>';
+  });
+  html += '</select>';
+  html += '</div>';
+
+  wrap.innerHTML = html;
+}
+
+function buildContactCard(c, type) {
+  var initials = c.nom.split(' ').filter(function(w) { return w === w.toUpperCase() && w.length > 1; }).slice(0,2).map(function(w) { return w[0]; }).join('') || c.nom.substring(0,2).toUpperCase();
+  return '<div class="contact-card-item">' +
+    '<div class="avatar ' + type + '">' + initials + '</div>' +
+    '<div class="contact-card-info">' +
+    '<div class="contact-card-name">' + c.nom + '</div>' +
+    (c.secteur ? '<div class="contact-card-secteur">' + c.secteur + '</div>' : '') +
+    '<div class="contact-card-detail">' + (c.email || '') + '</div>' +
+    '<div class="contact-card-detail">' + (c.tel || '') + '</div>' +
+    '</div></div>';
 }
 
 // ─── CONFIG (STEP 1) ──────────────────────────────────────────────────────────
 function buildConfig() {
   var d = state.parsedData, isHS = d.type === 'HS';
-  var gamme = state.selectedModel || d.gamme || 'PLP';
+  var gamme = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
   var sz = state.selectedSize || d.size || '';
   document.getElementById('cfgTitle').textContent = gamme + ' ' + sz;
   document.getElementById('cfgSub').textContent = (isHS ? 'Pompe à chaleur' : "Groupe d'eau glacée") + ' — Taille ' + sz;
 
-  // Région / contact dropdowns
+  // Région dropdown
   var sr = document.getElementById('selRegion');
   sr.innerHTML = '<option value="">Sélectionner</option>';
-  Object.keys(CONFIG.contacts).forEach(function(r) {
+  Object.keys(CONFIG.contacts || CONTACTS_DB).forEach(function(r) {
     sr.innerHTML += '<option value="' + r + '">' + r + '</option>';
   });
   if (state.region) { sr.value = state.region; onRegionChange(); }
 
-  // Sync projet fields
-  var n0 = document.getElementById('inputNumProjet');
-  var n1 = document.getElementById('inputNumProjet2');
-  if (n0 && n1 && !n1.value && n0.value) n1.value = n0.value;
-  var m0 = document.getElementById('inputNomProjet');
-  var m1 = document.getElementById('inputNomProjet2');
-  if (m0 && m1 && !m1.value && m0.value) m1.value = m0.value;
+  // Sync projet
+  var n0 = document.getElementById('inputNumProjet'), n1 = document.getElementById('inputNumProjet2');
+  if (n0 && n1 && n0.value && !n1.value) n1.value = n0.value;
+  var m0 = document.getElementById('inputNomProjet'), m1 = document.getElementById('inputNomProjet2');
+  if (m0 && m1 && m0.value && !m1.value) m1.value = m0.value;
 
-  // Remise
   var remEl = document.getElementById('inputRemise');
   if (remEl) remEl.value = state.remiseOptions || 0;
 
   buildFranceMap(state.region || null);
   buildRegionList(state.region || null);
-  if (state.region) buildContactCards(state.region);
+  if (state.region) renderContactSection(state.region);
 
   buildAcoustic();
   buildOptions();
@@ -475,30 +624,22 @@ function buildConfig() {
 function onRegionChange() {
   state.region = document.getElementById('selRegion').value;
   var sc = document.getElementById('selContact');
-  sc.innerHTML = '<option value="">Sélectionner</option>';
-  sc.disabled = !state.region;
-  (CONFIG.contacts[state.region] || []).forEach(function(c) {
-    sc.innerHTML += '<option value="' + c.nom + '">' + c.nom + ' — ' + c.poste + '</option>';
-  });
+  if (sc) {
+    sc.innerHTML = '<option value="">Sélectionner</option>';
+    sc.disabled = !state.region;
+    (CONFIG.contacts[state.region] || []).forEach(function(c) {
+      sc.innerHTML += '<option value="' + c.nom + '">' + c.nom + ' — ' + c.poste + '</option>';
+    });
+  }
   state.contact = null;
-  var ci = document.getElementById('contactInfo');
-  if (ci) ci.style.display = 'none';
   buildFranceMap(state.region || null);
   buildRegionList(state.region || null);
-  buildContactCards(state.region);
+  if (state.region) renderContactSection(state.region);
 }
 
 function onContactChange() {
-  var n = document.getElementById('selContact').value;
+  var n = document.getElementById('selContact') ? document.getElementById('selContact').value : '';
   state.contact = (CONFIG.contacts[state.region] || []).find(function(c) { return c.nom === n; }) || null;
-  var b = document.getElementById('contactInfo');
-  if (state.contact) {
-    b.style.display = 'block';
-    b.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,.5);padding:8px 0;">' +
-      (state.contact.tel ? state.contact.tel + ' — ' : '') + (state.contact.email || '') + '</div>';
-  } else {
-    b.style.display = 'none';
-  }
 }
 
 function buildAcoustic() {
@@ -508,14 +649,12 @@ function buildAcoustic() {
     { key: 'silencieuse', label: 'Silencieuse', desc: 'Capot compresseur', lw: cd.lwSilencieuse, lp: cd.lpSilencieuse },
     { key: 'ultra', label: 'Ultra Silencieuse', desc: 'Capot + ventil. BV', lw: cd.lwUltra, lp: cd.lpUltra }
   ];
-  var g = document.getElementById('acousticGrid');
-  g.innerHTML = '';
+  var g = document.getElementById('acousticGrid'); g.innerHTML = '';
   vs.forEach(function(v) {
     var c = document.createElement('div');
     c.className = 'acoustic-card' + (state.versionAcoustique === v.key ? ' selected' : '');
     c.onclick = function() { state.versionAcoustique = v.key; buildAcoustic(); };
-    c.innerHTML = '<h4>' + v.label + '</h4><div class="desc">' + v.desc + '</div>' +
-      '<div class="vals"><span class="lw">Lw ' + (v.lw || '—') + ' dB(A)</span><span class="lp">Lp ' + (v.lp || '—') + ' dB(A)</span></div>';
+    c.innerHTML = '<h4>' + v.label + '</h4><div class="desc">' + v.desc + '</div><div class="vals"><span class="lw">Lw ' + (v.lw||'—') + ' dB(A)</span><span class="lp">Lp ' + (v.lp||'—') + ' dB(A)</span></div>';
     g.appendChild(c);
   });
 }
@@ -525,20 +664,11 @@ function getPrice(o, sz) {
   var p = o.prix[sz];
   if (p === '?') return 'Sur demande';
   var v = parseInt(p) || 0;
-  if (v === 0) {
-    var allZero = CONFIG.sizes.every(function(s) { return (parseInt(o.prix[s]) || 0) === 0; });
-    if (allZero) return 0;
-    return 'N.D';
-  }
+  if (v === 0) { var allZero = CONFIG.sizes.every(function(s) { return (parseInt(o.prix[s])||0)===0; }); if (allZero) return 0; return 'N.D'; }
   return v;
 }
-
 function fmt(n) { return n === 'Sur demande' ? n : n.toLocaleString('fr-FR'); }
-
-function fmtPrix(n) {
-  if (typeof n !== 'number' || isNaN(n)) return '—';
-  return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+function fmtPrix(n) { if (typeof n !== 'number' || isNaN(n)) return '—'; return n.toLocaleString('fr-FR', {minimumFractionDigits:2,maximumFractionDigits:2}); }
 
 function buildOptions() {
   var d = state.parsedData, sz = state.selectedSize || d.size;
@@ -546,30 +676,24 @@ function buildOptions() {
   if (remEl) state.remiseOptions = parseFloat(remEl.value) || 0;
   var app = CONFIG.options.filter(function(o) { return o.type.includes(d.type); });
   var cats = [...new Set(app.map(function(o) { return o.cat; }))];
-  var c = document.getElementById('optionsContainer');
-  c.innerHTML = '';
+  var c = document.getElementById('optionsContainer'); c.innerHTML = '';
   cats.forEach(function(cat) {
     var items = app.filter(function(o) { return o.cat === cat; });
-    var title = document.createElement('div');
-    title.className = 'cat-title';
-    title.textContent = cat;
-    c.appendChild(title);
-    var g = document.createElement('div');
-    g.className = 'opt-grid';
+    var title = document.createElement('div'); title.className = 'cat-title'; title.textContent = cat; c.appendChild(title);
+    var g = document.createElement('div'); g.className = 'opt-grid';
     items.forEach(function(opt) {
       var p = getPrice(opt, sz);
       var it = document.createElement('div');
       it.className = 'opt-item' + (state.selectedOptions[opt.id] ? ' checked' : '');
       var remise = state.remiseOptions || 0;
-      var prixNet = (typeof p === 'number' && p > 0 && remise > 0)
-        ? Math.round(p * (1 - remise / 100)).toLocaleString('fr-FR') + ' € <span style="text-decoration:line-through;opacity:.4;font-size:11px">' + fmt(p) + '€</span>'
-        : (p === 'Sur demande' ? 'Sur demande' : p === 'N.D' ? 'Non dispo.' : p === 0 ? 'Inclus' : fmt(p) + ' €');
+      var pStr = p === 'Sur demande' ? 'Sur demande' : p === 'N.D' ? 'Non dispo.' : p === 0 ? 'Inclus' :
+        (remise > 0 ? Math.round(p*(1-remise/100)).toLocaleString('fr-FR') + ' €' : fmt(p) + ' €');
       var desc = OPTION_DESCRIPTIONS[opt.id] || '';
-      it.innerHTML = '<div class="opt-row" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid rgba(255,255,255,.07);border-radius:8px;cursor:pointer;">' +
+      it.innerHTML = '<div class="opt-row" style="display:flex;align-items:center;gap:12px;">' +
         '<div class="opt-chk">' + (state.selectedOptions[opt.id] ? '✓' : '') + '</div>' +
         '<span class="opt-name">' + opt.nom + (opt.note ? ' <em style="font-size:11px;opacity:.5">(' + opt.note + ')</em>' : '') + '</span>' +
-        '<span class="opt-price">' + prixNet + '</span></div>' +
-        (desc ? '<div class="opt-desc" style="display:none;padding:8px 12px;font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;">' + desc + '</div>' : '');
+        '<span class="opt-price">' + pStr + '</span></div>' +
+        (desc ? '<div class="opt-desc" style="display:none;padding:6px 12px;font-size:11px;color:rgba(255,255,255,.4)">' + desc + '</div>' : '');
       it.querySelector('.opt-row').addEventListener('click', function() {
         state.selectedOptions[opt.id] = !state.selectedOptions[opt.id];
         it.classList.toggle('checked');
@@ -589,178 +713,143 @@ function updateTotal() {
   state.remiseOptions = remEl ? (parseFloat(remEl.value) || 0) : 0;
   var sel = CONFIG.options.filter(function(o) { return state.selectedOptions[o.id] && o.type.includes(d.type); });
   var t = 0, n = 0, sd = false, nd = false;
-  sel.forEach(function(o) {
-    var p = getPrice(o, sz);
-    if (p === 'Sur demande') sd = true;
-    else if (p === 'N.D') nd = true;
-    else t += p;
-    n++;
-  });
+  sel.forEach(function(o) { var p = getPrice(o, sz); if (p==='Sur demande') sd=true; else if(p==='N.D') nd=true; else t+=p; n++; });
   var el = document.getElementById('optTotal');
-  if (el) el.textContent = n ? n + ' option' + (n > 1 ? 's' : '') + ' • ' + fmt(t) + ' € HT' + (sd ? ' + sur demande' : '') + (nd ? ' N.D' : '') : '';
+  if (el) el.textContent = n ? n + ' option' + (n>1?'s':'') + ' • ' + fmt(t) + ' € HT' + (sd?' + sur demande':'') + (nd?' (N.D)':'') : '';
 }
 
-// ─── HELPERS FICHE ────────────────────────────────────────────────────────────
-function buildAcouWrap(lw_std, lw_ins, lw_ultra, lp_std, lp_ins, lp_ultra, versionKey, type) {
-  var vals = type === 'lw' ? [lw_std, lw_ins, lw_ultra] : [lp_std, lp_ins, lp_ultra];
-  var labels = ['Std', 'Inso', 'S-Inso'];
-  var keys = ['standard', 'silencieuse', 'ultra'];
+function buildAcouWrap(lw_std,lw_ins,lw_ultra,lp_std,lp_ins,lp_ultra,versionKey,type) {
+  var vals = type==='lw' ? [lw_std,lw_ins,lw_ultra] : [lp_std,lp_ins,lp_ultra];
+  var labels = ['Std','Inso','S-Inso'], keys = ['standard','silencieuse','ultra'];
   var h = '<div class="plp-acou-wrap">';
-  labels.forEach(function(lbl, i) {
-    var active = keys[i] === versionKey ? 'active' : 'inactive';
-    h += '<div class="plp-acou-col ' + active + '"><span class="plp-acou-lbl">' + lbl + '</span><span class="plp-acou-val">' + (vals[i] || '—') + '</span></div>';
-  });
+  labels.forEach(function(lbl,i) { h += '<div class="plp-acou-col ' + (keys[i]===versionKey?'active':'inactive') + '"><span class="plp-acou-lbl">'+lbl+'</span><span class="plp-acou-val">'+(vals[i]||'—')+'</span></div>'; });
   return h + '</div>';
 }
 
 function buildPumpWrap(d) {
-  var hasLP  = state.selectedOptions['lp_pump'];
-  var hasHP  = state.selectedOptions['hp_pump'];
-  var hasLPD = state.selectedOptions['lp_double_pump'];
-  var hasLPI = state.selectedOptions['lp_inverter'];
-  var hasPump = hasLP || hasHP || hasLPD || hasLPI;
-  var pdc = (d.resultsFroid && d.resultsFroid.perteCharge) ? d.resultsFroid.perteCharge : '—';
-  var h = '<div class="plp-pump-wrap">';
-  h += '<div class="plp-pump-card ' + (hasPump ? 'plp-pump-off' : 'plp-pump-on') + '"><span class="plp-pump-icon">' + (hasPump ? '✕' : '●') + '</span><span class="plp-pump-lbl">Sans</span></div>';
-  h += '<div class="plp-pump-card ' + (hasLP || hasLPD || hasLPI ? 'plp-pump-on' : 'plp-pump-off') + '"><span class="plp-pump-icon">●</span><span class="plp-pump-lbl">BP</span><span class="plp-pump-data">' + pdc + ' kPa</span></div>';
-  h += '<div class="plp-pump-card ' + (hasHP ? 'plp-pump-on' : 'plp-pump-off') + '"><span class="plp-pump-icon">●</span><span class="plp-pump-lbl">HP</span></div>';
-  return h + '</div>';
+  var hasLP=state.selectedOptions['lp_pump'],hasHP=state.selectedOptions['hp_pump'],hasLPD=state.selectedOptions['lp_double_pump'],hasLPI=state.selectedOptions['lp_inverter'];
+  var hasPump=hasLP||hasHP||hasLPD||hasLPI;
+  var pdc=(d.resultsFroid&&d.resultsFroid.perteCharge)?d.resultsFroid.perteCharge:'—';
+  return '<div class="plp-pump-wrap">' +
+    '<div class="plp-pump-card '+(hasPump?'plp-pump-off':'plp-pump-on')+'"><span class="plp-pump-icon">'+(hasPump?'✕':'●')+'</span><span class="plp-pump-lbl">Sans</span></div>' +
+    '<div class="plp-pump-card '+(hasLP||hasLPD||hasLPI?'plp-pump-on':'plp-pump-off')+'"><span class="plp-pump-icon">●</span><span class="plp-pump-lbl">BP</span><span class="plp-pump-data">'+pdc+' kPa</span></div>' +
+    '<div class="plp-pump-card '+(hasHP?'plp-pump-on':'plp-pump-off')+'"><span class="plp-pump-icon">●</span><span class="plp-pump-lbl">HP</span></div></div>';
 }
 
-// ─── PREVIEW (STEP 2) ─────────────────────────────────────────────────────────
+// ─── PREVIEW (STEP 2) — identique à app.js précédent ─────────────────────────
 function buildPreview() {
   if (!document.getElementById('__plp_preview_css__')) {
     var styleEl = document.createElement('style');
     styleEl.id = '__plp_preview_css__';
     styleEl.textContent = `
       @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,600;1,400&display=swap');
-      #sheetContent { background: #e8e8e8; padding: 20px; }
-      #sheetContent .plp-pg { width: 210mm; min-height: 297mm; padding: 20mm; background: #fff !important; position: relative; margin: 0 auto 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
-      #sheetContent .cover-v2 { width: 210mm; height: 297mm; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #F2F2EF !important; margin: 0 auto 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
-      #sheetContent .plp-hdr { height: 36px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #CCC; margin-bottom: 16px; padding-bottom: 6px; flex-shrink: 0; }
-      #sheetContent .plp-hdr-proj { font-family: 'Barlow', sans-serif; font-size: 8px; color: #666; }
-      #sheetContent .plp-hdr-ref { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 8px; color: #333; }
-      #sheetContent .plp-ftr { height: 24px; border-top: 1px solid #CCC; display: flex; align-items: center; justify-content: space-between; font-family: 'Barlow', sans-serif; font-size: 7.5px; color: #666; text-transform: uppercase; letter-spacing: .1em; margin-top: auto; padding-top: 5px; flex-shrink: 0; }
-      #sheetContent .plp-band { background: #2f4a6f !important; padding: 12px 24px; margin-bottom: 18px; flex-shrink: 0; }
-      #sheetContent .plp-band-t { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: #fff; letter-spacing: .05em; }
-      #sheetContent .plp-band-s { font-family: 'Barlow', sans-serif; font-size: 9px; color: rgba(255,255,255,.8); margin-top: 2px; }
-      #sheetContent .plp-som { display: flex; width: 210mm; height: 297mm; background: #F2F2EF !important; position: relative; overflow: hidden; }
-      #sheetContent .plp-som-l { width: 22%; display: flex; align-items: flex-start; padding: 8mm 0 0 0; overflow: visible !important; }
-      #sheetContent .plp-som-txt { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 230px; text-transform: uppercase; color: #2f4a6f; line-height: .82; letter-spacing: -4px; padding-bottom: 10mm; }
-      #sheetContent .plp-som-r { width: 78%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 14mm 30mm 0; gap: 6mm; }
-      #sheetContent .plp-som-item { display: flex; align-items: baseline; justify-content: flex-end; }
-      #sheetContent .plp-som-lbl { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: #2f4a6f; text-align: right; flex: 1; }
-      #sheetContent .plp-som-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 90px; line-height: 1; color: #2f4a6f; margin-left: 6mm; min-width: 115px; text-align: right; }
-      #sheetContent .plp-tb { width: 100%; border-collapse: collapse; font-size: 9px; }
-      #sheetContent .plp-tb th, #sheetContent .plp-tb td { padding: 6px 10px; vertical-align: middle; }
-      #sheetContent .plp-tb thead th { background: #2f4a6f !important; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-align: center; padding: 10px 12px; font-size: 10px; border: none; }
-      #sheetContent .plp-tb thead th + th { border-left: 1px solid rgba(255,255,255,.2); }
-      #sheetContent .plp-tb thead th.plp-lc { text-align: left; font-size: 8px; text-transform: uppercase; }
-      #sheetContent .plp-tb .plp-lc { width: 32%; text-align: left; font-family: 'Barlow', sans-serif; font-size: 9px; color: #333; background: #F2F2EF !important; border-right: 2px solid #2f4a6f; }
-      #sheetContent .plp-tb tbody td { text-align: center; border-bottom: 1px solid #CCC; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 10px; color: #111; background: #F2F2EF !important; }
-      #sheetContent .plp-tb .plp-gr td { background: #fff !important; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #2f4a6f; padding: 8px 12px; text-align: left; border-top: 2px solid #2f4a6f; border-bottom: 1px solid #CCC; }
-      #sheetContent .plp-acou-wrap { display: flex; gap: 4px; justify-content: center; }
-      #sheetContent .plp-acou-col { flex: 1; text-align: center; padding: 4px 3px; border-radius: 2px; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; }
-      #sheetContent .plp-acou-col.active { background: #2f4a6f !important; color: #fff; font-weight: 700; }
-      #sheetContent .plp-acou-col.inactive { background: #e8e8e8 !important; color: #aaa; }
-      #sheetContent .plp-acou-lbl { font-size: 6.5px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; display: block; }
-      #sheetContent .plp-acou-val { font-size: 10px; font-weight: 700; display: block; }
-      #sheetContent .plp-pump-wrap { display: flex; gap: 4px; justify-content: center; }
-      #sheetContent .plp-pump-card { flex: 1; text-align: center; padding: 6px 4px; border-radius: 3px; font-family: 'Barlow Condensed', sans-serif; max-width: 80px; }
-      #sheetContent .plp-pump-on { background: #2f4a6f !important; color: #fff; }
-      #sheetContent .plp-pump-off { background: #e8e8e8 !important; color: #aaa; }
-      #sheetContent .plp-pump-icon { font-size: 8px; display: block; margin-bottom: 1px; }
-      #sheetContent .plp-pump-lbl { font-weight: 700; font-size: 10px; display: block; }
-      #sheetContent .plp-pump-data { font-size: 7.5px; display: block; margin-top: 2px; opacity: .85; }
-      #sheetContent .plp-presc { padding: 0 8px; }
-      #sheetContent .plp-pb { margin-bottom: 20px; }
-      #sheetContent .plp-pb-t { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; color: #111; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid #2f4a6f; }
-      #sheetContent .plp-pb-x { font-family: 'Barlow', sans-serif; font-size: 9.5px; line-height: 1.65; color: #333; }
-      #sheetContent .plp-cat { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: #2f4a6f; background: #F2F2EF !important; padding: 8px 12px; border-left: 4px solid #2f4a6f; margin: 20px 0 8px; }
-      #sheetContent .plp-opt { display: flex; align-items: flex-start; padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
-      #sheetContent .plp-opt.plp-sel { background: #D6E8F2 !important; border-left: 3px solid #2f4a6f; }
-      #sheetContent .plp-opt.plp-unsel { opacity: .6; }
-      #sheetContent .plp-opt-name { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; text-transform: uppercase; }
-      #sheetContent .plp-opt-desc { font-family: 'Barlow', sans-serif; font-size: 9px; color: #555; line-height: 1.5; margin-top: 3px; }
-      #sheetContent .plp-opt-ht { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 9.5px; }
-      #sheetContent .plp-chkbox { width: 16px; height: 16px; border: 1.5px solid #2f4a6f; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; }
-      #sheetContent .plp-chkbox.checked { background: #2f4a6f !important; }
-      #sheetContent .plp-recap { border: 2px solid #2f4a6f; padding: 16px 24px; margin-top: 24px; }
-      #sheetContent .plp-recap-t { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; color: #2f4a6f; margin-bottom: 12px; }
-      #sheetContent .plp-recap-tb th { background: #2f4a6f !important; color: #fff; font-size: 8px; text-transform: uppercase; padding: 5px 8px; text-align: left; font-family: 'Barlow Condensed', sans-serif; }
-      #sheetContent .plp-recap-tb td { padding: 5px 8px; border-bottom: .5px solid #e0e0e0; font-family: 'Barlow', sans-serif; }
-      #sheetContent .plp-recap-total td { background: #2f4a6f !important; color: #fff; font-weight: 600; }
-      #sheetContent .plp-iz { border: 1px dashed #bbb; background: #f9f9f9 !important; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-size: 9px; color: #999; min-height: 200mm; }
-      #sheetContent .plp-unit { font-family: 'Barlow', sans-serif; font-weight: 400; font-size: 8px; color: #666; margin-left: 3px; }
-      #sheetContent .plp-thr { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; }
-      #sheetContent .plp-thc { display: block; font-family: 'Barlow', sans-serif; font-weight: 400; font-size: 8px; opacity: .75; margin-top: 2px; }
-      #sheetContent .plp-li { padding-left: 16px; position: relative; margin-bottom: 2px; }
-      #sheetContent .plp-li::before { content: "–"; position: absolute; left: 0; color: #666; }
+      #sheetContent { background:#e8e8e8; padding:20px; }
+      #sheetContent .plp-pg { width:210mm; min-height:297mm; padding:20mm; background:#fff!important; position:relative; margin:0 auto 20px; box-shadow:0 2px 12px rgba(0,0,0,0.15); }
+      #sheetContent .cover-v2 { width:210mm; height:297mm; position:relative; overflow:hidden; display:flex; flex-direction:column; background:#F2F2EF!important; margin:0 auto 20px; box-shadow:0 2px 12px rgba(0,0,0,0.15); }
+      #sheetContent .plp-hdr { height:36px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #CCC; margin-bottom:16px; padding-bottom:6px; flex-shrink:0; }
+      #sheetContent .plp-hdr-proj { font-family:'Barlow',sans-serif; font-size:8px; color:#666; }
+      #sheetContent .plp-hdr-ref { font-family:'Barlow',sans-serif; font-weight:600; font-size:8px; color:#333; }
+      #sheetContent .plp-ftr { height:24px; border-top:1px solid #CCC; display:flex; align-items:center; justify-content:space-between; font-family:'Barlow',sans-serif; font-size:7.5px; color:#666; text-transform:uppercase; letter-spacing:.1em; margin-top:auto; padding-top:5px; flex-shrink:0; }
+      #sheetContent .plp-band { background:#2f4a6f!important; padding:12px 24px; margin-bottom:18px; flex-shrink:0; }
+      #sheetContent .plp-band-t { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:18px; text-transform:uppercase; color:#fff; letter-spacing:.05em; }
+      #sheetContent .plp-band-s { font-family:'Barlow',sans-serif; font-size:9px; color:rgba(255,255,255,.8); margin-top:2px; }
+      #sheetContent .plp-som { display:flex; width:210mm; height:297mm; background:#F2F2EF!important; position:relative; overflow:hidden; }
+      #sheetContent .plp-som-l { width:22%; display:flex; align-items:flex-start; padding:8mm 0 0 0; overflow:visible!important; }
+      #sheetContent .plp-som-txt { writing-mode:vertical-rl; transform:rotate(180deg); font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:230px; text-transform:uppercase; color:#2f4a6f; line-height:.82; letter-spacing:-4px; padding-bottom:10mm; }
+      #sheetContent .plp-som-r { width:78%; display:flex; flex-direction:column; justify-content:flex-end; padding:0 14mm 30mm 0; gap:6mm; }
+      #sheetContent .plp-som-item { display:flex; align-items:baseline; justify-content:flex-end; }
+      #sheetContent .plp-som-lbl { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:#2f4a6f; text-align:right; flex:1; }
+      #sheetContent .plp-som-num { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:90px; line-height:1; color:#2f4a6f; margin-left:6mm; min-width:115px; text-align:right; }
+      #sheetContent .plp-tb { width:100%; border-collapse:collapse; font-size:9px; }
+      #sheetContent .plp-tb th, #sheetContent .plp-tb td { padding:6px 10px; vertical-align:middle; }
+      #sheetContent .plp-tb thead th { background:#2f4a6f!important; color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:700; text-align:center; padding:10px 12px; font-size:10px; border:none; }
+      #sheetContent .plp-tb thead th+th { border-left:1px solid rgba(255,255,255,.2); }
+      #sheetContent .plp-tb thead th.plp-lc { text-align:left; font-size:8px; text-transform:uppercase; }
+      #sheetContent .plp-tb .plp-lc { width:32%; text-align:left; font-family:'Barlow',sans-serif; font-size:9px; color:#333; background:#F2F2EF!important; border-right:2px solid #2f4a6f; }
+      #sheetContent .plp-tb tbody td { text-align:center; border-bottom:1px solid #CCC; font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:10px; color:#111; background:#F2F2EF!important; }
+      #sheetContent .plp-tb .plp-gr td { background:#fff!important; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; color:#2f4a6f; padding:8px 12px; text-align:left; border-top:2px solid #2f4a6f; }
+      #sheetContent .plp-acou-wrap { display:flex; gap:4px; justify-content:center; }
+      #sheetContent .plp-acou-col { flex:1; text-align:center; padding:4px 3px; border-radius:2px; font-family:'Barlow Condensed',sans-serif; font-size:9px; }
+      #sheetContent .plp-acou-col.active { background:#2f4a6f!important; color:#fff; font-weight:700; }
+      #sheetContent .plp-acou-col.inactive { background:#e8e8e8!important; color:#aaa; }
+      #sheetContent .plp-acou-lbl { font-size:6.5px; text-transform:uppercase; margin-bottom:2px; display:block; }
+      #sheetContent .plp-acou-val { font-size:10px; font-weight:700; display:block; }
+      #sheetContent .plp-pump-wrap { display:flex; gap:4px; justify-content:center; }
+      #sheetContent .plp-pump-card { flex:1; text-align:center; padding:6px 4px; border-radius:3px; font-family:'Barlow Condensed',sans-serif; max-width:80px; }
+      #sheetContent .plp-pump-on { background:#2f4a6f!important; color:#fff; }
+      #sheetContent .plp-pump-off { background:#e8e8e8!important; color:#aaa; }
+      #sheetContent .plp-pump-icon { font-size:8px; display:block; margin-bottom:1px; }
+      #sheetContent .plp-pump-lbl { font-weight:700; font-size:10px; display:block; }
+      #sheetContent .plp-pump-data { font-size:7.5px; display:block; margin-top:2px; opacity:.85; }
+      #sheetContent .plp-presc { padding:0 8px; }
+      #sheetContent .plp-pb { margin-bottom:20px; }
+      #sheetContent .plp-pb-t { font-family:'Barlow',sans-serif; font-weight:600; font-size:9.5px; text-transform:uppercase; color:#111; margin-bottom:6px; padding-bottom:5px; border-bottom:1px solid #2f4a6f; }
+      #sheetContent .plp-pb-x { font-family:'Barlow',sans-serif; font-size:9.5px; line-height:1.65; color:#333; }
+      #sheetContent .plp-cat { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; color:#2f4a6f; background:#F2F2EF!important; padding:8px 12px; border-left:4px solid #2f4a6f; margin:20px 0 8px; }
+      #sheetContent .plp-opt { display:flex; align-items:flex-start; padding:10px 12px; border-bottom:1px solid #e0e0e0; }
+      #sheetContent .plp-opt.plp-sel { background:#D6E8F2!important; border-left:3px solid #2f4a6f; }
+      #sheetContent .plp-opt.plp-unsel { opacity:.6; }
+      #sheetContent .plp-opt-name { font-family:'Barlow',sans-serif; font-weight:600; font-size:9.5px; text-transform:uppercase; }
+      #sheetContent .plp-opt-desc { font-family:'Barlow',sans-serif; font-size:9px; color:#555; line-height:1.5; margin-top:3px; }
+      #sheetContent .plp-opt-ht { font-family:'Barlow',sans-serif; font-weight:600; font-size:9.5px; }
+      #sheetContent .plp-chkbox { width:16px; height:16px; border:1.5px solid #2f4a6f; display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff; }
+      #sheetContent .plp-chkbox.checked { background:#2f4a6f!important; }
+      #sheetContent .plp-recap { border:2px solid #2f4a6f; padding:16px 24px; margin-top:24px; }
+      #sheetContent .plp-recap-t { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; color:#2f4a6f; margin-bottom:12px; }
+      #sheetContent .plp-recap-tb { width:100%; border-collapse:collapse; font-size:9px; }
+      #sheetContent .plp-recap-tb th { background:#2f4a6f!important; color:#fff; font-size:8px; padding:5px 8px; font-family:'Barlow Condensed',sans-serif; }
+      #sheetContent .plp-recap-tb td { padding:5px 8px; border-bottom:.5px solid #e0e0e0; font-family:'Barlow',sans-serif; }
+      #sheetContent .plp-recap-total td { background:#2f4a6f!important; color:#fff; font-weight:600; }
+      #sheetContent .plp-iz { border:1px dashed #bbb; background:#f9f9f9!important; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-size:9px; color:#999; min-height:200mm; }
+      #sheetContent .plp-unit { font-family:'Barlow',sans-serif; font-weight:400; font-size:8px; color:#666; margin-left:3px; }
+      #sheetContent .plp-thr { display:block; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12px; }
+      #sheetContent .plp-thc { display:block; font-family:'Barlow',sans-serif; font-weight:400; font-size:8px; opacity:.75; margin-top:2px; }
+      #sheetContent .plp-li { padding-left:16px; position:relative; margin-bottom:2px; }
+      #sheetContent .plp-li::before { content:"–"; position:absolute; left:0; color:#666; }
     `;
     document.head.appendChild(styleEl);
   }
 
   var d = state.parsedData, isHS = d.type === 'HS', sz = state.selectedSize || d.size;
-  var numP = document.getElementById('inputNumProjet2').value || document.getElementById('inputNumProjet').value;
-  var nomP = document.getElementById('inputNomProjet2').value || document.getElementById('inputNomProjet').value;
-  var selOpts = CONFIG.options.filter(function(o) { return state.selectedOptions[o.id] && o.type.includes(d.type); });
-  var total = 0;
-  selOpts.forEach(function(o) { var p = getPrice(o, sz); if (typeof p === 'number') total += p; });
+  var numP = (document.getElementById('inputNumProjet2') && document.getElementById('inputNumProjet2').value) || (document.getElementById('inputNumProjet') && document.getElementById('inputNumProjet').value) || '';
+  var nomP = (document.getElementById('inputNomProjet2') && document.getElementById('inputNomProjet2').value) || (document.getElementById('inputNomProjet') && document.getElementById('inputNomProjet').value) || '';
   var cl = state.selectedClient;
-  var cd = d.commonData || {};
-  var rf = d.resultsFroid || {};
-  var rc = d.resultsChaud || {};
+  var cd = d.commonData || {}, rf = d.resultsFroid || {}, rc = d.resultsChaud || {};
   var nomProjet = nomP || 'Projet';
   var refProjet = numP || '—';
-  var clientNom = cl ? cl.nom : '—';
-  var dateStr = d.date || new Date().toLocaleDateString('fr-FR');
   var gamme = state.selectedModel || (d.gamme || 'PLP').split(' ')[0];
   var modele = d.modele || (gamme + sz + (isHS ? 'HS' : 'CS'));
-  var gammeShort = gamme;
 
   function plpHdr() {
-    return '<div class="plp-hdr"><div class="plp-hdr-logo"><div style="font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#2f4a6f">FRANCE AIR <span style="opacity:.4">×</span> Invenio</div></div>' +
+    return '<div class="plp-hdr"><div style="font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:13px;color:#2f4a6f">FRANCE AIR <span style="opacity:.4">×</span> Invenio</div>' +
       '<div class="plp-hdr-r"><div class="plp-hdr-proj">' + nomProjet + '</div><div class="plp-hdr-ref">' + refProjet + '</div></div></div>';
   }
-  function plpFtr(label, num) {
-    return '<div class="plp-ftr"><span>' + label.toUpperCase() + '</span><span>Page ' + num + '</span></div>';
-  }
-  function plpBand(num, titre, sous) {
-    return '<div class="plp-band"><div class="plp-band-t">' + num + ' — ' + titre + '</div>' + (sous ? '<div class="plp-band-s">' + sous + '</div>' : '') + '</div>';
-  }
+  function plpFtr(label, num) { return '<div class="plp-ftr"><span>' + label.toUpperCase() + '</span><span>Page ' + num + '</span></div>'; }
+  function plpBand(num, titre, sous) { return '<div class="plp-band"><div class="plp-band-t">' + num + ' — ' + titre + '</div>' + (sous ? '<div class="plp-band-s">' + sous + '</div>' : '') + '</div>'; }
 
   var h = '';
+  var coverSousTitre = isHS ? "Fiche de sélection d'une pompe à chaleur" : "Fiche de sélection d'un groupe d'eau glacée";
+  var sousTitre = isHS ? 'PAC réversible air-eau' : "Groupe d'eau glacée air-eau";
 
   // PAGE 1 — COVER
-  var coverSousTitre = isHS ? "Fiche de sélection d'une pompe à chaleur" : "Fiche de sélection d'un groupe d'eau glacée";
-  var szDisplay = sz ? String(parseInt(sz, 10)) : '';
-
   h += '<div class="cover-v2">';
   h += '<img id="coverImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" src="" alt="Cover"/>';
   h += '<svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">';
-  h += '<text x="397" y="290" font-family="Anton,Arial Black,Arial,sans-serif" font-size="58" fill="#2f4a6f" text-anchor="middle" font-weight="400">' + nomProjet + '</text>';
-  h += '<text x="397" y="340" font-family="Anton,Arial Black,Arial,sans-serif" font-size="22" fill="#2f4a6f" text-anchor="middle" font-weight="400">' + coverSousTitre + '</text>';
-  h += '</svg>';
-  h += '</div>';
+  h += '<text x="397" y="290" font-family="Anton,Arial Black,Arial,sans-serif" font-size="58" fill="#2f4a6f" text-anchor="middle">' + nomProjet + '</text>';
+  h += '<text x="397" y="340" font-family="Anton,Arial Black,Arial,sans-serif" font-size="22" fill="#2f4a6f" text-anchor="middle">' + coverSousTitre + '</text>';
+  h += '</svg></div>';
 
   // PAGE 2 — SOMMAIRE
   h += '<div class="plp-pg" style="padding:0;background:#F2F2EF!important">';
-  h += '<div class="plp-som">';
-  h += '<div class="plp-som-l" style="overflow:visible!important"><div class="plp-som-txt" style="padding-bottom:10mm">SOMMAIRE</div></div>';
-  h += '<div class="plp-som-r">';
+  h += '<div class="plp-som"><div class="plp-som-l" style="overflow:visible!important"><div class="plp-som-txt" style="padding-bottom:10mm">SOMMAIRE</div></div><div class="plp-som-r">';
   ['TABLEAU COMPARATIF','PRESCRIPTION TECHNIQUE','OPTIONS ET ACCESSOIRES','PLANS DIMENSIONNELS','VISUELS PRODUIT'].forEach(function(lbl, i) {
     h += '<div class="plp-som-item"><span class="plp-som-lbl" style="line-height:1">' + lbl + '</span><span class="plp-som-num" style="line-height:1">0' + (i+1) + '.</span></div>';
   });
   h += '</div></div></div>';
 
-  // PAGE 3 — TABLEAU COMPARATIF
-  var typeLabel = isHS ? 'PAC réversible — R290' : "Groupe d'eau glacée — R290";
-  var sousTitre = isHS ? 'PAC réversible air-eau R290' : "Groupe d'eau glacée air-eau R290";
-  h += '<div class="plp-pg">';
-  h += plpHdr();
-  h += plpBand('01', 'Tableau comparatif', 'Gamme ' + gammeShort + ' — ' + sousTitre);
-  h += '<table class="plp-tb"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">' + modele + '</span><span class="plp-thc">' + typeLabel + '</span></th></tr></thead>';
-
+  // PAGE 3 — TABLEAU
+  h += '<div class="plp-pg">' + plpHdr() + plpBand('01','Tableau comparatif',gamme + ' — ' + sousTitre);
+  h += '<table class="plp-tb"><thead><tr><th class="plp-lc">PARAMETRE</th><th><span class="plp-thr">' + modele + '</span><span class="plp-thc">' + (isHS ? 'PAC réversible' : "Groupe d'eau glacée") + '</span></th></tr></thead><tbody>';
   var rows = [];
   if (rf.puissanceFrigo) rows.push(['Puiss. frigorifique', rf.puissanceFrigo + ' kW']);
   if (rf.puissanceFrigoUNI) rows.push(['Puiss. frigo [UNI]', rf.puissanceFrigoUNI + ' kW']);
@@ -774,239 +863,189 @@ function buildPreview() {
     if (rc.cop) rows.push(['COP', rc.cop]);
     if (rc.scop) rows.push(['SCOP', rc.scop]);
   }
-  if (cd.lwStandard) rows.push(['Niveau sonore Lw', buildAcouWrap(cd.lwStandard, cd.lwSilencieuse, cd.lwUltra, cd.lpStandard, cd.lpSilencieuse, cd.lpUltra, state.versionAcoustique, 'lw')]);
-  if (cd.lpStandard) rows.push(['Niveau sonore Lp', buildAcouWrap(cd.lwStandard, cd.lwSilencieuse, cd.lwUltra, cd.lpStandard, cd.lpSilencieuse, cd.lpUltra, state.versionAcoustique, 'lp')]);
+  if (cd.lwStandard) rows.push(['Niveau sonore Lw', buildAcouWrap(cd.lwStandard,cd.lwSilencieuse,cd.lwUltra,cd.lpStandard,cd.lpSilencieuse,cd.lpUltra,state.versionAcoustique,'lw')]);
+  if (cd.lpStandard) rows.push(['Niveau sonore Lp', buildAcouWrap(cd.lwStandard,cd.lwSilencieuse,cd.lwUltra,cd.lpStandard,cd.lpSilencieuse,cd.lpUltra,state.versionAcoustique,'lp')]);
   rows.push(['Pompe', buildPumpWrap(d)]);
-
-  var tbody = '<tbody>';
-  rows.forEach(function(r) { tbody += '<tr><td class="plp-lc">' + r[0] + '</td><td>' + r[1] + '</td></tr>'; });
-  h += tbody + '</tbody></table>';
-  h += plpFtr('Tableau comparatif', 3);
-  h += '</div>';
+  rows.forEach(function(r) { h += '<tr><td class="plp-lc">' + r[0] + '</td><td>' + r[1] + '</td></tr>'; });
+  h += '</tbody></table>' + plpFtr('Tableau comparatif', 3) + '</div>';
 
   // PAGE 4 — PRESCRIPTION
-  h += '<div class="plp-pg">';
-  h += plpHdr();
-  h += plpBand('02', 'Prescription technique', modele + ' — ' + sousTitre);
+  h += '<div class="plp-pg">' + plpHdr() + plpBand('02','Prescription technique',modele);
   h += '<div class="plp-presc">';
   if (d.prescription && d.prescription.length) {
-    d.prescription.forEach(function(p) {
-      h += '<div class="plp-pb"><div class="plp-pb-t">' + (p.titre || '') + '</div><div class="plp-pb-x">' + (p.contenu || '').replace(/\n/g,'<br/>') + '</div></div>';
-    });
+    d.prescription.forEach(function(p) { h += '<div class="plp-pb"><div class="plp-pb-t">' + (p.titre||'') + '</div><div class="plp-pb-x">' + (p.contenu||'').replace(/\n/g,'<br/>') + '</div></div>'; });
   } else {
     h += '<div class="plp-pb"><div class="plp-pb-t">Caractéristiques générales</div><div class="plp-pb-x">Données de prescription non disponibles dans le fichier CSD.</div></div>';
   }
-  h += '</div>';
-  h += plpFtr('Prescription technique', 4);
-  h += '</div>';
+  h += '</div>' + plpFtr('Prescription technique', 4) + '</div>';
 
   // PAGE 5 — OPTIONS
-  h += '<div class="plp-pg">';
-  h += plpHdr();
-  h += plpBand('03', 'Options et accessoires', modele);
+  h += '<div class="plp-pg">' + plpHdr() + plpBand('03','Options et accessoires',modele);
   var remise = state.remiseOptions || 0;
+  var selOpts = CONFIG.options.filter(function(o) { return state.selectedOptions[o.id] && o.type.includes(d.type); });
   var cats2 = [...new Set(CONFIG.options.filter(function(o) { return o.type.includes(d.type); }).map(function(o) { return o.cat; }))];
   cats2.forEach(function(cat) {
     h += '<div class="plp-cat">' + cat + '</div>';
-    CONFIG.options.filter(function(o) { return o.cat === cat && o.type.includes(d.type); }).forEach(function(opt) {
-      var p = getPrice(opt, sz);
-      var isSel = state.selectedOptions[opt.id];
-      var pNet = (typeof p === 'number' && p > 0 && remise > 0) ? Math.round(p * (1 - remise/100)) : p;
-      var pStr = pNet === 'Sur demande' ? 'Sur demande' : pNet === 'N.D' ? 'N.D.' : pNet === 0 ? 'Inclus' : fmtPrix(pNet) + ' € HT';
-      h += '<div class="plp-opt ' + (isSel ? 'plp-sel' : 'plp-unsel') + '">';
-      h += '<div style="flex:55%;min-width:0"><div class="plp-opt-name">' + opt.nom + '</div>';
-      if (OPTION_DESCRIPTIONS[opt.id]) h += '<div class="plp-opt-desc">' + OPTION_DESCRIPTIONS[opt.id].replace(/<[^>]+>/g,' ').substring(0,150) + '</div>';
-      h += '</div><div style="width:25%;text-align:right;padding-left:12px"><div class="plp-opt-ht">' + pStr + '</div>';
-      if (remise > 0 && typeof p === 'number' && p > 0) h += '<div style="font-size:8px;color:#999;text-decoration:line-through">' + fmtPrix(p) + ' €</div>';
-      h += '</div>';
-      h += '<div style="width:20%;display:flex;flex-direction:column;align-items:center;padding-left:8px"><div class="plp-chkbox ' + (isSel ? 'checked' : '') + '">' + (isSel ? '✓' : '') + '</div></div>';
-      h += '</div>';
+    CONFIG.options.filter(function(o) { return o.cat===cat && o.type.includes(d.type); }).forEach(function(opt) {
+      var p = getPrice(opt, sz), isSel = state.selectedOptions[opt.id];
+      var pNet = (typeof p==='number' && p>0 && remise>0) ? Math.round(p*(1-remise/100)) : p;
+      var pStr = pNet==='Sur demande'?'Sur demande':pNet==='N.D'?'N.D.':pNet===0?'Inclus':fmtPrix(pNet)+' € HT';
+      h += '<div class="plp-opt '+(isSel?'plp-sel':'plp-unsel')+'">' +
+        '<div style="flex:55%;min-width:0"><div class="plp-opt-name">'+opt.nom+'</div>' +
+        (OPTION_DESCRIPTIONS[opt.id]?'<div class="plp-opt-desc">'+OPTION_DESCRIPTIONS[opt.id].replace(/<[^>]+>/g,' ').substring(0,150)+'</div>':'') +
+        '</div><div style="width:25%;text-align:right;padding-left:12px"><div class="plp-opt-ht">'+pStr+'</div>' +
+        (remise>0&&typeof p==='number'&&p>0?'<div style="font-size:8px;color:#999;text-decoration:line-through">'+fmtPrix(p)+' €</div>':'') +
+        '</div><div style="width:20%;display:flex;flex-direction:column;align-items:center;padding-left:8px"><div class="plp-chkbox '+(isSel?'checked':'')+'">'+(isSel?'✓':'')+'</div></div></div>';
     });
   });
-  if (selOpts.length > 0) {
+  if (selOpts.length) {
     var totalNet = 0;
-    selOpts.forEach(function(o) { var p = getPrice(o, sz); if (typeof p === 'number') totalNet += remise > 0 ? Math.round(p*(1-remise/100)) : p; });
-    h += '<div class="plp-recap"><div class="plp-recap-t">Récapitulatif options sélectionnées</div>';
-    h += '<table class="plp-recap-tb" style="width:100%;border-collapse:collapse"><thead><tr><th>Option</th><th style="text-align:right">Prix HT</th></tr></thead><tbody>';
+    selOpts.forEach(function(o) { var p=getPrice(o,sz); if(typeof p==='number') totalNet+=remise>0?Math.round(p*(1-remise/100)):p; });
+    h += '<div class="plp-recap"><div class="plp-recap-t">Récapitulatif</div>' +
+      '<table class="plp-recap-tb"><thead><tr><th>Option</th><th style="text-align:right">Prix HT</th></tr></thead><tbody>';
     selOpts.forEach(function(o) {
-      var p = getPrice(o, sz);
-      var pNet = (typeof p === 'number' && p > 0 && remise > 0) ? Math.round(p*(1-remise/100)) : p;
-      h += '<tr><td>' + o.nom + '</td><td style="text-align:right">' + (typeof pNet === 'number' && pNet > 0 ? fmtPrix(pNet) + ' €' : pNet) + '</td></tr>';
+      var p=getPrice(o,sz),pN=(typeof p==='number'&&p>0&&remise>0)?Math.round(p*(1-remise/100)):p;
+      h+='<tr><td>'+o.nom+'</td><td style="text-align:right">'+(typeof pN==='number'&&pN>0?fmtPrix(pN)+' €':pN)+'</td></tr>';
     });
-    h += '<tr class="plp-recap-total"><td>Total options</td><td style="text-align:right">' + fmtPrix(totalNet) + ' € HT</td></tr>';
-    h += '</tbody></table></div>';
+    h+='<tr class="plp-recap-total"><td>Total options</td><td style="text-align:right">'+fmtPrix(totalNet)+' € HT</td></tr>';
+    h+='</tbody></table></div>';
   }
-  h += plpFtr('Options et accessoires', 5);
-  h += '</div>';
+  h += plpFtr('Options et accessoires', 5) + '</div>';
 
   // PAGE 6 — PLANS
-  h += '<div class="plp-pg">';
-  h += plpHdr();
-  h += plpBand('04', 'Plans dimensionnels', modele);
+  h += '<div class="plp-pg">' + plpHdr() + plpBand('04','Plans dimensionnels',modele);
   var dimImg = state.dimensionImage || (document.getElementById('asset_dimension') && document.getElementById('asset_dimension').src);
-  if (dimImg && dimImg.length > 100) {
-    h += '<div style="text-align:center;padding:16px 0"><img src="' + dimImg + '" style="max-width:100%;max-height:200mm;object-fit:contain" /></div>';
-  } else {
-    h += '<div class="plp-iz">[ Plans dimensionnels — ' + modele + ' ]<br/><br/>À remplacer par le plan Galletti</div>';
-  }
-  h += plpFtr('Plans dimensionnels', 6);
-  h += '</div>';
+  h += (dimImg&&dimImg.length>100) ? '<div style="text-align:center;padding:16px 0"><img src="'+dimImg+'" style="max-width:100%;max-height:200mm;object-fit:contain"/></div>' : '<div class="plp-iz">[ Plans dimensionnels — '+modele+' ]</div>';
+  h += plpFtr('Plans dimensionnels', 6) + '</div>';
 
   // PAGE 7 — VISUELS
-  h += '<div class="plp-pg">';
-  h += plpHdr();
-  h += plpBand('05', 'Visuels produit', modele + ' — Configuration retenue');
+  h += '<div class="plp-pg">' + plpHdr() + plpBand('05','Visuels produit',modele+' — Configuration retenue');
   var assetM = document.getElementById('asset_machine');
-  if (assetM && assetM.src && assetM.src.length > 100) {
-    h += '<div style="text-align:center;padding:16px 0"><img src="' + assetM.src + '" style="max-width:80%;max-height:160mm;object-fit:contain" /></div>';
-  } else {
-    h += '<div class="plp-iz">[ Visuel produit — ' + modele + ' ]<br/><br/>À remplacer par le visuel Galletti</div>';
-  }
-  h += '<div style="font-family:Barlow,sans-serif;font-style:italic;font-size:8px;color:#666;text-align:center;margin-top:8px">' + modele + ' — ' + (isHS ? "PAC réversible R290" : "Groupe d'eau glacée R290") + ' — Configuration retenue</div>';
-  h += plpFtr('Visuels produit', 7);
-  h += '</div>';
+  h += (assetM&&assetM.src&&assetM.src.length>100) ? '<div style="text-align:center;padding:16px 0"><img src="'+assetM.src+'" style="max-width:80%;max-height:160mm;object-fit:contain"/></div>' : '<div class="plp-iz">[ Visuel produit — '+modele+' ]</div>';
+  h += '<div style="font-family:Barlow,sans-serif;font-style:italic;font-size:8px;color:#666;text-align:center;margin-top:8px">'+modele+' — '+(isHS?'PAC réversible':"Groupe d'eau glacée")+' — Configuration retenue</div>';
+  h += plpFtr('Visuels produit', 7) + '</div>';
 
   document.getElementById('sheetContent').innerHTML = h;
 
-  // Charger la cover
-  var _gammeForCover = state.selectedModel || gammeShort;
+  // Cover image
+  var _g = state.selectedModel || gamme;
   var _sz = state.selectedSize || (state.parsedData && state.parsedData.size) || '';
-  function _setCover(src) {
-    var img = document.getElementById('coverImg');
-    if (img && typeof src === 'string') img.src = src;
-  }
+  function _setCover(src) { var img = document.getElementById('coverImg'); if (img && typeof src === 'string') img.src = src; }
   if (typeof COVERS !== 'undefined') {
-    _setCover((COVERS[_gammeForCover] && COVERS[_gammeForCover][_sz]) ? COVERS[_gammeForCover][_sz] : '');
+    _setCover((COVERS[_g] && COVERS[_g][_sz]) ? COVERS[_g][_sz] : '');
   } else {
-    var s = document.createElement('script');
-    s.src = 'js/covers.js';
-    s.onload = function() {
-      var sz2 = state.selectedSize || (state.parsedData && state.parsedData.size) || '';
-      _setCover((COVERS && COVERS[_gammeForCover] && COVERS[_gammeForCover][sz2]) ? COVERS[_gammeForCover][sz2] : '');
-    };
+    var s = document.createElement('script'); s.src = 'js/covers.js';
+    s.onload = function() { _setCover((COVERS&&COVERS[_g]&&COVERS[_g][_sz])?COVERS[_g][_sz]:''); };
     s.onerror = function() { _setCover(''); };
     document.head.appendChild(s);
   }
 }
 
-// ─── ADMIN (STEP 3) ───────────────────────────────────────────────────────────
+// ─── ADMIN ────────────────────────────────────────────────────────────────────
 function buildAdmin() {
   var h = '<div class="admin-intro">Gérez les données de l\'application.</div>';
   h += '<div class="card"><div class="card-label">Mise à jour des prix</div>';
   h += '<div class="admin-import" onclick="document.getElementById(\'filePrices\').click()"><h4>Importer un fichier Excel de prix</h4><p>Remplace les prix actuels pour la session en cours</p></div>';
-  h += '<input type="file" id="filePrices" accept=".xlsx,.xls" style="display:none" onchange="loadPricesExcel(this.files[0])">';
-  h += '<div class="admin-format">Format attendu : feuilles C-version (GEG) et H-version (PAC), colonnes D–H = tailles.</div></div>';
-  h += '<div class="card"><div class="card-label">Contacts</div>';
-  Object.keys(CONFIG.contacts).forEach(function(r) {
-    h += '<div class="admin-region">' + r + '</div><table class="admin-tbl"><thead><tr><th>Nom</th><th>Poste</th><th>Tél</th><th>Email</th></tr></thead><tbody>';
-    CONFIG.contacts[r].forEach(function(c) {
-      h += '<tr><td>' + c.nom + '</td><td>' + c.poste + '</td><td>' + c.tel + '</td><td>' + c.email + '</td></tr>';
-    });
+  h += '<input type="file" id="filePrices" accept=".xlsx,.xls" style="display:none" onchange="loadPricesExcel(this.files[0])"></div>';
+  h += '<div class="card"><div class="card-label">Contacts par région</div>';
+  Object.keys(CONTACTS_DB).forEach(function(r) {
+    var db = CONTACTS_DB[r];
+    h += '<div class="admin-region">' + r + '</div>';
+    h += '<table class="admin-tbl"><thead><tr><th>Nom</th><th>Rôle</th><th>Secteur</th><th>Email</th><th>Tél</th></tr></thead><tbody>';
+    if (db.directeur) h += '<tr><td><strong>' + db.directeur.nom + '</strong></td><td>' + db.directeur.poste + '</td><td>—</td><td>' + db.directeur.email + '</td><td>' + db.directeur.tel + '</td></tr>';
+    (db.tci||[]).slice(0,3).forEach(function(c) { h += '<tr><td>' + c.nom + '</td><td>TCI</td><td>' + c.secteur + '</td><td>' + c.email + '</td><td>' + c.tel + '</td></tr>'; });
+    (db.tcs||[]).slice(0,3).forEach(function(c) { h += '<tr><td>' + c.nom + '</td><td>TCS</td><td>' + c.secteur + '</td><td>' + c.email + '</td><td>' + c.tel + '</td></tr>'; });
     h += '</tbody></table>';
   });
   h += '</div>';
   document.getElementById('adminContent').innerHTML = h;
 }
 
-// ─── MODALS ───────────────────────────────────────────────────────────────────
-function openModal(content) {
-  document.getElementById('modalContent').innerHTML = content;
-  document.getElementById('modalOverlay').style.display = 'flex';
-}
-function closeModal() {
-  document.getElementById('modalOverlay').style.display = 'none';
-}
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+// ─── MODALS / MESSAGES ────────────────────────────────────────────────────────
+function openModal(content) { document.getElementById('modalContent').innerHTML = content; document.getElementById('modalOverlay').style.display = 'flex'; }
+function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
+document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
 function openPriceUpdate() {
   openModal('<div class="card-label" style="margin-bottom:12px">Actualiser les prix</div>' +
-    '<div class="admin-import" onclick="document.getElementById(\'filePricesModal\').click()" style="margin-bottom:12px"><h4>Importer Excel de prix</h4><p>08-PLP_2025-C-H.xlsx</p></div>' +
-    '<input type="file" id="filePricesModal" accept=".xlsx,.xls" style="display:none" onchange="loadPricesExcel(this.files[0]);closeModal()">' +
+    '<div class="admin-import" onclick="document.getElementById(\'filePricesM\').click()" style="margin-bottom:12px"><h4>Importer Excel de prix</h4><p>08-PLP_2025-C-H.xlsx</p></div>' +
+    '<input type="file" id="filePricesM" accept=".xlsx,.xls" style="display:none" onchange="loadPricesExcel(this.files[0]);closeModal()">' +
     '<button class="btn" onclick="closeModal()">Annuler</button>');
 }
-
 function openClientUpdate() {
   openModal('<div class="card-label" style="margin-bottom:12px">Actualiser la base clients</div>' +
-    '<div class="admin-import" onclick="document.getElementById(\'fileClientsModal\').click()" style="margin-bottom:12px"><h4>Importer Excel clients</h4><p>Colonnes : Code client, Nom client</p></div>' +
-    '<input type="file" id="fileClientsModal" accept=".xlsx,.xls" style="display:none" onchange="loadClientsExcel(this.files[0]);closeModal()">' +
+    '<div class="admin-import" onclick="document.getElementById(\'fileClientsM\').click()" style="margin-bottom:12px"><h4>Importer Excel clients</h4><p>Colonnes : Code client, Nom client</p></div>' +
+    '<input type="file" id="fileClientsM" accept=".xlsx,.xls" style="display:none" onchange="loadClientsExcel(this.files[0]);closeModal()">' +
     '<button class="btn" onclick="closeModal()">Annuler</button>');
 }
 
-// ─── MESSAGES ─────────────────────────────────────────────────────────────────
-function showMsg(type, msg) {
-  hideMsg();
-  var el = document.getElementById('msg');
-  el.className = 'msg ' + type + ' visible';
-  el.textContent = msg;
-}
-function hideMsg() {
-  var el = document.getElementById('msg');
-  el.className = 'msg';
-}
+function showMsg(type, msg) { hideMsg(); var el = document.getElementById('msg'); el.className = 'msg ' + type + ' visible'; el.textContent = msg; }
+function hideMsg() { var el = document.getElementById('msg'); el.className = 'msg'; }
 
-// ─── CSD HELP ─────────────────────────────────────────────────────────────────
-function offerCSDHelp(data, missing) {
-  // Placeholder — peut être étendu
-  console.log('Données manquantes :', missing);
-}
+function offerCSDHelp(data, missing) { console.log('Données manquantes :', missing); }
 
-// ─── EXCEL PRICES ─────────────────────────────────────────────────────────────
-async function loadPricesExcel(f) {
-  if (!f) return;
-  showMsg('success', '⏳ Lecture du fichier prix...');
+async function loadClientsExcel(f) {
+  if (!f) return; showMsg('success', '⏳ Chargement des clients...');
   try {
-    var data = await f.arrayBuffer(), wb = XLSX.read(data, { type: 'array' });
-    var cSheet = wb.Sheets['C-version'] || wb.Sheets[wb.SheetNames[0]];
-    var hSheet = wb.Sheets['H-version'] || wb.Sheets[wb.SheetNames[1]];
+    var data = await f.arrayBuffer(), wb = XLSX.read(data, {type:'array'});
+    var ws = wb.Sheets[wb.SheetNames[0]];
+    var rows = XLSX.utils.sheet_to_json(ws, {header:1});
+    var start = (rows.length>0&&typeof rows[0][0]==='string'&&rows[0][0].toLowerCase().includes('code')) ? 1 : 0;
+    CLIENTS = [];
+    for (var i = start; i < rows.length; i++) { var r = rows[i]; if (r&&r[0]&&r[1]) CLIENTS.push([String(r[0]).trim(), String(r[1]).trim()]); }
+    if (typeof TursoSync!=='undefined'&&TursoSync.isConnected()) DB.clients.bulkImport(CLIENTS);
+    updateClientCount(); showMsg('success', '✅ ' + CLIENTS.length.toLocaleString('fr-FR') + ' clients importés'); setTimeout(hideMsg, 2500);
+  } catch(e) { showMsg('error', 'Erreur : ' + e.message); }
+}
+
+async function loadPricesExcel(f) {
+  if (!f) return; showMsg('success', '⏳ Lecture...');
+  try {
+    var data = await f.arrayBuffer(), wb = XLSX.read(data, {type:'array'});
+    var cSheet = wb.Sheets['C-version']||wb.Sheets[wb.SheetNames[0]];
+    var hSheet = wb.Sheets['H-version']||wb.Sheets[wb.SheetNames[1]];
     var updated = 0;
-    [cSheet, hSheet].forEach(function(ws) {
+    [cSheet,hSheet].forEach(function(ws) {
       if (!ws) return;
-      XLSX.utils.sheet_to_json(ws, { header: 1 }).forEach(function(row) {
+      XLSX.utils.sheet_to_json(ws,{header:1}).forEach(function(row) {
         if (!row[1]) return;
         var des = String(row[1]).trim().toLowerCase();
         CONFIG.options.forEach(function(opt) {
-          if (des.includes(opt.nom.toLowerCase()) || opt.nom.toLowerCase().includes(des)) {
-            var np = {}, si = { 3:'037', 4:'045', 5:'052', 6:'057', 7:'062' };
-            for (var ci in si) { var v = row[parseInt(ci)]; if (v !== undefined && v !== null && v !== '') { np[si[ci]] = typeof v === 'number' ? v : parseInt(String(v).replace(/[^\d]/g, '')) || 0; } }
-            if (Object.keys(np).length > 0) { Object.assign(opt.prix, np); updated++; }
+          if (des.includes(opt.nom.toLowerCase())||opt.nom.toLowerCase().includes(des)) {
+            var np={},si={3:'037',4:'045',5:'052',6:'057',7:'062'};
+            for (var ci in si) { var v=row[parseInt(ci)]; if(v!==undefined&&v!==null&&v!==''){np[si[ci]]=typeof v==='number'?v:parseInt(String(v).replace(/[^\d]/g,''))||0;} }
+            if (Object.keys(np).length) { Object.assign(opt.prix,np); updated++; }
           }
         });
       });
     });
     showMsg('success', '✅ ' + updated + ' prix mis à jour.');
-    if (typeof TursoSync !== 'undefined' && TursoSync.isConnected()) {
-      TursoSync.savePrices().then(function() { showMsg('success', '✅ Prix sauvegardés dans Turso.'); });
-    }
-    if (state.step === 1 && state.parsedData) buildOptions();
-    if (state.step === 3) buildAdmin();
+    if (typeof TursoSync!=='undefined'&&TursoSync.isConnected()) TursoSync.savePrices().then(function(){showMsg('success','✅ Sauvegardé dans Turso.');});
+    if (state.step===1&&state.parsedData) buildOptions();
+    if (state.step===3) buildAdmin();
   } catch(e) { showMsg('error', 'Erreur : ' + e.message); }
 }
 
-// ─── RAPPEL MENSUEL ───────────────────────────────────────────────────────────
-function isFirstMondayOfMonth() { var t = new Date(); return t.getDay() === 1 && t.getDate() <= 7; }
+function isFirstMondayOfMonth() { var t=new Date(); return t.getDay()===1&&t.getDate()<=7; }
 function checkMonthlyReminder() {
-  var key = 'plp_reminder_dismissed', now = new Date(), mk = now.getFullYear() + '-' + (now.getMonth() + 1);
-  try { if (localStorage.getItem(key) === mk) return; } catch(e) {}
-  if (isFirstMondayOfMonth()) { var m = document.getElementById('updateReminder'); if (m) m.style.display = 'flex'; }
+  var key='plp_reminder_dismissed',now=new Date(),mk=now.getFullYear()+'-'+(now.getMonth()+1);
+  try { if(localStorage.getItem(key)===mk) return; } catch(e) {}
+  if (isFirstMondayOfMonth()) { var m=document.getElementById('updateReminder'); if(m) m.style.display='flex'; }
 }
 function dismissReminder() {
-  var m = document.getElementById('updateReminder'); if (m) m.style.display = 'none';
-  try { var n = new Date(); localStorage.setItem('plp_reminder_dismissed', n.getFullYear() + '-' + (n.getMonth() + 1)); } catch(e) {}
+  var m=document.getElementById('updateReminder'); if(m) m.style.display='none';
+  try { var n=new Date(); localStorage.setItem('plp_reminder_dismissed',n.getFullYear()+'-'+(n.getMonth()+1)); } catch(e) {}
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 updateClientCount();
 checkMonthlyReminder();
 buildFranceMap(null);
+buildRegionList(null);
 
 if (typeof TursoSync !== 'undefined') {
-  TursoSync.init().then(function(ok) {
-    if (ok) { updateClientCount(); console.log('App synchronisée avec Turso'); }
-  });
+  TursoSync.init().then(function(ok) { if(ok) { updateClientCount(); console.log('App synchronisée avec Turso'); } });
 }
-
 (async function() {
   if (typeof TursoSync !== 'undefined') await TursoSync.init();
   if (typeof ProjetSave !== 'undefined') await ProjetSave.loadFromURL();
