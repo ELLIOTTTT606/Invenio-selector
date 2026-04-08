@@ -80,7 +80,6 @@ function selectType(type) {
   });
   document.getElementById("selSize").innerHTML = '<option value="">—</option>';
   document.getElementById("selSize").disabled = true;
-  state.selectedModel = null; state.selectedSize = null;
   checkReady();
 }
 
