@@ -177,14 +177,16 @@ async function analyzeAndGo() {
     const data = await parseDocx(state.file);
     if (data._hasHeating && state.machineType === "CS") {
       showMsg("warning","⚠️ Ce fichier contient des données chauffage — type corrigé en PAC.");
-      state.machineType = "HS"; selectType("HS");
+      state.machineType = "HS"; selectType("HS"); state.selectedModel = document.getElementById("selModel").value; state.selectedSize = document.getElementById("selSize").value;
     } else if (!data._hasHeating && state.machineType === "HS") {
       showMsg("warning","⚠️ Pas de données chauffage — type corrigé en Groupe d'Eau Glacée.");
-      state.machineType = "CS"; selectType("CS");
+      state.machineType = "CS"; selectType("CS"); state.selectedModel = document.getElementById("selModel").value; state.selectedSize = document.getElementById("selSize").value;
     }
     data.type = state.machineType;
     data.size = state.selectedSize;
     state.parsedData = data;
+    if (!state.selectedModel) state.selectedModel = data.gamme || '';
+    if (!state.selectedSize) state.selectedSize = data.size || '';
     state.dimensionImage = data.dimensionImage;
     var missing = [];
     if (!data.modele) missing.push("modèle");
