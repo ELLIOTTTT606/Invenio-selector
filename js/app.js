@@ -174,13 +174,17 @@ async function analyzeAndGo() {
   try {
     if (state.fileType === "pdf") { showMsg("error","⚠️ Le parsing des fichiers PDF CSD n'est pas encore disponible. Veuillez exporter la fiche CSD au format .docx depuis le configurateur Galletti."); document.getElementById("loader").style.display="none"; checkReady(); return; }
     const data = await parseDocx(state.file);
+    var _savedModel = state.selectedModel;
+    var _savedSize = state.selectedSize;
     if (data._hasHeating && state.machineType === "CS") {
       showMsg("warning","⚠️ Ce fichier contient des données chauffage — type corrigé en PAC.");
-      state.machineType = "HS"; selectType("HS"); state.selectedModel = document.getElementById("selModel").value; state.selectedSize = document.getElementById("selSize").value;
+      state.machineType = "HS"; selectType("HS");
     } else if (!data._hasHeating && state.machineType === "HS") {
       showMsg("warning","⚠️ Pas de données chauffage — type corrigé en Groupe d'Eau Glacée.");
-      state.machineType = "CS"; selectType("CS"); state.selectedModel = document.getElementById("selModel").value; state.selectedSize = document.getElementById("selSize").value;
+      state.machineType = "CS"; selectType("CS");
     }
+    state.selectedModel = _savedModel;
+    state.selectedSize = _savedSize;
     data.type = state.machineType;
     data.size = state.selectedSize;
     state.parsedData = data;
